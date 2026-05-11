@@ -3,7 +3,7 @@
 ## Hosted by
 
 - Catalin Miron ([@mironcatalin](https://x.com/mironcatalin))
-- Kacper Kapuściak ([@kacperkapusciak](https://x.com/kacperkapusciak))
+- Bartłomiej Błoniarz ([@kacperkapusciak](https://x.com/BBloniarz_))
 
 ## Setup
 
