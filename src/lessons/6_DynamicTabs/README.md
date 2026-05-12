@@ -2,19 +2,23 @@
 
 https://user-images.githubusercontent.com/2805320/236649726-82140d72-177f-4895-ac61-6827a13dd8e9.MP4
 
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Measure tabs and animate the indicator | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Final | Scroll ScrollView to the selected tab | [`steps/final.tsx`](./steps/final.tsx) |
+| Bonus start | Starting point for FlatList bonus | [`steps/bonus_boilerplate.tsx`](./steps/bonus_boilerplate.tsx) |
+| Bonus | Bi-directional scroll with FlatList | [`steps/bonus.tsx`](./steps/bonus.tsx) |
+
 ## Step 1 - Get active tab and animate the indicator
 
 https://user-images.githubusercontent.com/2805320/236649722-47f571e5-45a4-4247-b1b0-8f88be584115.mov
 
-<details open>
-<summary>
-  <b>[1]</b> `measure` each individual tab layout (`width`, `height`, `x` and `y` )
-</summary>
+**[1] `measure` each individual tab layout (`width`, `height`, `x` and `y`)**
 
-<br />
 <details>
 <summary>
-  let’s use `useAnimatedRef()` inside each `Tab` element and pass it to the view
+  let's use `useAnimatedRef()` inside each `Tab` element and pass it to the view
 </summary>
 
 ```tsx
@@ -29,7 +33,7 @@ const tabRef = useAnimatedRef<View>()
 <br />
 <details>
 <summary>
-  create a method that will use `measure` from reanimated. In order to `measure` a ref, this method should run on `UI Thread` so you need to use `scheduleOnUI` . After you have the measurements, add a callback prop to the `Tab` component and pass the `measurements` as parameter.
+  create a method that will use `measure` from reanimated. In order to `measure` a ref, this method should run on `UI Thread` so you need to use `scheduleOnUI`. After you have the measurements, add a callback prop to the `Tab` component and pass the `measurements` as parameter.
 </summary>
 
 ```tsx
@@ -50,8 +54,7 @@ const sendMeasurements = () => {
 <br />
 <details>
 <summary>
-  Now, we need to call the method responsible for measuring the tab ref whenever `isActiveTabIndex` props is `true` or when the `Tab` is initially loaded (first mount)
-  <br />
+  Now, we need to call the method responsible for measuring the tab ref whenever `isActiveTabIndex` props is `true` or when the `Tab` is initially loaded (first mount).
   The `onPress` on the `Tab` should also call `sendMeasurements`, in this way, we are going to change the `Indicator` whenever the user is pressing on the tab button.
 </summary>
 
@@ -105,7 +108,7 @@ const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
 <br />
 <details>
 <summary>
-  Inside the callback prop that we’re passing down to the `Tab` component, change `tabMeasurement.value`  shared value when this callback gets called from the `Tab` component with the new measurements.
+  Inside the callback prop that we're passing down to the `Tab` component, change `tabMeasurement.value` shared value when this callback gets called from the `Tab` component with the new measurements.
 </summary>
 
 ```tsx
@@ -120,12 +123,9 @@ const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
 
 </details>
 <br />
-<details>
-<summary>
-  Animate `indicator` component based on the tab measurements shared value
-</summary>
 
-<br />
+**Animate `indicator` component based on the tab measurements shared value**
+
 <details>
 <summary>
   pass `tab` measurement shared value as prop
@@ -164,15 +164,15 @@ const stylez = useAnimatedStyle(() => {
 ```
 
 </details>
-</details>
-</details>
 <br/>
+
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
 
 ## Step 2 - Scroll to the selected tab (final)
 
 https://user-images.githubusercontent.com/2805320/236649724-28ffb34e-f967-4591-9a42-13d9d1d20cf1.MP4
 
-Scrolling the `ScrollView` when a tab is active. (hint: we get this via the `Tab` callback that you’ve just created.
+Scrolling the `ScrollView` when a tab is active. (hint: we get this via the `Tab` callback that you've just created.
 
 <details>
 <summary>
@@ -194,11 +194,11 @@ const scrollViewRef = useAnimatedRef<ScrollView>()
 
 <details>
 <summary>
-  Create a method responsible for scrolling inside the `ScrollView` that will receive the `index: number` as argument (the active tab index). You should use the power of `scrollTo` from reanimated along with `measure` method to get calculate the offset of the `ScrollView` , and position the active tab in the middle
+  Create a method responsible for scrolling inside the `ScrollView` that will receive the `index: number` as argument (the active tab index). You should use the power of `scrollTo` from reanimated along with `measure` method to get calculate the offset of the `ScrollView`, and position the active tab in the middle.
   <br />
-  <i>⚠️ Hint: It’s not enough to know the tab position you need to take into account the `ScrollView` dimension to properly</i>
+  <i>⚠️ Hint: It's not enough to know the tab position - you need to take into account the `ScrollView` dimension to properly center it</i>
   <br />
-  <i>⚠ Hint2: As mentioned above, `measure` should happen on the `UI thread` - use `scheduleOnUI`</i>
+  <i>⚠️ Hint2: As mentioned above, `measure` should happen on the `UI thread` - use `scheduleOnUI`</i>
 </summary>
 <br />
 
@@ -227,7 +227,7 @@ const scrollToTab = (index: number) => {
 <br/>
 <details>
 <summary>
-  After scrolling, ensure that you’re calling `onChangeTab` callback that’s received as prop inside this component and so, any components that’s going to render this `DynamicTabs` component will be aware of any tab changes and can act accordingly.
+  After scrolling, ensure that you're calling `onChangeTab` callback that's received as prop inside this component and so, any components that's going to render this `DynamicTabs` component will be aware of any tab changes and can act accordingly.
 </summary>
 <br />
 
@@ -256,13 +256,15 @@ onActive={(measurements) => {
 </details>
 <br/>
 
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
+
 ## [Bonus] Step 3 - Hook it to a FlatList and create the bi-directional scrolling
 
 The bonus and a real life usecase.
 
 https://user-images.githubusercontent.com/2805320/236649726-82140d72-177f-4895-ac61-6827a13dd8e9.MP4
 
-You need to connect this component with a `FlatList` . You’ll have both `DynamicTabs` and `FlatList` as siblings. When a tab is changed inside `DynamicTabs` you must scroll inside `FlatList` and viceversa, when `FlatList` slide has changed, pass the new index down to `DynamicTabs` (copy `bonus_boilerplate.tsx` inside your `DynamicTabs.tsx` or create your own component). Let’s move one with the `DynamicTabs` + `FlatList` approach.
+You need to connect this component with a `FlatList`. You'll have both `DynamicTabs` and `FlatList` as siblings. When a tab is changed inside `DynamicTabs` you must scroll inside `FlatList` and viceversa, when `FlatList` slide has changed, pass the new index down to `DynamicTabs` (copy `bonus_boilerplate.tsx` inside your `DynamicTabs.tsx` or create your own component). Let's move one with the `DynamicTabs` + `FlatList` approach.
 
 <details>
 <summary>
@@ -296,7 +298,7 @@ change `selectedTabIndex` whenever the slide inside the `FlatList` has changed (
 </details>
 <br />
 
-Now, this is solving one direction `FlatList -> DynamicTab`. Let’s solve the other way around `DynamicTab -> FlatList`. Remember that we have this callback `onChangeTab` that’s going to receive the `pressed/active` tab index? Well, let’s use it :)
+Now, this is solving one direction `FlatList -> DynamicTab`. Let's solve the other way around `DynamicTab -> FlatList`. Remember that we have this callback `onChangeTab` that's going to receive the `pressed/active` tab index? Well, let's use it :)
 
 <br />
 <details>
@@ -327,7 +329,7 @@ const ref = useRef<FlatList>(null);
 <br />
 <details>
 <summary>
-⚠️ Hint: It might be possible that either `react-native` to complain or if the list is too large and the index that you want to scroll to it’s outside the render window, this might not work, so you need to “help” `FlatList` by providing the `itemLayout` (this will boost the list performance + ensures that scroll to index its working properly)
+⚠️ Hint: It might be possible that either `react-native` to complain or if the list is too large and the index that you want to scroll to it's outside the render window, this might not work, so you need to "help" `FlatList` by providing the `itemLayout` (this will boost the list performance + ensures that scroll to index its working properly)
 </summary>
 
 ```tsx
@@ -346,6 +348,8 @@ const { width } = useWindowDimensions()
 </details>
 <br />
 
+> Checkpoint: compare your work with [`steps/bonus.tsx`](./steps/bonus.tsx)
+
 ## Next step
 
-**Go to: [Scroll Animation](../ScrollAnimation/)**
+**Go to: [Scroll Animation](../Bonus_ScrollAnimation/)**

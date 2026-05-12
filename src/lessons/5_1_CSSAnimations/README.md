@@ -4,6 +4,11 @@ CSS Animations is the newest feature of React Native Reanimated 4 that's can be 
 
 In this lesson you're going to implement a shake animation using CSS Animations. This type of animation draws can user's attention to part of the UI.
 
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Final | Shake animation with CSS Animation keyframes | [`steps/final.tsx`](./steps/final.tsx) |
+
 ## Step 1 - Create a shake animation using CSS Animations
 
 https://github.com/user-attachments/assets/f1cfee5c-a516-480a-bdfc-eb9cb29bf844
@@ -90,6 +95,8 @@ Play around with the animation as you like. The following snippet is just an exa
 </details>
 <br />
 
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
+
 ## Next step
 
-**Go to: [CSS Transitions](../2_CSSTransitions/)**
+**Go to: [CSS Transitions](../5_2_CSSTransitions/)**

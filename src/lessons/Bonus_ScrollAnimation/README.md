@@ -2,6 +2,13 @@
 
 https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/2805320/064d6dff-06a0-42fd-b223-ab2adee68ffe
 
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Animate alphabet letters with interpolate | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Step 2 | Scroll SectionList when knob moves | [`steps/step2.tsx`](./steps/step2.tsx) |
+| Final | Sync knob position from SectionList scroll | [`steps/final.tsx`](./steps/final.tsx) |
+
 ## Step 1 - Animate Alphabet letters
 
 https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/2805320/cfe193d7-f212-45e4-a642-61913f1a0426
@@ -23,7 +30,7 @@ const alphabetRef = useAnimatedRef<View>()
 <br/>
 <details>
 <summary>
-  <b>[2]</b> create two `shared values`, one to store the active index as float and another one to store the rounded value of the scroll. One shared value will be used to animate individual letters and the other one to snap to a fixed position after `pan` gesture is released. (We are using 2 different shared values because letter will move according to the float shared value and we’ll be snapping to the active letter using the rounded number)
+  <b>[2]</b> create two `shared values`, one to store the active index as float and another one to store the rounded value of the scroll. One shared value will be used to animate individual letters and the other one to snap to a fixed position after `pan` gesture is released. (We are using 2 different shared values because letter will move according to the float shared value and we'll be snapping to the active letter using the rounded number)
 </summary>
 
 ```jsx
@@ -141,7 +148,7 @@ const snapIndicatorTo = (index: number) => {
 <br/>
 <details>
 <summary>
-  <b>[7]</b> We should animate the letter now right? :) Pass the shared value with the float index to each `<AlphabetLetter />` as prop, update the `TypeScript` props and create a style using `useAnimatedStyle` that will change the `opacity` and `scale` when the `shared value` is in `[index - 1, index, index + 1]` range and apply this style to the `Animated.View`. (You you’re own values for the output range or `opacity: 0.5 and 1` `scale: 1 and 1.5`
+  <b>[7]</b> We should animate the letter now right? :) Pass the shared value with the float index to each `<AlphabetLetter />` as prop, update the `TypeScript` props and create a style using `useAnimatedStyle` that will change the `opacity` and `scale` when the `shared value` is in `[index - 1, index, index + 1]` range and apply this style to the `Animated.View`. (You you're own values for the output range or `opacity: 0.5 and 1` `scale: 1 and 1.5`
 
 ⚠️ Hint: use `interpolate` for the styles
 
@@ -195,11 +202,13 @@ const styles = useAnimatedStyle(() => {
 </details>
 <br/>
 
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
+
 ## Step 2 - Scroll the SectionList
 
 https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/2805320/27d33ae5-b3f7-46dd-b48d-1a0bf93bf30f
 
-`SectionList` expose a `scrollToLocation` on the `ref` and we are going to use it. When `knob` position has changed, we’re going to call this method with the rounded index that we’ve calculated. Let’s start implementing this:
+`SectionList` expose a `scrollToLocation` on the `ref` and we are going to use it. When `knob` position has changed, we're going to call this method with the rounded index that we've calculated. Let's start implementing this:
 
 NB: Because `SectionList` its a virtualized list, it might happen that the section index that you want to scroll to is outside the render window, which means that the scroll will fail unless you provide the layout for each item and section. We are using `react-native-section-list-get-item-layout` to calculate `getItemLayout` for this `SectionList`
 
@@ -253,11 +262,13 @@ scheduleOnRN(scrollToLocation, snapToIndex);
 </details>
 <br/>
 
+> Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
+
 ## Step 3 - Scroll the knob from SectionList
 
 https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/2805320/064d6dff-06a0-42fd-b223-ab2adee68ffe
 
-By now, the `knob` will change scroll inside the `SectionList` (we can call this `Alphabet -> SectionList`) but we would like to control the `knob` position or active letter while scrolling inside `SectionList` (`SectionList → Alphabet`). To do so, we’re going to hook to the `onViewableItemsChange` prop exposed by `SectionList` (Check [onViewableItemsChange](https://reactnative.dev/docs/sectionlist#onviewableitemschanged) method signature.) and get the middle element that visible on the screen, get his section index and use `snapIndicatorTo` to animate the `knob` new position.
+By now, the `knob` will change scroll inside the `SectionList` (we can call this `Alphabet -> SectionList`) but we would like to control the `knob` position or active letter while scrolling inside `SectionList` (`SectionList -> Alphabet`). To do so, we're going to hook to the `onViewableItemsChange` prop exposed by `SectionList` (Check [onViewableItemsChange](https://reactnative.dev/docs/sectionlist#onviewableitemschanged) method signature.) and get the middle element that visible on the screen, get his section index and use `snapIndicatorTo` to animate the `knob` new position.
 
 ⚠️ Hint: The section index might be missing
 
@@ -281,6 +292,8 @@ onViewableItemsChanged={({ viewableItems }) => {
 </details>
 <br/>
 
-## Next step
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
 
-**Go to: [Interpolation](../Interpolation/)**
+## Workshop complete!
+
+You've finished all lessons. Great work!

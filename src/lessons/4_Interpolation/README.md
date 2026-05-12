@@ -2,7 +2,17 @@
 
 https://github.com/software-mansion-labs/appjs-2024-workshop-reanimated/assets/2805320/2d4ab5c7-3e0e-4657-8d23-4a1708ae11ca
 
-## Step 1 – Scroll events
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Listen to scroll with useAnimatedScrollHandler | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Step 2 | Normalize scrollX to index-based value | [`steps/step2.tsx`](./steps/step2.tsx) |
+| Step 3 | Animate items with interpolate | [`steps/step3.tsx`](./steps/step3.tsx) |
+| Final | Manual clamp for scale animation | [`steps/final.tsx`](./steps/final.tsx) |
+| Bonus start | Starting point for sensors bonus | [`steps/bonus_boilerplate.tsx`](./steps/bonus_boilerplate.tsx) |
+| Bonus | Sensors parallax with rotation | [`steps/bonus.tsx`](./steps/bonus.tsx) |
+
+## Step 1 - Scroll events
 
 In this lesson we are going to change listen to `onScroll` events on a FlatList.
 
@@ -97,10 +107,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
 }
 ```
 
-  <details>
-  <summary>
-    Don't forget to extend the `ItemProps` type to receive `scrollX` as well so you have everything typed.
-  </summary>
+Update `ItemProps` type to receive `scrollX`:
 
 ```tsx
 import { SharedValue } from "react-native-reanimated";
@@ -110,13 +117,13 @@ type ItemProps = ListRenderItemInfo<ItemType> & {
 };
 ```
 
-  </details>
-
 ⚠️ TIP: Render `AnimatedText` inside the `Item` component to easily visualize the scrollX value that will change while scrolling.
 
 </details>
 
-## Step 2 – Reanimated component
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
+
+## Step 2 - Reanimated component
 
 https://github.com/software-mansion-labs/appjs-2024-workshop-reanimated/assets/2805320/d911f14f-5283-49ce-a841-92b4a988eaeb
 
@@ -166,7 +173,9 @@ import { Animated } from "react-native-reanimated";
 
 </details>
 
-## Step 3 – Animate `renderItem` with interpolate
+> Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
+
+## Step 3 - Animate `renderItem` with interpolate
 
 Now that we have access to the scrollX value inside the `renderItem` (for each slide item), we can start applying animations using the `interpolate`.
 
@@ -284,7 +293,9 @@ export function Item({ item, index, scrollX }: ItemProps) {
 
 <br/>
 
-## Step 4 – Manual clamp of animation
+> Checkpoint: compare your work with [`steps/step3.tsx`](./steps/step3.tsx)
+
+## Step 4 - Manual clamp of animation
 
 https://github.com/software-mansion-labs/appjs-2024-workshop-reanimated/assets/2805320/81e02e06-b34b-4fee-b6fa-c9e775b5f09a
 
@@ -349,6 +360,8 @@ import Animated from "react-native-reanimated";
 
 </details>
 <br/>
+
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
 
 ## [Bonus] Sensors and parallax effect
 
@@ -489,6 +502,8 @@ const stylez = useAnimatedStyle(() => {
 </details>
 <br />
 
+> Checkpoint: compare your work with [`steps/bonus.tsx`](./steps/bonus.tsx)
+
 ## Next step
 
-**Go to: [Advanced Layout Animations](../AdvancedLayoutAnimations/)**
+**Go to: [CSS Animations](../5_1_CSSAnimations/)**

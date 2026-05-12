@@ -5,7 +5,17 @@ Along the way we will explore Reanimated's measure, derived value, reactions, se
 
 https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/39658211/fd78c816-fe22-4ac3-b822-89be077ecdea
 
-## Step 1 – Create a progress bar
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Create a progress bar with knob | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Step 2 | Clamp knob with synchronous measure | [`steps/step2.tsx`](./steps/step2.tsx) |
+| Step 3 | Render animated balloon over knob | [`steps/step3.tsx`](./steps/step3.tsx) |
+| Step 4 | Display progress value with AnimatedText | [`steps/step4.tsx`](./steps/step4.tsx) |
+| Step 5 | Add balloon physics with spring | [`steps/step5.tsx`](./steps/step5.tsx) |
+| Final | Custom gravity animation with sensors | [`steps/final.tsx`](./steps/final.tsx) |
+
+## Step 1 - Create a progress bar
 
 In this step we will turn the code from the previous lesson into a slider with a progress bar:
 
@@ -67,7 +77,9 @@ const styles = StyleSheet.create({
 </details>
 <br/>
 
-## Step 2 – Synchronous measure
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
+
+## Step 2 - Synchronous measure
 
 In this step we will update the code such that it only allows for a movement within the boundaries of the progress bar.
 We will use [Reanimated's synchronous `measure`](https://docs.swmansion.com/react-native-reanimated/docs/advanced/measure/) in order to get the dimension of the progress bar, such that we can use it as the upper bound for the position when processing pan gesture event.
@@ -115,7 +127,9 @@ const panGesture = Gesture.Pan().onChange((ev) => {
 
 </details><br/>
 
-## Step 3 – Showing the balloon
+> Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
+
+## Step 3 - Showing the balloon
 
 In this step we will render a balloon over the knob that follows the knob movement.
 We will use similar technique to knob scaling in order to animate the balloon in and out when the user is interacting with the knob:
@@ -234,7 +248,9 @@ const balloonStyle = useAnimatedStyle(() => {
 
 </details><br/>
 
-## Step 4 – Animating text
+> Checkpoint: compare your work with [`steps/step3.tsx`](./steps/step3.tsx)
+
+## Step 4 - Animating text
 
 In this step we will learn how
 
@@ -281,7 +297,9 @@ return (
 
 </details><br/>
 
-## Step 5 – Balloon physics
+> Checkpoint: compare your work with [`steps/step4.tsx`](./steps/step4.tsx)
+
+## Step 5 - Balloon physics
 
 In this step we will add some physics to the balloon movement.
 We will simulate the balloon inertia such that it appears to be attached to the knob from the bottom and leans to the side while following the knob movement.
@@ -354,11 +372,13 @@ const balloonStyle = useAnimatedStyle(() => {
 
 </details><br/>
 
-## Step 6 – Custom animations (gravity with sensors) (bonus)
+> Checkpoint: compare your work with [`steps/step5.tsx`](./steps/step5.tsx)
+
+## Step 6 - Custom animations (gravity with sensors) (bonus)
 
 In the final step we will explore Reanimated's sensors and custom animations API.
 
-In order to integrate Reanimated code with device sensors, the library provides [`useAnimatedSensor`](https://docs.swmansion.com/react-native-reanimated/docs/api/hooks/useAnimatedSensor/) hook, which takes a single argument – the sensor type (we will use `SensorType.GRAVITY` for gyroscope), and returns an object that consists of `sensor` shared value that gets updated with the sensor data (different data shape depending on the sensor type used).
+In order to integrate Reanimated code with device sensors, the library provides [`useAnimatedSensor`](https://docs.swmansion.com/react-native-reanimated/docs/api/hooks/useAnimatedSensor/) hook, which takes a single argument - the sensor type (we will use `SensorType.GRAVITY` for gyroscope), and returns an object that consists of `sensor` shared value that gets updated with the sensor data (different data shape depending on the sensor type used).
 
 We will use information from the sensor to simulate a gravity movement of the know along the progress bar.
 That is, when leaning the device to left, we'd expect the knob to start moving towords the left side.
@@ -527,7 +547,7 @@ const panGesture = Gesture.Pan()
   });
 ```
 
-Finally, we take the new variable into account in the sensor reaction – we don't want the animation to start when sensor is active:
+Finally, we take the new variable into account in the sensor reaction - we don't want the animation to start when sensor is active:
 
 ```ts
 useAnimatedReaction(
@@ -593,10 +613,12 @@ return {
   <b>[BONUS 1]</b> Add static friction to the gravity animation such that the know does not start moving immediately and with low device angles.
 </summary>
 
-Just check [steps/final.tsx](./steps/final.tsx) – this is the final step 🤷
+Just check [steps/final.tsx](./steps/final.tsx) - this is the final step 🤷
 
 </details><br/>
 
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
+
 ## Next step
 
-**Go to: [Emoji Stagger](../6_EmojiStagger/)**
+**Go to: [FAB Button](../3_FABButton/)**

@@ -4,6 +4,12 @@
 
 In this lesson we're going to use CSS Transitions to to make a simple button animation on press.
 
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Move arrow icon on press with CSS transition | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Final | Animate button background on press | [`steps/final.tsx`](./steps/final.tsx) |
+
 ## Step 1 - Move the arrow to the right on press
 
 https://github.com/user-attachments/assets/c3221460-8789-4e64-ad59-255291a08fe4
@@ -65,6 +71,8 @@ import Animated from "react-native-reanimated";
 
 </details>
 <br/>
+
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
 
 ## Step 2 - Animate the button background on press
 
@@ -131,7 +139,8 @@ https://github.com/user-attachments/assets/c7b5ff97-54d0-4b49-a8e0-d03be69e7bf9
 </details>
 <br />
 
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
 
 ## Next step
 
-**Go to: [Tienda](../3_Tienda/)**
+**Go to: [Dynamic Tabs](../6_DynamicTabs/)**

@@ -2,6 +2,13 @@
 
 https://github.com/user-attachments/assets/c6cd3ecc-4d0d-4f38-8a1f-49cd50e3a269
 
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Define shake keyframes and apply to icon | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Step 2 | Toggle edit mode with long press and tap | [`steps/step2.tsx`](./steps/step2.tsx) |
+| Final | Scale icon on long press via shared value | [`steps/final.tsx`](./steps/final.tsx) |
+
 ## Step 1 - Add a shake animation using CSS Animations
 
 https://github.com/user-attachments/assets/eb5efd34-bdd3-4341-9863-704913f3cef5
@@ -74,6 +81,8 @@ const shake: CSSAnimationKeyframes = {
 </details>
 <br />
 
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
+
 ## Step 2 - Add a long press to switch to the edit mode (turn on the shake animation), tap to cancel
 
 https://github.com/user-attachments/assets/3e78a5eb-899f-4b67-abbb-f681f37818a7
@@ -142,6 +151,8 @@ const composed = Gesture.Exclusive(longPress, tap);
 </details>
 <br />
 
+> Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
+
 ## Step 3 - Scale the app icon to indicate the edit mode change
 
 https://github.com/user-attachments/assets/c6cd3ecc-4d0d-4f38-8a1f-49cd50e3a269
@@ -206,6 +217,8 @@ const longPress = Gesture.LongPress()
 
 </details>
 <br />
+
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
 
 ## Next step
 

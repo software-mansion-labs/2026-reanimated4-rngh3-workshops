@@ -2,6 +2,15 @@
 
 https://github.com/user-attachments/assets/b83c7b61-361d-48a3-8f3d-4fa7061222c7
 
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Animate FAB container layout with LinearTransition | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Step 2 | Animate icon mount/unmount with FadeIn/FadeOut | [`steps/step2.tsx`](./steps/step2.tsx) |
+| Step 3 | Animate heading and content on open | [`steps/step3.tsx`](./steps/step3.tsx) |
+| Final | Handle keyboard with useAnimatedKeyboard | [`steps/final.tsx`](./steps/final.tsx) |
+| Bonus | Skip initial enter with LayoutAnimationConfig | [`steps/bonus.tsx`](./steps/bonus.tsx) |
+
 In this exercise you'll create a smooth and visually appealing animation for a Floating Action Button (FAB) that expands to reveal additional content when pressed.
 The FAB will be animated using `LayoutAnimation` to smoothly transition between its collapsed and expanded states and will also include a keyboard handling feature to adjust its position when the keyboard is open.
 
@@ -67,6 +76,8 @@ In this step, we will animate the FAB button container layout changes using `lay
 ```
 
 </details>
+
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
 
 ## Step 2
 
@@ -140,13 +151,10 @@ const AnimatedEntypo = Animated.createAnimatedComponent(Entypo);
 
 </details>
 <br />
-<details open>
-<summary>
-  <b>[4]</b> Since we are changing the layout of the container, `small -> large` based on `isOpen`, the <b>position (x,y)</b> of the icon it is changed hence, we need to apply the motion to the `layout` changes of the icons container.
-</summary>
-  <br/>
-<details>
 
+**[4] Since we are changing the layout of the container, `small -> large` based on `isOpen`, the position (x,y) of the icon is changed hence, we need to apply the motion to the `layout` changes of the icons container.**
+
+<details>
 <summary>
 <b>[4.1]</b> create an `AnimatedPressable` using `Animated.createAnimatedComponent`
 </summary>
@@ -181,7 +189,8 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 ```
 
 </details>
-</details>
+
+> Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
 
 ## Step 3
 
@@ -189,13 +198,9 @@ https://github.com/user-attachments/assets/b78391ca-e954-4b40-9d94-d2e29b678c51
 
 In this step we'll animate the mounting/unmounting of the content and the title rendered inside the FAB container.
 
-<details open>
-<summary>
-  <b>[1]</b> Animate the FAB heading text render
-</summary>
-  <br/>
-<details>
+**[1] Animate the FAB heading text render**
 
+<details>
 <summary>
 <b>[1.1]</b> convert the heading `Text` to an `Animated.Text`
 </summary>
@@ -228,15 +233,10 @@ In this step we'll animate the mounting/unmounting of the content and the title 
 ```
 
 </details>
-</details>
 
-<details open>
-<summary>
-  <b>[2]</b> Animate the FAB content
-</summary>
-  <br/>
+**[2] Animate the FAB content**
+
 <details>
-
 <summary>
 <b>[2.1]</b> convert the content `View` to an `Animated.View`
 </summary>
@@ -267,7 +267,8 @@ In this step we'll animate the mounting/unmounting of the content and the title 
 ```
 
 </details>
-</details>
+
+> Checkpoint: compare your work with [`steps/step3.tsx`](./steps/step3.tsx)
 
 ## Step 4
 
@@ -344,6 +345,8 @@ const keyboardHeightStylez = useAnimatedStyle(() => {
 
 </details>
 
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
+
 ## Bonus
 
 Skip entering using [LayoutAnimationConfig](https://docs.swmansion.com/react-native-reanimated/docs/next/layout-animations/layout-animation-config/) - applied to the AnimatedEntypo.
@@ -361,3 +364,9 @@ This is useful if you don't want to animate the initial entering of the icon (Fa
 
 </details>
 <br />
+
+> Checkpoint: compare your work with [`steps/bonus.tsx`](./steps/bonus.tsx)
+
+## Next step
+
+**Go to: [Interpolation](../4_Interpolation/)**

@@ -2,7 +2,14 @@
 
 https://user-images.githubusercontent.com/2805320/236633815-8a714b8d-97d0-4b26-b04e-1e1b5bbf8c0d.MP4
 
-## Step 1 – Add tap gesture to the knob
+| | Goal | Checkpoint |
+|---|---|---|
+| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Add tap gesture with scale animation | [`steps/step1.tsx`](./steps/step1.tsx) |
+| Step 2 | Combine tap and pan gestures | [`steps/step2.tsx`](./steps/step2.tsx) |
+| Final | Pan only with derived scale value | [`steps/final.tsx`](./steps/final.tsx) |
+
+## Step 1 - Add tap gesture to the knob
 
 https://user-images.githubusercontent.com/2805320/236633812-e237aa2f-3608-4e26-b8fa-f8991d6a6355.mov
 
@@ -21,13 +28,10 @@ const tapGesture = Gesture.Tap()
 
 </details>
 <br />
-<details open>
-<summary>
-  <b>[2]</b> `tapGesture` should set a scale value based on which we are going to animate the knob. When gesture ends, we are bringing back the scale to the initial value
-</summary>
-  <br/>
-<details>
 
+**[2] `tapGesture` should set a scale value based on which we are going to animate the knob. When gesture ends, we are bringing back the scale to the initial value**
+
+<details>
 <summary>
 create a `scale` sharedValue starting from 1
 </summary>
@@ -100,10 +104,10 @@ apply this style to the knob
 
 </details>
 <br />
-<br/>
-  </details>
 
-## Step 2 – Add pan gesture to the knob
+> Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
+
+## Step 2 - Add pan gesture to the knob
 
 https://user-images.githubusercontent.com/2805320/236633815-8a714b8d-97d0-4b26-b04e-1e1b5bbf8c0d.MP4
 
@@ -111,7 +115,7 @@ Create a Pan gesture, combine it with Tap gesture. Using Pan gesture, we can get
 
 <details>
 <summary>
-  <b>[1]</b> let’s use the same principle and create a `Gesture.Pan`
+  <b>[1]</b> let's use the same principle and create a `Gesture.Pan`
 </summary>
 
 ```jsx
@@ -120,15 +124,12 @@ const panGesture = Gesture.Pan();
 
 </details>
 <br/>
-<details open>
-<summary>
-  <b>[2]</b> `panGesture` should set a `x` value based on which we are going to move/animate the knob. When gesture ends, we are bringing back the `x` to the initial value (0)
-</summary>
-  <br/>
-<details>
 
+**[2] `panGesture` should set a `x` value based on which we are going to move/animate the knob. When gesture ends, we are bringing back the `x` to the initial value (0)**
+
+<details>
 <summary>
-create a `x` sharedValue starting from 1
+create a `x` sharedValue starting from 0
 </summary>
 
 ```jsx
@@ -148,9 +149,8 @@ add onChange method and change x value based on `changeX`
 })
 ```
 
-⚠️ TIP: The reason why we’re using `changeX` instead of `translationX` is that we would like to start from where we left when the gesture is triggered again (aka when we start panning again), in other words it keeps the knob in place and next time will move from the current position
+⚠️ TIP: The reason why we're using `changeX` instead of `translationX` is that we would like to start from where we left when the gesture is triggered again (aka when we start panning again), in other words it keeps the knob in place and next time will move from the current position
 
-</details>
 </details>
 <br />
 <details>
@@ -188,12 +188,10 @@ const animatedStyle = useAnimatedStyle(() => {
 ```
 
 </details>
-</details>
-</>
 <br />
 <details>
 <summary>
-  <b>[3]</b> Add both `Tap` and `Pan` as simulataneous gestures and apply it to the `GestureDetector`
+  <b>[3]</b> Add both `Tap` and `Pan` as simultaneous gestures and apply it to the `GestureDetector`
 </summary>
   <br/>
 
@@ -207,8 +205,8 @@ const gestures = Gesture.Simultaneous(tapGesture, panGesture)
 
 </details>
 <br />
-<br />
-<br />
+
+> Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
 
 ## Step 3 - Only with Pan gesture
 
@@ -216,16 +214,12 @@ https://user-images.githubusercontent.com/2805320/236633812-e237aa2f-3608-4e26-b
 
 remove `tapGesture` and use just the `panGesture` as gesture on `GestureDetector`. Create an `isInteracting` shared value and replace the `scale` with a `derivedValue` that's going to animate using `withSpring()` based on `isInteracting` value.
 
-<details open>
-<summary>
-  <b>[1]</b> Create an `isInteracting` shared value and replace the `scale` with a `derivedValue` that's going to animate using `withSpring()` based on `isInteracting` value.
-</summary>
-  <br/>
-    <details>
+**[1] Create an `isInteracting` shared value and replace the `scale` with a `derivedValue` that's going to animate using `withSpring()` based on `isInteracting` value.**
 
-  <summary>
-  create isInteracting value and replace scale with a derived value.
-  </summary>
+<details>
+<summary>
+create isInteracting value and replace scale with a derived value.
+</summary>
 
 ```jsx
 const isInteracting = useSharedValue(false);
@@ -234,13 +228,12 @@ const scale = useDerivedValue(() => {
 });
 ```
 
-  </details>
-  <br/>
-  <details>
-
-  <summary>
-  using `.onBegin` and `.onFinalize` to toggle `isInteractive` value
-  </summary>
+</details>
+<br/>
+<details>
+<summary>
+using `.onBegin` and `.onFinalize` to toggle `isInteracting` value
+</summary>
 
 ```jsx
 .onBegin(() => {
@@ -251,13 +244,12 @@ const scale = useDerivedValue(() => {
 })
 ```
 
-  </details>
-  <br/>
-  <details>
-
-  <summary>
-  using `.onEnd` to bring back `x` to the initial value
-  </summary>
+</details>
+<br/>
+<details>
+<summary>
+using `.onEnd` to bring back `x` to the initial value
+</summary>
 
 ```jsx
 .onEnd(() => {
@@ -265,10 +257,11 @@ const scale = useDerivedValue(() => {
 })
 ```
 
-  </details>
 </details>
 <br />
 
+> Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
+
 ## Next step
 
-**Go to: [Balloon Slider](../5_BalloonSlider/)**
+**Go to: [Balloon Slider](../2_BalloonSlider/)**
