@@ -5,11 +5,10 @@ import { colorShades, layout } from "@/lib/theme";
 import { memo, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 import Animated, {
   SharedValue,
   measure,
-  runOnJS,
-  runOnUI,
   useAnimatedRef,
   useAnimatedStyle,
   useSharedValue,
@@ -26,10 +25,10 @@ type TabsProps = {
 const Tab = memo(({ onActive, name, isActiveTabIndex }: TabsProps) => {
   const tabRef = useAnimatedRef<View>();
   const sendMeasurements = () => {
-    runOnUI(() => {
+    scheduleOnUI(() => {
       const measurements = measure(tabRef);
-      runOnJS(onActive)(measurements);
-    })();
+      scheduleOnRN(onActive, measurements);
+    });
   };
 
   useEffect(() => {

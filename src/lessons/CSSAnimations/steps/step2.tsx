@@ -3,9 +3,9 @@ import { apps } from "@/lib/apps";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { scheduleOnRN } from "react-native-worklets";
 import Animated, {
   CSSAnimationKeyframes,
-  runOnJS,
 } from "react-native-reanimated";
 
 const shake: CSSAnimationKeyframes = {
@@ -36,11 +36,11 @@ export function CSSAnimationsLesson() {
   const [isEditMode, setEditMode] = useState(false);
 
   const longPress = Gesture.LongPress().onStart(() => {
-    runOnJS(setEditMode)(true);
+    scheduleOnRN(setEditMode, true);
   });
 
   const tap = Gesture.Tap().onStart(() => {
-    runOnJS(setEditMode)(false);
+    scheduleOnRN(setEditMode, false);
   });
 
   const composed = Gesture.Exclusive(longPress, tap);

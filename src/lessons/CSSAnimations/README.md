@@ -113,11 +113,11 @@ const [isEditMode, setEditMode] = useState(false);
 const [isEditMode, setEditMode] = useState(false);
 
 const longPress = Gesture.LongPress().onStart(() => {
-  runOnJS(setEditMode)(true);
+  scheduleOnRN(setEditMode, true);
 });
 
 const tap = Gesture.Tap().onStart(() => {
-  runOnJS(setEditMode)(false);
+  scheduleOnRN(setEditMode, false);
 });
 ```
 
@@ -195,7 +195,7 @@ const longPress = Gesture.LongPress()
   .onStart(() => {
     scale.value = withTiming(1, { duration: 150 }, (finished) => {
       if (finished) {
-        runOnJS(setEditMode)(true);
+        scheduleOnRN(setEditMode, true);
       }
     });
   })

@@ -5,12 +5,11 @@ import { colorShades, layout } from "@/lib/theme";
 import { memo, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 import Animated, {
   MeasuredDimensions,
   SharedValue,
   measure,
-  runOnJS,
-  runOnUI,
   scrollTo,
   useAnimatedRef,
   useAnimatedStyle,
@@ -27,10 +26,10 @@ type TabsProps = {
 const Tab = memo(({ onActive, name, isActiveTabIndex }: TabsProps) => {
   const tabRef = useAnimatedRef<View>();
   const sendMeasurements = () => {
-    runOnUI(() => {
+    scheduleOnUI(() => {
       const measurements = measure(tabRef);
-      runOnJS(onActive)(measurements!);
-    })();
+      scheduleOnRN(onActive, measurements!);
+    });
   };
 
   useEffect(() => {
@@ -96,7 +95,7 @@ export function DynamicTabsLesson({
   const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
 
   const scrollToTab = (index: number) => {
-    runOnUI(() => {
+    scheduleOnUI(() => {
       const scrollViewDimensions: MeasuredDimensions = measure(scrollViewRef);
 
       if (!scrollViewDimensions || !tabMeasurements.value) {
@@ -112,9 +111,9 @@ export function DynamicTabsLesson({
       );
       // Here, you can send the selected tab index to the parent via a callback
       if (onChangeTab) {
-        runOnJS(onChangeTab)(index);
+        scheduleOnRN(onChangeTab, index);
       }
-    })();
+    });
   };
 
   return (

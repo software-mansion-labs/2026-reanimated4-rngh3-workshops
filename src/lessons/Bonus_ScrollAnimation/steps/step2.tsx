@@ -7,13 +7,12 @@ import { colorShades, layout } from "@/lib/theme";
 import { useMemo, useRef } from "react";
 import { SectionList, StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 import Animated, {
   Extrapolation,
   SharedValue,
   interpolate,
   measure,
-  runOnJS,
-  runOnUI,
   useAnimatedRef,
   useAnimatedStyle,
   useDerivedValue,
@@ -104,7 +103,7 @@ export function ScrollAnimationLesson() {
   const scrollViewRef = useRef<SectionList>(null);
 
   const snapIndicatorTo = (index: number) => {
-    runOnUI(() => {
+    scheduleOnUI(() => {
       if (scrollableIndex.value === index || isInteracting.value) {
         return;
       }
@@ -118,7 +117,7 @@ export function ScrollAnimationLesson() {
       const snapTo = index * snapBy;
       y.value = withTiming(snapTo);
       scrollableIndex.value = withTiming(index);
-    })();
+    });
   };
 
   const scrollToLocation = (index: number) => {
@@ -161,10 +160,10 @@ export function ScrollAnimationLesson() {
       // This is to avoid triggering scrolling to the same index.
       activeScrollIndex.value = snapToIndex;
 
-      runOnJS(scrollToLocation)(snapToIndex);
+      scheduleOnRN(scrollToLocation, snapToIndex);
     })
     .onEnd(() => {
-      runOnJS(snapIndicatorTo)(activeScrollIndex.value);
+      scheduleOnRN(snapIndicatorTo, activeScrollIndex.value);
     })
     .onFinalize(() => {
       isInteracting.value = false;

@@ -29,7 +29,7 @@ const tabRef = useAnimatedRef<View>()
 <br />
 <details>
 <summary>
-  create a method that will use `measure` from reanimated. In order to `measure` a ref, this method should run on `UI Thread` so you need to use `runOnUI` . After you have the measurements, add a callback prop to the `Tab` component and pass the `measurements` as parameter.
+  create a method that will use `measure` from reanimated. In order to `measure` a ref, this method should run on `UI Thread` so you need to use `scheduleOnUI` . After you have the measurements, add a callback prop to the `Tab` component and pass the `measurements` as parameter.
 </summary>
 
 ```tsx
@@ -39,10 +39,10 @@ type TabsProps = {
 };
 
 const sendMeasurements = () => {
-  runOnUI(() => {
+  scheduleOnUI(() => {
     const measurements = measure(tabRef);
-    runOnJS(onActive)(measurements);
-  })();
+    scheduleOnRN(onActive, measurements);
+  });
 };
 ```
 
@@ -198,13 +198,13 @@ const scrollViewRef = useAnimatedRef<ScrollView>()
   <br />
   <i>⚠️ Hint: It’s not enough to know the tab position you need to take into account the `ScrollView` dimension to properly</i>
   <br />
-  <i>⚠ Hint2: As mentioned above, `measure` should happen on `UI thread`</i>
+  <i>⚠ Hint2: As mentioned above, `measure` should happen on the `UI thread` - use `scheduleOnUI`</i>
 </summary>
 <br />
 
 ```tsx
 const scrollToTab = (index: number) => {
-  runOnUI(() => {
+  scheduleOnUI(() => {
     const scrollViewDimensions: MeasuredDimensions = measure(scrollViewRef);
 
     if (!scrollViewDimensions || !tabMeasurements.value) {
@@ -219,7 +219,7 @@ const scrollToTab = (index: number) => {
       0,
       true
     );
-  })();
+  });
 };
 ```
 
@@ -234,7 +234,7 @@ const scrollToTab = (index: number) => {
 ```tsx
 // call onChangeTab after `scrollTo` is called.
 if (onChangeTab) {
-  runOnJS(onChangeTab)(index);
+  scheduleOnRN(onChangeTab, index);
 }
 ```
 

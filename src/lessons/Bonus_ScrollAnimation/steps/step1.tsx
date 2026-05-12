@@ -7,14 +7,13 @@ import { colorShades, layout } from "@/lib/theme";
 import { useMemo } from "react";
 import { SectionList, StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 import Animated, {
   Extrapolation,
   SharedValue,
   clamp,
   interpolate,
   measure,
-  runOnJS,
-  runOnUI,
   useAnimatedRef,
   useAnimatedStyle,
   useDerivedValue,
@@ -101,7 +100,7 @@ export function ScrollAnimationLesson() {
   const alphabetRef = useAnimatedRef<View>();
 
   const snapIndicatorTo = (index: number) => {
-    runOnUI(() => {
+    scheduleOnUI(() => {
       if (scrollableIndex.value === index || isInteracting.value) {
         return;
       }
@@ -115,7 +114,7 @@ export function ScrollAnimationLesson() {
       const snapTo = index * snapBy;
       y.value = withTiming(snapTo);
       scrollableIndex.value = withTiming(index);
-    })();
+    });
   };
 
   const panGesture = Gesture.Pan()
@@ -150,7 +149,7 @@ export function ScrollAnimationLesson() {
       activeScrollIndex.value = snapToIndex;
     })
     .onEnd(() => {
-      runOnJS(snapIndicatorTo)(activeScrollIndex.value);
+      scheduleOnRN(snapIndicatorTo, activeScrollIndex.value);
     })
     .onFinalize(() => {
       isInteracting.value = false;

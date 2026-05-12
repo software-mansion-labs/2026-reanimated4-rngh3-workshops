@@ -97,13 +97,13 @@ activeScrollIndex.value = snapToIndex;
 <summary>
   <b>[5]</b> when we end the gesture, you should snap to the closest letter index (rounded index). To do so, create a method, called `snapIndicatorTo` that will release an `index: number` and internally will `measure` alphabet layout, calculate the snap segment (using the Math from the previous step) and apply a timing function with the resulted value to both `y` position of the knob and animated value responsible for animating letters, finally, use a `timing` function to animate to final destination. (This will ensure that when pan is not active anymore, we always snap to the closest letter)
 
-⚠️ Hint: `measure` should run in `UI`
+⚠️ Hint: `measure` should run in `UI` - use `scheduleOnUI`
 
 </summary>
 
 ```jsx
 const snapIndicatorTo = (index: number) => {
-  runOnUI(() => {
+  scheduleOnUI(() => {
     if (scrollableIndex.value === index || isInteracting.value) {
       return;
     }
@@ -117,7 +117,7 @@ const snapIndicatorTo = (index: number) => {
     const snapTo = index * snapBy;
     y.value = withTiming(snapTo);
     scrollableIndex.value = withTiming(index);
-  })();
+  });
 };
 ```
 
@@ -127,13 +127,13 @@ const snapIndicatorTo = (index: number) => {
 <summary>
   <b>[6]</b> Call this method when `pan` gesture ended with the `rounded` index as argument.
 
-⚠️ Hint: This method should be called with `runOnJS`
+⚠️ Hint: This method should be called with `scheduleOnRN`
 
 </summary>
 
 ```jsx
 .onEnd(() => {
-  runOnJS(snapIndicatorTo)(activeScrollIndex.value)
+  scheduleOnRN(snapIndicatorTo, activeScrollIndex.value)
 })
 ```
 
@@ -242,12 +242,12 @@ const scrollToLocation = (index: number) => {
 <summary>
   <b>[3]</b> call this method immediately after you set the `rounded` shared value of the index inside `pan` gesture `.onChange` method
 
-⚠️ Hint: This method should be called with `runOnJS`
+⚠️ Hint: This method should be called with `scheduleOnRN`
 
 </summary>
 
 ```jsx
-runOnJS(scrollToLocation)(snapToIndex);
+scheduleOnRN(scrollToLocation, snapToIndex);
 ```
 
 </details>

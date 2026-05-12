@@ -3,9 +3,9 @@ import { apps } from "@/lib/apps";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { scheduleOnRN } from "react-native-worklets";
 import Animated, {
   CSSAnimationKeyframes,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -49,7 +49,7 @@ export function CSSAnimationsLesson() {
     .onStart(() => {
       scale.value = withTiming(1, { duration: 150 }, (finished) => {
         if (finished) {
-          runOnJS(setEditMode)(true);
+          scheduleOnRN(setEditMode, true);
         }
       });
     })
@@ -58,7 +58,7 @@ export function CSSAnimationsLesson() {
     });
 
   const tap = Gesture.Tap().onStart(() => {
-    runOnJS(setEditMode)(false);
+    scheduleOnRN(setEditMode, false);
   });
 
   const scaleStyle = useAnimatedStyle(() => {

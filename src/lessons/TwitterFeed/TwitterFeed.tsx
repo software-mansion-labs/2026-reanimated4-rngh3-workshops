@@ -1,7 +1,7 @@
 import { hitSlop } from "@/lib/reanimated";
-import { colors, layout } from "@/lib/theme";
+import { colors,layout } from "@/lib/theme";
 import { Feather } from "@expo/vector-icons";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo,useCallback,useEffect,useRef,useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -14,8 +14,7 @@ import {
   View,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Animated, {
+import Animated,{
   Extrapolation,
   FadeIn,
   FadeInDown,
@@ -28,8 +27,6 @@ import Animated, {
   StyleProps,
   interpolate,
   measure,
-  runOnJS,
-  runOnUI,
   scrollTo,
   useAnimatedKeyboard,
   useAnimatedRef,
@@ -38,6 +35,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { scheduleOnRN,scheduleOnUI } from "react-native-worklets";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
@@ -187,10 +186,10 @@ const Tab = memo(({ name, isActiveTabIndex, onActive }: TabProps) => {
   const tabRef = useAnimatedRef<View>();
 
   const sendMeasurements = () => {
-    runOnUI(() => {
+    scheduleOnUI(() => {
       const measurements = measure(tabRef);
-      runOnJS(onActive)(measurements!);
-    })();
+      scheduleOnRN(onActive, measurements!);
+    });
   };
 
   useEffect(() => {
@@ -301,7 +300,7 @@ function TweetItem({ item }: { item: Tweet }) {
 }
 
 // ---------------------------------------------------------------------------
-// FadingCell — CellRendererComponent that reads absolute y from FlatList's
+// FadingCell - CellRendererComponent that reads absolute y from FlatList's
 // positioning style and fades the cell as it approaches the top of the viewport.
 // ---------------------------------------------------------------------------
 
@@ -343,7 +342,7 @@ function FadingCell({
 }
 
 // ---------------------------------------------------------------------------
-// TweetPage — one page of the horizontal pager, owns its own scrollY so each
+// TweetPage - one page of the horizontal pager, owns its own scrollY so each
 // tab's scroll position is independent.
 // ---------------------------------------------------------------------------
 
@@ -358,7 +357,7 @@ function TweetPage({ tabsHeight }: TweetPageProps) {
     scrollY.value = e.contentOffset.y;
   });
 
-  // Stable component reference — SharedValues never change identity so [] is correct.
+  // Stable component reference - SharedValues never change identity so [] is correct.
   const CellRenderer = useCallback(
     ({ style, children, ...props }: any) => (
       <FadingCell style={style} scrollY={scrollY} tabsHeight={tabsHeight} {...props}>
@@ -486,7 +485,7 @@ export function TwitterFeedLesson() {
   const tabsHeight = useSharedValue(0);
   const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
   const tabsScrollRef = useAnimatedRef<ScrollView>();
-  // Plain ref for the horizontal pager — we only need imperative scrollToIndex
+  // Plain ref for the horizontal pager - we only need imperative scrollToIndex
   const pagerRef = useRef<FlatList>(null);
 
   const handleTabBarLayout = (e: LayoutChangeEvent) => {
@@ -495,7 +494,7 @@ export function TwitterFeedLesson() {
 
   // Scroll the tab bar ScrollView so the active tab is centred
   const scrollToTab = () => {
-    runOnUI(() => {
+    scheduleOnUI(() => {
       const dims = measure(tabsScrollRef);
       if (!dims || !tabMeasurements.value) return;
       scrollTo(
@@ -505,7 +504,7 @@ export function TwitterFeedLesson() {
         0,
         true
       );
-    })();
+    });
   };
 
   // Tab pressed or active-tab changed → scroll both the tab bar and the pager
@@ -546,7 +545,7 @@ export function TwitterFeedLesson() {
         <View style={styles.tabsDivider} />
       </View>
 
-      {/* Horizontal pager — one TweetPage per tab (DynamicTabs bonus pattern) */}
+      {/* Horizontal pager - one TweetPage per tab (DynamicTabs bonus pattern) */}
       <FlatList
         ref={pagerRef}
         data={TABS}
