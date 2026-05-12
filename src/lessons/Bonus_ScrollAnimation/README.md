@@ -44,7 +44,7 @@ const activeScrollIndex = useSharedValue(0);
 <br/>
 <details>
 <summary>
-  <b>[3]</b> when `panGesture` change, clamp the `y.value` between the `alphabet` container dimensions  (Hint: use `measure` to get the container dimensions) (Hint2: take into account the knob size as well)
+  <b>[3]</b> when `panGesture` change, clamp the `y.value` between the `alphabet` container dimensions
 </summary>
 
 ```jsx
@@ -60,24 +60,14 @@ y.value = clamp(
 ```
 
 </details>
+:::tip
+- use `measure` to get the container dimensions
+- take into account the knob size as well
+:::
 <br/>
 <details>
 <summary>
   <b>[4]</b> now that the `knob` can only move within the `alphabet` container range, inside the same `onChange` method calculate the height of each `letter` based on `alphabetContainer` layout and assign the float shared value and rounded shared value
-
-⚠️ Hint: If `height=200` and you have `number_of_elements=10`, diving the `height / number_of_element` will give you the `element_height=20`, assuming that all elements are evenly distributed. Now, with the `element_height` you can determine, by picking any location within `[0, height]` what the active element is, by simply diving `position / element_height` . Eg:
-
-```jsx
-height = 200
-number_of_elements = 10
-element_height = height / number_of_elements = 20
-position = 50
-scrollingIndex = position / element_height = 2.5
-// We can asume that
-active_element = round(scrollingIndex)
-scrolling_position is between [2,3]
-```
-
 </summary>
 
 ```jsx
@@ -99,13 +89,26 @@ activeScrollIndex.value = snapToIndex;
 ```
 
 </details>
+
+:::tip
+If `height=200` and you have `number_of_elements=10`, diving the `height / number_of_element` will give you the `element_height=20`, assuming that all elements are evenly distributed. Now, with the `element_height` you can determine, by picking any location within `[0, height]` what the active element is, by simply diving `position / element_height` . Eg:
+
+```jsx
+height = 200
+number_of_elements = 10
+element_height = height / number_of_elements = 20
+position = 50
+scrollingIndex = position / element_height = 2.5
+// We can asume that
+active_element = round(scrollingIndex)
+scrolling_position is between [2,3]
+```
+:::
+
 <br/>
 <details>
 <summary>
   <b>[5]</b> when we end the gesture, you should snap to the closest letter index (rounded index). To do so, create a method, called `snapIndicatorTo` that will release an `index: number` and internally will `measure` alphabet layout, calculate the snap segment (using the Math from the previous step) and apply a timing function with the resulted value to both `y` position of the knob and animated value responsible for animating letters, finally, use a `timing` function to animate to final destination. (This will ensure that when pan is not active anymore, we always snap to the closest letter)
-
-⚠️ Hint: `measure` should run in `UI` - use `scheduleOnUI`
-
 </summary>
 
 ```jsx
@@ -129,13 +132,15 @@ const snapIndicatorTo = (index: number) => {
 ```
 
 </details>
+
+:::tip
+`measure` should run in `UI` - use `scheduleOnUI`
+:::
+
 <br/>
 <details>
 <summary>
   <b>[6]</b> Call this method when `pan` gesture ended with the `rounded` index as argument.
-
-⚠️ Hint: This method should be called with `scheduleOnRN`
-
 </summary>
 
 ```jsx
@@ -145,17 +150,14 @@ const snapIndicatorTo = (index: number) => {
 ```
 
 </details>
+
+:::tip
+This method should be called with `scheduleOnRN`
+:::
 <br/>
 <details>
 <summary>
   <b>[7]</b> We should animate the letter now right? :) Pass the shared value with the float index to each `<AlphabetLetter />` as prop, update the `TypeScript` props and create a style using `useAnimatedStyle` that will change the `opacity` and `scale` when the `shared value` is in `[index - 1, index, index + 1]` range and apply this style to the `Animated.View`. (You you're own values for the output range or `opacity: 0.5 and 1` `scale: 1 and 1.5`
-
-⚠️ Hint: use `interpolate` for the styles
-
-⚠️ Hint2: You can think about the input range of the interpolation as `(previous, current, next)` index and what should happen when the position is within this range.
-
-⚠️ Hint3: To avoid animating the letter when the position is outside the range, use `CLAMP` for extrapolation.
-
 </summary>
 
 ```jsx
@@ -200,6 +202,14 @@ const styles = useAnimatedStyle(() => {
 ```
 
 </details>
+
+:::tip
+- use `interpolate` for the styles
+- You can think about the input range of the interpolation as `(previous, current, next)` index and what should happen when the position is within this range.
+- To avoid animating the letter when the position is outside the range, use `CLAMP` for extrapolation.
+:::
+
+
 <br/>
 
 > Checkpoint: compare your work with [`steps/step1.tsx`](./steps/step1.tsx)
@@ -210,10 +220,11 @@ https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/2
 
 `SectionList` expose a `scrollToLocation` on the `ref` and we are going to use it. When `knob` position has changed, we're going to call this method with the rounded index that we've calculated. Let's start implementing this:
 
-NB: Because `SectionList` its a virtualized list, it might happen that the section index that you want to scroll to is outside the render window, which means that the scroll will fail unless you provide the layout for each item and section. We are using `react-native-section-list-get-item-layout` to calculate `getItemLayout` for this `SectionList`
+:::tip
+Because `SectionList` its a virtualized list, it might happen that the section index that you want to scroll to is outside the render window, which means that the scroll will fail unless you provide the layout for each item and section. We are using `react-native-section-list-get-item-layout` to calculate `getItemLayout` for this `SectionList`
 
-⚠️ Hint: Check `scrollToLocation` [method signature here](https://reactnative.dev/docs/sectionlist#scrolltolocation)
-
+Check `scrollToLocation` [method signature here](https://reactnative.dev/docs/sectionlist#scrolltolocation)
+:::
 <details>
 <summary>
   <b>[1]</b> create the ref for `SectionList` and add it to the list
@@ -250,9 +261,6 @@ const scrollToLocation = (index: number) => {
 <details>
 <summary>
   <b>[3]</b> call this method immediately after you set the `rounded` shared value of the index inside `pan` gesture `.onChange` method
-
-⚠️ Hint: This method should be called with `scheduleOnRN`
-
 </summary>
 
 ```jsx
@@ -260,6 +268,9 @@ scheduleOnRN(scrollToLocation, snapToIndex);
 ```
 
 </details>
+:::tip
+This method should be called with `scheduleOnRN`
+:::
 <br/>
 
 > Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
@@ -270,8 +281,9 @@ https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/2
 
 By now, the `knob` will change scroll inside the `SectionList` (we can call this `Alphabet -> SectionList`) but we would like to control the `knob` position or active letter while scrolling inside `SectionList` (`SectionList -> Alphabet`). To do so, we're going to hook to the `onViewableItemsChange` prop exposed by `SectionList` (Check [onViewableItemsChange](https://reactnative.dev/docs/sectionlist#onviewableitemschanged) method signature.) and get the middle element that visible on the screen, get his section index and use `snapIndicatorTo` to animate the `knob` new position.
 
-⚠️ Hint: The section index might be missing
-
+:::tip
+The section index might be missing
+:::
 <details>
 <summary>
   solution

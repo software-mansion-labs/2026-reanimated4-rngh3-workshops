@@ -1,0 +1,16 @@
+{
+  "name": "App.js Reanimated Workshop",
+  "short_name": "RN Workshop",
+  "description": "Advanced React Native animations with Reanimated & Gesture Handler",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1b1b1d",
+  "theme_color": "#6644ff",
+  "icons": [
+    {
+      "src": "img/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

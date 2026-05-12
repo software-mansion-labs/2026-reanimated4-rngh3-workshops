@@ -1,0 +1,48 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lessonCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.lessonCard:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.lessonNum {
+  font-size: 1.5rem;
+  font-weight: 800;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.lessonLabel {
+  font-weight: 600;
+  font-size: 0.95rem;
+}

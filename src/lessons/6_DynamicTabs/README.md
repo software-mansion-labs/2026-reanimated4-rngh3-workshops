@@ -195,10 +195,6 @@ const scrollViewRef = useAnimatedRef<ScrollView>()
 <details>
 <summary>
   Create a method responsible for scrolling inside the `ScrollView` that will receive the `index: number` as argument (the active tab index). You should use the power of `scrollTo` from reanimated along with `measure` method to get calculate the offset of the `ScrollView`, and position the active tab in the middle.
-  <br />
-  <i>⚠️ Hint: It's not enough to know the tab position - you need to take into account the `ScrollView` dimension to properly center it</i>
-  <br />
-  <i>⚠️ Hint2: As mentioned above, `measure` should happen on the `UI thread` - use `scheduleOnUI`</i>
 </summary>
 <br />
 
@@ -225,6 +221,15 @@ const scrollToTab = (index: number) => {
 
 </details>
 <br/>
+
+:::tip
+It's not enough to know the tab position - you need to take into account the `ScrollView` dimension to properly center it
+:::
+
+:::tip
+As mentioned above, `measure` should happen on the `UI thread` - use `scheduleOnUI`
+:::
+
 <details>
 <summary>
   After scrolling, ensure that you're calling `onChangeTab` callback that's received as prop inside this component and so, any components that's going to render this `DynamicTabs` component will be aware of any tab changes and can act accordingly.
@@ -329,7 +334,7 @@ const ref = useRef<FlatList>(null);
 <br />
 <details>
 <summary>
-⚠️ Hint: It might be possible that either `react-native` to complain or if the list is too large and the index that you want to scroll to it's outside the render window, this might not work, so you need to "help" `FlatList` by providing the `itemLayout` (this will boost the list performance + ensures that scroll to index its working properly)
+It might be possible that either `react-native` to complain or if the list is too large and the index that you want to scroll to it's outside the render window, this might not work, so you need to "help" `FlatList` by providing the `itemLayout` (this will boost the list performance + ensures that scroll to index its working properly)
 </summary>
 
 ```tsx

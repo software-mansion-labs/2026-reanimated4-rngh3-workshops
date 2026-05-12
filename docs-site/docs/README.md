@@ -1,9 +1,13 @@
-# The Reanimated Workshop – App.js Conference 2025
+---
+title: Prerequisites & Setup
+---
+
+# The Reanimated Workshop - App.js Conference 2025
 
 ## Hosted by
 
 - Catalin Miron ([@mironcatalin](https://x.com/mironcatalin))
-- Bartłomiej Błoniarz ([@BBloniarz_](https://x.com/BBloniarz_))
+- Bartlomiej Bloniarz ([@BBloniarz_](https://x.com/BBloniarz_))
 
 ## Setup
 
@@ -62,10 +66,11 @@ Follow one of the sections below for detailed instructions.
 1. Build and run the app on your device by clicking the play button in XCode or by pressing `Cmd + R`
 1. Once this project it is signed, you can also run `bun ios -d` from the terminal.
 
-Check the following guide in case you encounter any issues with signing the app: [Setup XCode signinin](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md)
+Check the following guide in case you encounter any issues with signing the app: [Setup XCode signing](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md)
 
-> [!TIP]
-> To set up a local development environment for running your project on Android and iOS, follow [this guide](https://docs.expo.dev/get-started/set-up-your-environment/).
+:::tip
+To set up a local development environment for running your project on Android and iOS, follow [this guide](https://docs.expo.dev/get-started/set-up-your-environment/).
+:::
 
 ## Running the app
 
@@ -78,8 +83,9 @@ Follow the below steps from the terminal:
 bun start
 ```
 
-> [!TIP]
-> The above step will print instructions on how to launch the app on phone or simulator. For iOS simulator you'll need to press `"i"`, for Android press `"a"`, and if you'd like to run the app on a physical device you'll need to scan the QR code that will be displayed on the command line output.
+:::tip
+The above step will print instructions on how to launch the app on phone or simulator. For iOS simulator you'll need to press `"i"`, for Android press `"a"`, and if you'd like to run the app on a physical device you'll need to scan the QR code that will be displayed on the command line output.
+:::
 
 ## Tools and libraries
 
@@ -90,4 +96,4 @@ During the workshop we will be using primarily:
 
 ## Next step
 
-**Go to: [Circle Gestures](./src/lessons/1_CircleGestures/)**
+**Go to: [Lesson 1 - Circle Gestures](./docs/1_CircleGestures)**
