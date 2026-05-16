@@ -43,7 +43,7 @@ This way, it'll be possible to start panning at any place on the bar.
 The second "completed progress" view will be added inside along the knob.
 We will use the shared value representing the knob position to control the width of this view:
 
-```js
+```tsx
 return (
   <Container>
     <GestureDetector gesture={gestures}>
@@ -58,7 +58,7 @@ return (
 
 We need some additional style to position everything correctly:
 
-```js
+```tsx
 const styles = StyleSheet.create({
   slider: {
     width: "80%",
@@ -86,7 +86,7 @@ We will use [Reanimated's synchronous `measure`](https://docs.swmansion.com/reac
 
 In order to measure views synchronoulsy in Reanimated you need an [animated ref object](https://docs.swmansion.com/react-native-reanimated/docs/core/useAnimatedRef) that is assigned to a component that you want to measure:
 
-```js
+```tsx
 const aref = useAnimatedRef();
 
 return <View ref={aref} />;
@@ -145,7 +145,7 @@ https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/3
 
 We start by adding a necessary component representing the balloon to the view hierarchy:
 
-```ts
+```tsx
 return (
   <Container>
     <GestureDetector gesture={gestures}>
@@ -165,7 +165,7 @@ return (
 
 And the necessary styles:
 
-```ts
+```tsx
 const styles = StyleSheet.create({
   textContainer: {
     width: 40,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
 
 We create a new animated style object in our component and use shared value representing knob position to control the x-translation of the balloon:
 
-```ts
+```tsx
 const balloonStyle = useAnimatedStyle(() => {
   return {
     transform: [{ translateX: x.value }],
@@ -212,7 +212,7 @@ const balloonStyle = useAnimatedStyle(() => {
 
 We then use the defined animated style in the view that represents the balloon:
 
-```ts
+```tsx
 <Animated.View style={[styles.balloon, balloonStyle]}>
 ```
 
@@ -227,7 +227,7 @@ You can reuse the `scale` shared value to control the balloon scale that's initi
 Then we update it along the scale shared value used for the knob:
 We update balloon's animated styles and use the scale value to interpolate y-transition, opacity and the scale:
 
-```ts
+```tsx
 const balloonStyle = useAnimatedStyle(() => {
   return {
     opacity: scale.value,
@@ -265,7 +265,7 @@ https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/3
 
 Here is the updated part of the render method:
 
-```js
+```tsx
 return (
   <Container>
     <GestureDetector gesture={panGesture}>
@@ -319,7 +319,7 @@ Since we want the top part to have inertia, we will use [spring animation](https
 
 To calculate the angle you can use the following code:
 
-```js
+```tsx
 Math.atan2(TOP_X - BOTTOM_X, BALLON_HEIGHT);
 ```
 
@@ -330,7 +330,7 @@ Math.atan2(TOP_X - BOTTOM_X, BALLON_HEIGHT);
   <b>[2]</b> Create a derived value that represents the top of the balloon and follows the knob position using spring animation.
 </summary>
 
-```js
+```tsx
 const balloonSpringyX = useDerivedValue(() => {
   return withSpring(x.value);
 });
@@ -345,7 +345,7 @@ const balloonSpringyX = useDerivedValue(() => {
 
 We need to add `rotate` attribute at the end of the transforms in balloon's animated style:
 
-```ts
+```tsx
 const balloonStyle = useAnimatedStyle(() => {
   return {
     opacity: knobScale.value,
@@ -389,7 +389,7 @@ This API takes an animation factory worklet that instantiates an animation objec
 The animation object consists of two main methods: `onStart` and `onFrame`.
 Below we present a template for defining the custom gravity animation:
 
-```ts
+```tsx
 function withGravity(userConfig) {
   "worklet";
   return defineAnimation(0 /* initial position if none is specified */, () => {
@@ -421,7 +421,7 @@ We will use this hook to process updates to the sensor and start gravity animati
 This hook takes two arguments: one is the "prepare" worklet and the other is "reaction" worklet.
 In our case we will use "prepare" phase to calculate the acceleration based on the device rotation, then use that gravity in the "reaction" phase to run the animation.
 
-```js
+```tsx
 useAnimatedReaction(
   () => {
     return calculateAccelerationBasedOnRotation(sensor.value.x);
@@ -444,7 +444,7 @@ https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/3
 
 Below we show an initial implementation of `withGravity` that
 
-```js
+```tsx
 function withGravity(userConfig) {
   "worklet";
   return defineAnimation(0, () => {
@@ -484,7 +484,7 @@ function withGravity(userConfig) {
 
 Below we present the updated `onStart` callback
 
-```js
+```tsx
 return {
   onStart: (animation, value, now, previousAnimation) => {
     animation.current = value;
@@ -503,7 +503,7 @@ return {
 
 Here is how animated reaction can be used to spawn gravity animation on shared value representing the knob position.
 
-```js
+```tsx
 const GRAVITY = 9.81 * 100;
 
 useAnimatedReaction(
@@ -531,13 +531,13 @@ useAnimatedReaction(
 
 We first define the new shared value:
 
-```ts
+```tsx
 const isTouching = useSharedValue(false);
 ```
 
 Next, we add `onBegin` and `onFinalize` callbacks to pan when we update its value:
 
-```ts
+```tsx
 const panGesture = Gesture.Pan()
   .onBegin(() => {
     isTouching.value = true;
@@ -549,7 +549,7 @@ const panGesture = Gesture.Pan()
 
 Finally, we take the new variable into account in the sensor reaction - we don't want the animation to start when sensor is active:
 
-```ts
+```tsx
 useAnimatedReaction(
   () => {
     return isTouching.value ? undefined : GRAVITY * Math.sin(sensor.value.x);
@@ -574,7 +574,7 @@ useAnimatedReaction(
 We update gravity animation such that it extract bounds from config object and uses it later on when updating velocty and position.
 Note that when we reach bound the bound we want to finish the animation, however if there is a velcoty towards the opposite direction we want for it to continue.
 
-```ts
+```tsx
 return {
   onFrame: (animation, now) => {
     const { lastTimestamp, current, velocity } = animation;

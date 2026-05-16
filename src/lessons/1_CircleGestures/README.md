@@ -99,7 +99,10 @@ apply this style to the knob
 </summary>
 
 ```jsx
-<Animated.View style={[styles.knob, animatedStyle]} hitSlop={hitSlop} />
+<Animated.View
+  style={[styles.knob, animatedStyle]}
+  hitSlop={hitSlop}
+/>
 ```
 
 </details>
