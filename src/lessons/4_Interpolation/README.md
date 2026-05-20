@@ -117,7 +117,9 @@ type ItemProps = ListRenderItemInfo<ItemType> & {
 };
 ```
 
-⚠️ TIP: Render `AnimatedText` inside the `Item` component to easily visualize the scrollX value that will change while scrolling.
+:::tip
+Render `AnimatedText` inside the `Item` component to easily visualize the scrollX value that will change while scrolling.
+:::
 
 </details>
 
@@ -131,9 +133,9 @@ https://github.com/software-mansion-labs/appjs-2024-workshop-reanimated/assets/2
 <summary>
   <b>[1]</b> Let's modify the scrollX to move by index, instead of the actual scroll offset.
   In this way we are going to get the current active index from the slide / carousel.
-  <br/>
+
+
   This is helpful because you can visualize the interpolation by index. Each slide from `renderItem` will receive it's index from the entire list, based on which we're going to use the `interpolate` method to style it.
-  <br/>
 </summary>
 
 ```tsx
@@ -148,10 +150,12 @@ const onScroll = useAnimatedScrollHandler((e) => {
 });
 ```
 
-⚠️ TIP: You already have the item size (width, in our case because we're using a horizontal list) and it's used for snapToInterval.
 
 </details>
-<br/>
+:::tip
+You already have the item size (width, in our case because we're using a horizontal list) and it's used for snapToInterval.
+:::
+
 <details>
 <summary>
   <b>[2]</b> Fix the scroll throttling of the scroll and receive the events at 60fps.
@@ -167,10 +171,10 @@ import { Animated } from "react-native-reanimated";
 />;
 ```
 
-<br/>
 
-⚠️ TIP: `16.67` means `60 times per second`, and the equation is `1000 / 60` -> how many frames per second do you want to receive from the scroll event.
-
+:::tip
+`16.67` means `60 times per second`, and the equation is `1000 / 60` -> how many frames per second do you want to receive from the scroll event.
+:::
 </details>
 
 > Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
@@ -219,7 +223,8 @@ export function Item({ item, index, scrollX }: ItemProps) {
 ```
 
 </details>
-<br/>
+
+
 <details>
 
 <summary>
@@ -264,7 +269,6 @@ export function Item({ item, index, scrollX }: ItemProps) {
 
 </details>
 
-<br/>
 <details>
 
 <summary>
@@ -291,7 +295,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
 
 </details>
 
-<br/>
+
 
 > Checkpoint: compare your work with [`steps/step3.tsx`](./steps/step3.tsx)
 
@@ -304,7 +308,7 @@ To make this step more interactive, you can open `lib/theme` and change the `max
 <details>
 
 <summary>
-  <b>[1]</b> Add a `transform.scale` to the stylez, having the same inputRange, [index-1, index, index+1] and try to apply the following effect, elements with higher scrollX index should be scaled down, items are greater or equal than the scrollX should remain at scale 1.
+  <b>[1]</b> Add a `transform.scale` to the stylez, having the same inputRange, `[index-1, index, index+1]` and try to apply the following effect, elements with higher scrollX index should be scaled down, items are greater or equal than the scrollX should remain at scale 1.
 </summary>
 
 ```jsx
@@ -338,7 +342,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
 ```
 
 </details>
-<br/>
+
 
 <details>
 
@@ -359,7 +363,7 @@ import Animated from "react-native-reanimated";
 ```
 
 </details>
-<br/>
+
 
 > Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
 
@@ -377,7 +381,7 @@ We are going to extend the `FlatList` CellRendererComponent, in this way, we can
   <b>[1]</b> copy `/steps/bonus_boilerplate.tsx` to `Interpolation.tsx`
 </summary>
 </details>
-<br/>
+
 <details>
 
 <summary>
@@ -393,7 +397,7 @@ const sensor = useAnimatedSensor(SensorType.ROTATION, {
 ```
 
 </details>
-<br/>
+
 <details>
 
 <summary>
@@ -417,12 +421,15 @@ const rotateY = useDerivedValue(() => {
 ```
 
 </details>
-<br />
+
 <details>
 
 <summary>
   <b>[4]</b> Apply `rotateX` and `rotateY` to the `<Animated.View />`.
-  ⚠️ TIP: To apply the animation only to the current selected/active item, you can use `interpolate` with `index-1, index, index+1` and add the `rotateX/Y` only for `index` `outputRange`.
+
+  :::tip
+  To apply the animation only to the current selected/active item, you can use `interpolate` with `index-1, index, index+1` and add the `rotateX/Y` only for `index` `outputRange`.
+  :::
 </summary>
 
 ```jsx
@@ -455,7 +462,7 @@ const stylez = useAnimatedStyle(() => {
 ```
 
 </details>
-<br />
+
 <details>
 
 <summary>
@@ -500,7 +507,6 @@ const stylez = useAnimatedStyle(() => {
 ```
 
 </details>
-<br />
 
 > Checkpoint: compare your work with [`steps/bonus.tsx`](./steps/bonus.tsx)
 

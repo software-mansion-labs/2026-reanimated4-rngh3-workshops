@@ -112,6 +112,7 @@ details > summary {
   list-style: none;
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
   gap: 0.6rem;
   user-select: none;
   transition: background 0.15s;
@@ -226,6 +227,9 @@ table {
   overflow: hidden;
 }
 
+table td {
+  min-width: 100px;
+}
 table thead tr {
   background: rgba(102, 68, 255, 0.08);
 }

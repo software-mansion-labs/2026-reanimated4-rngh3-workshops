@@ -9,14 +9,16 @@ import {
   TextInput,
   View,
 } from "react-native";
+import {
+  KeyboardState,
+  useAnimatedKeyboard,
+} from "react-native-keyboard-controller";
 import Animated, {
   FadeIn,
   FadeInDown,
   FadeOut,
   FadeOutDown,
-  KeyboardState,
   LinearTransition,
-  useAnimatedKeyboard,
   useAnimatedStyle,
 } from "react-native-reanimated";
 

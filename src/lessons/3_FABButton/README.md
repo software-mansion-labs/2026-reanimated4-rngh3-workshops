@@ -95,7 +95,7 @@ const AnimatedEntypo = Animated.createAnimatedComponent(Entypo);
 ```
 
 </details>
-<br />
+
 <details>
 <summary>
   <b>[2]</b> use the `AnimatedEntypo` instead of `Entypo` component
@@ -118,8 +118,9 @@ const AnimatedEntypo = Animated.createAnimatedComponent(Entypo);
 
 </details>
 
-> [!TIP]
-> Now, because the icon can be animated, we will leverage `layout animations`, more specifically the `entering` and `exiting` props, where entering stands for `mounting` & exiting stands for `unmounting` the node. We are toggling between these using `isOpen` state.
+:::tip
+Now, because the icon can be animated, we will leverage `layout animations`, more specifically the `entering` and `exiting` props, where entering stands for `mounting` & exiting stands for `unmounting` the node. We are toggling between these using `isOpen` state.
+:::
 
 <details>
 
@@ -150,9 +151,9 @@ const AnimatedEntypo = Animated.createAnimatedComponent(Entypo);
 ```
 
 </details>
-<br />
 
-**[4] Since we are changing the layout of the container, `small -> large` based on `isOpen`, the position (x,y) of the icon is changed hence, we need to apply the motion to the `layout` changes of the icons container.**
+
+> [4] Since we are changing the layout of the container, `small -> large` based on `isOpen`, the position (x,y) of the icon is changed hence, we need to apply the motion to the `layout` changes of the icons container.
 
 <details>
 <summary>
@@ -198,7 +199,7 @@ https://github.com/user-attachments/assets/b78391ca-e954-4b40-9d94-d2e29b678c51
 
 In this step we'll animate the mounting/unmounting of the content and the title rendered inside the FAB container.
 
-**[1] Animate the FAB heading text render**
+> [1] Animate the FAB heading text render
 
 <details>
 <summary>
@@ -234,7 +235,7 @@ In this step we'll animate the mounting/unmounting of the content and the title 
 
 </details>
 
-**[2] Animate the FAB content**
+> [2] Animate the FAB content
 
 <details>
 <summary>
@@ -274,23 +275,32 @@ In this step we'll animate the mounting/unmounting of the content and the title 
 
 https://github.com/user-attachments/assets/87df1fbe-0cd8-4508-9b40-9ce8d638612d
 
-In this step we will take care of the keyboard when the `TextInput` is focused, moving the content up when the keyboard is open.
-We will use [useAnimatedKeyboard](https://docs.swmansion.com/react-native-reanimated/docs/next/device/useAnimatedKeyboard/) hook from Reanimated to handle the keyboard <b>state</b> and <b>height</b>.
+In this step we will take care of the keyboard when the `TextInput` is focused, moving the FAB button up when the keyboard is open.
+We will use `useAnimatedKeyboard` and `KeyboardState` from `react-native-keyboard-controller`
+
+:::tip
+`useAnimatedKeyboard` from `react-native-reanimated` is [deprecated](https://docs.swmansion.com/react-native-reanimated/docs/device/useAnimatedKeyboard). `react-native-keyboard-controller` ships a **drop-in compatibility wrapper** with the same API. `KeyboardProvider` is already wrapping the app in `_layout.tsx`.
+:::
 
 <details>
 <summary>
-  <b>[1]</b> Create `keyboardState` constant as `useAnimatedKeyboard()` hook.
+  <b>[1]</b> Import <code>useAnimatedKeyboard</code> and <code>KeyboardState</code> from <code>react-native-keyboard-controller</code> and create the <code>keyboardState</code> constant.
 </summary>
 
 ```jsx
+import {
+  KeyboardState,
+  useAnimatedKeyboard
+} from "react-native-keyboard-controller";
+
 const keyboardState = useAnimatedKeyboard();
 ```
 
 </details>
-<br />
+
 <details>
 <summary>
-  <b>[2]</b> Create `keyboardHeightStylez` animated styles using `useAnimatedStyle()`
+  <b>[2]</b> Create <code>keyboardHeightStylez</code> animated styles using <code>useAnimatedStyle()</code>
 </summary>
 
 ```jsx
@@ -300,10 +310,10 @@ const keyboardHeightStylez = useAnimatedStyle(() => {
 ```
 
 </details>
-<br />
+
 <details>
 <summary>
-  <b>[3]</b> Animate `marginBottom` using the `keyboardState` height value, when `KeyboardState` is `OPEN`, othersize `0`
+  <b>[3]</b> Animate <code>marginBottom</code> using the <code>keyboardState</code> height value, when <code>KeyboardState</code> is <code>OPEN</code>, otherwise <code>0</code>
 </summary>
 
 ```jsx
@@ -319,13 +329,13 @@ const keyboardHeightStylez = useAnimatedStyle(() => {
 
 </details>
 
-> [!NOTE]
-> You should take into account the `bottom` position of the `fabButton` when calculating the margin.
+:::tip
+You should take into account the `bottom` position of the `fabButton` when calculating the margin.
+:::
 
-<br />
 <details>
 <summary>
-  <b>[4]</b> Apply `keyboardHeightStylez` to the `fabButton` container
+  <b>[4]</b> Apply <code>keyboardHeightStylez</code> to the <code>fabButton</code> container
 </summary>
 
 ```jsx
@@ -363,7 +373,7 @@ This is useful if you don't want to animate the initial entering of the icon (Fa
 ```
 
 </details>
-<br />
+
 
 > Checkpoint: compare your work with [`steps/bonus.tsx`](./steps/bonus.tsx)
 
