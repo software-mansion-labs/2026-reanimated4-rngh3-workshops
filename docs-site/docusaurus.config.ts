@@ -4,12 +4,29 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 // Rehype plugin to turn bare GitHub video URLs into <video> embeds.
 // remark-gfm autolinks them to <a> tags; this plugin converts those to <video>.
+//
+// Local video files in docs-site/static/videos/ (populated by download-videos.sh)
+// are emitted as the first <source> so the docs work fully offline.
+// The original GitHub URL is kept as a second <source> fallback.
 function rehypeGithubVideos() {
   return async (tree: Parameters<import('unified').Transformer>[0]) => {
     const { visit } = await import('unist-util-visit');
 
     const GITHUB_VIDEO_RE =
       /^https:\/\/(user-images\.githubusercontent\.com\/.+\.(mp4|MP4|mov|MOV|webm)|github\.com\/.+\/assets\/[^/]+\/[a-f0-9-]+|github\.com\/user-attachments\/assets\/[a-f0-9-]+)$/;
+
+    /** Maps a remote GitHub video URL to its local /videos/<file> path, or null. */
+    function localPath(url: string): string | null {
+      // github.com/user-attachments/assets/<UUID>
+      const assetMatch = url.match(/github\.com\/user-attachments\/assets\/([a-f0-9-]+)$/);
+      if (assetMatch) return `/videos/${assetMatch[1]}.mp4`;
+
+      // user-images.githubusercontent.com/<user>/<filename>.<ext>
+      const imgMatch = url.match(/user-images\.githubusercontent\.com\/[^/]+\/(.+\.(mp4|MP4|mov|MOV|webm))$/);
+      if (imgMatch) return `/videos/${imgMatch[1].toLowerCase()}`;
+
+      return null;
+    }
 
     visit(tree, 'element', (node: any, index: number | undefined, parent: any) => {
       if (!parent || index === undefined) return;
@@ -22,6 +39,8 @@ function rehypeGithubVideos() {
       const href: string = child.properties?.href ?? '';
       if (!GITHUB_VIDEO_RE.test(href)) return;
 
+      const local = localPath(href);
+
       parent.children[index] = {
         type: 'element',
         tagName: 'video',
@@ -31,6 +50,14 @@ function rehypeGithubVideos() {
           style: 'width:100%;max-width:300px;border-radius:8px;margin:1rem 0',
         },
         children: [
+          // Local file first (works offline after running download-videos.sh)
+          ...(local ? [{
+            type: 'element',
+            tagName: 'source',
+            properties: { src: local },
+            children: [],
+          }] : []),
+          // GitHub CDN as fallback
           {
             type: 'element',
             tagName: 'source',
