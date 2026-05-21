@@ -189,6 +189,7 @@ export function StepSwitcher({
                       : styles.listBelow,
                   ]}
                   pointerEvents="auto"
+                  layout={layoutAnimation}
                   entering={
                     listPosition === "top"
                       ? FadeInUp.springify()
