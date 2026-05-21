@@ -1,5 +1,5 @@
-import {colors} from '@/lib/theme';
-import {Path, Svg} from 'react-native-svg';
+import { colors } from "@/lib/theme";
+import { Path, Svg } from "react-native-svg";
 
 export const MicrophoneIcon = () => (
   <Svg width={24} height={24} fill="none">

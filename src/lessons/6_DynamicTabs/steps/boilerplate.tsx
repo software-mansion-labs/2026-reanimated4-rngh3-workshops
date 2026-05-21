@@ -1,25 +1,24 @@
-import {Container} from '@/components/Container';
-import {tabsList} from '@/lib/mock';
-import {hitSlop} from '@/lib/reanimated';
-import {colorShades, layout} from '@/lib/theme';
-import {memo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
+import { Container } from "@/components/Container";
+import { tabsList } from "@/lib/mock";
+import { hitSlop } from "@/lib/reanimated";
+import { colorShades, layout } from "@/lib/theme";
+import { memo } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
 
 type TabsProps = {
   name: string;
   isActiveTabIndex: boolean;
 };
 
-const Tab = memo(({name, isActiveTabIndex}: TabsProps) => {
+const Tab = memo(({ name, isActiveTabIndex }: TabsProps) => {
   return (
     <View style={styles.tab}>
       <TouchableOpacity
         hitSlop={hitSlop}
-        style={{marginHorizontal: layout.spacing}}
-        onPress={() => {}}
-      >
+        style={{ marginHorizontal: layout.spacing }}
+        onPress={() => {}}>
         <Text>{name}</Text>
       </TouchableOpacity>
     </View>
@@ -43,9 +42,8 @@ export function DynamicTabsLesson({
     <Container>
       <ScrollView
         horizontal
-        style={{flexGrow: 0}}
-        contentContainerStyle={styles.scrollViewContainer}
-      >
+        style={{ flexGrow: 0 }}
+        contentContainerStyle={styles.scrollViewContainer}>
         {tabsList.map((tab, index) => (
           <Tab
             key={`tab-${tab}-${index}`}
@@ -61,7 +59,7 @@ export function DynamicTabsLesson({
 
 const styles = StyleSheet.create({
   indicator: {
-    position: 'absolute',
+    position: "absolute",
     backgroundColor: colorShades.purple.base,
     height: 4,
     borderRadius: 2,

@@ -1,1 +1,1 @@
-export * from './CircleGestures';
+export * from "./CircleGestures";

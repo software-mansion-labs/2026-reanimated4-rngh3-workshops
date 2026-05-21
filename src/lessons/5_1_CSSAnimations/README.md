@@ -19,9 +19,9 @@ https://github.com/user-attachments/assets/f1cfee5c-a516-480a-bdfc-eb9cb29bf844
 </summary>
 
 ```jsx
-import Animated from 'react-native-reanimated';
+import Animated from "react-native-reanimated";
 
-export function Star({size = 16}) {
+export function Star({ size = 16 }) {
   return (
     <Animated.View style={{}}>
       <Icon name="star" size={size} color="#475569" />

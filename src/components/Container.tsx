@@ -1,8 +1,8 @@
-import type {ReactNode} from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
+import type { ReactNode } from "react";
+import { StyleProp, ViewStyle } from "react-native";
 
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {layout} from '../lib/theme';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { layout } from "../lib/theme";
 
 export function Container({
   children,
@@ -20,10 +20,9 @@ export function Container({
           flex: 1,
           padding: layout.spacing,
         },
-        centered && {justifyContent: 'center', alignItems: 'center'},
+        centered && { justifyContent: "center", alignItems: "center" },
         style,
-      ]}
-    >
+      ]}>
       {children}
     </SafeAreaView>
   );

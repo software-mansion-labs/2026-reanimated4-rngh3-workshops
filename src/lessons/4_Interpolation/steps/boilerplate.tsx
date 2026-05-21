@@ -1,14 +1,14 @@
-import {Container} from '@/components/Container';
-import {items} from '@/lib/mock';
-import {colors, layout} from '@/lib/theme';
-import React from 'react';
+import { Container } from "@/components/Container";
+import { items } from "@/lib/mock";
+import { colors, layout } from "@/lib/theme";
+import React from "react";
 import {
   FlatList,
   ListRenderItemInfo,
   StyleSheet,
   Text,
   View,
-} from 'react-native';
+} from "react-native";
 
 type ItemType = (typeof items)[0];
 
@@ -30,7 +30,7 @@ export function Interpolation() {
         // added between the items in the contentContainerStyle
         snapToInterval={layout.itemSize + layout.spacing}
         // This is to snap faster to the closest item
-        decelerationRate={'fast'}
+        decelerationRate={"fast"}
         renderItem={props => <Item {...props} />}
       />
     </Container>
@@ -39,7 +39,7 @@ export function Interpolation() {
 
 type ItemProps = ListRenderItemInfo<ItemType> & {};
 
-export function Item({item, index}: ItemProps) {
+export function Item({ item, index }: ItemProps) {
   return (
     <View style={styles.item}>
       <Text>{item.label}</Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: layout.itemSize,
     height: layout.itemSize * 1.67,
     borderRadius: layout.radius,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     padding: layout.spacing,
     backgroundColor: colors.overlay,
   },

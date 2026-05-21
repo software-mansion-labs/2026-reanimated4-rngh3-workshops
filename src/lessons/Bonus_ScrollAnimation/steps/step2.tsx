@@ -1,12 +1,12 @@
-import {ContactsListHeader} from '@/components/ContactsListHeader';
-import {ContactsListItem} from '@/components/ContactsListItem';
-import {Container} from '@/components/Container';
-import {alphabet, contacts} from '@/lib/mock';
-import {hitSlop} from '@/lib/reanimated';
-import {colorShades, layout} from '@/lib/theme';
-import {useMemo, useRef} from 'react';
-import {SectionList, StyleSheet, View} from 'react-native';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import { ContactsListHeader } from "@/components/ContactsListHeader";
+import { ContactsListItem } from "@/components/ContactsListItem";
+import { Container } from "@/components/Container";
+import { alphabet, contacts } from "@/lib/mock";
+import { hitSlop } from "@/lib/reanimated";
+import { colorShades, layout } from "@/lib/theme";
+import { useMemo, useRef } from "react";
+import { SectionList, StyleSheet, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   Extrapolation,
   SharedValue,
@@ -19,9 +19,9 @@ import Animated, {
   useSharedValue,
   withSpring,
   withTiming,
-} from 'react-native-reanimated';
-import sectionListGetItemLayout from 'react-native-section-list-get-item-layout';
-import {scheduleOnRN, scheduleOnUI} from 'react-native-worklets';
+} from "react-native-reanimated";
+import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
+import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 
 type AlphabetLetterProps = {
   index: number;
@@ -59,27 +59,25 @@ const AlphabetLetter = ({
     <Animated.View
       style={[
         {
-          position: 'relative',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
+          position: "relative",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
         },
         styles,
       ]}
       onLayout={e => {
         posY.value = e.nativeEvent.layout.y;
-      }}
-    >
+      }}>
       <Animated.Text
         style={[
           {
-            position: 'absolute',
-            fontFamily: 'Menlo',
+            position: "absolute",
+            fontFamily: "Menlo",
             left: -20,
-            fontWeight: '900',
+            fontWeight: "900",
           },
-        ]}
-      >
+        ]}>
         {letter.toUpperCase()}
       </Animated.Text>
     </Animated.View>
@@ -193,29 +191,28 @@ export function ScrollAnimationLesson() {
 
   return (
     <Container centered={false}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <SectionList
           ref={scrollViewRef}
-          contentContainerStyle={{paddingHorizontal: layout.spacing * 2}}
+          contentContainerStyle={{ paddingHorizontal: layout.spacing * 2 }}
           stickySectionHeadersEnabled={false}
           // @ts-ignore
           getItemLayout={getItemLayout}
           sections={contacts}
-          renderSectionHeader={({section: {title}}) => {
+          renderSectionHeader={({ section: { title } }) => {
             return <ContactsListHeader title={title} />;
           }}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return <ContactsListItem item={item} />;
           }}
         />
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             right: 0,
             top: layout.indicatorSize,
             bottom: layout.indicatorSize,
-          }}
-        >
+          }}>
           <GestureDetector gesture={panGesture}>
             <Animated.View
               style={[styles.knob, animatedStyle]}
@@ -224,14 +221,13 @@ export function ScrollAnimationLesson() {
           </GestureDetector>
           <View
             style={{
-              transform: [{translateX: -layout.indicatorSize / 4}],
+              transform: [{ translateX: -layout.indicatorSize / 4 }],
               flex: 1,
               width: 20,
-              justifyContent: 'space-around',
+              justifyContent: "space-around",
             }}
             pointerEvents="box-none"
-            ref={alphabetRef}
-          >
+            ref={alphabetRef}>
             {[...Array(alphabet.length).keys()].map(i => {
               return (
                 <AlphabetLetter
@@ -254,10 +250,10 @@ const styles = StyleSheet.create({
     width: layout.knobSize,
     height: layout.knobSize,
     borderRadius: layout.knobSize / 2,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: layout.knobSize / 2,
     borderColor: colorShades.purple.base,
-    position: 'absolute',
+    position: "absolute",
     left: -layout.knobSize / 2,
   },
 });

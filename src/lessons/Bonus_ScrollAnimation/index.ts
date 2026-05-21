@@ -1,1 +1,1 @@
-export * from './ScrollAnimation';
+export * from "./ScrollAnimation";

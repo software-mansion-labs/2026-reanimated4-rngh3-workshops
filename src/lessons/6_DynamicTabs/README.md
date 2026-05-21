@@ -100,7 +100,7 @@ useEffect(() => {
 </summary>
 
 ```tsx
-import type {MeasuredDimensions} from 'react-native-reanimated';
+import type { MeasuredDimensions } from "react-native-reanimated";
 const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
 ```
 
@@ -154,7 +154,7 @@ const stylez = useAnimatedStyle(() => {
     return {};
   }
 
-  const {x, width} = selectedTabMeasurements.value;
+  const { x, width } = selectedTabMeasurements.value;
 
   return {
     left: withTiming(x),

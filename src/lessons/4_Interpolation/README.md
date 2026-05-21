@@ -40,7 +40,7 @@ import Animated from 'react-native-reanimated';
 </summary>
 
 ```jsx
-import {useSharedValue} from 'react-native-reanimated';
+import { useSharedValue } from "react-native-reanimated";
 
 export function Interpolation() {
   const scrollX = useSharedValue(0);
@@ -56,7 +56,7 @@ export function Interpolation() {
 </summary>
 
 ```jsx
-import {useAnimatedScrollHandler} from 'react-native-reanimated';
+import { useAnimatedScrollHandler } from "react-native-reanimated";
 
 // shorthand notation
 const onScroll = useAnimatedScrollHandler(e => {
@@ -79,7 +79,7 @@ const onScroll = useAnimatedScrollHandler({
 </summary>
 
 ```jsx
-import Animated from 'react-native-reanimated';
+import Animated from "react-native-reanimated";
 
 <Animated.FlatList
   data={items}
@@ -110,7 +110,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
 Update `ItemProps` type to receive `scrollX`:
 
 ```tsx
-import {SharedValue} from 'react-native-reanimated';
+import { SharedValue } from "react-native-reanimated";
 
 type ItemProps = ListRenderItemInfo<ItemType> & {
   scrollX: SharedValue<number>;
@@ -142,7 +142,7 @@ This is helpful because you can visualize the interpolation by index. Each slide
 import {
   useSharedValue,
   useAnimatedScrollHandler,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 const scrollX = useSharedValue(0);
 const onScroll = useAnimatedScrollHandler(e => {
@@ -161,7 +161,7 @@ You already have the item size (width, in our case because we're using a horizon
 </summary>
 
 ```tsx
-import {Animated} from 'react-native-reanimated';
+import { Animated } from "react-native-reanimated";
 
 <Animated.FlatList
   scrollEventThrottle={16.67}
@@ -383,7 +383,7 @@ We are going to extend the `FlatList` CellRendererComponent, in this way, we can
 </summary>
 
 ```jsx
-import {useAnimatedSensor, SensorType} from 'react-native-reanimated';
+import { useAnimatedSensor, SensorType } from "react-native-reanimated";
 
 const sensor = useAnimatedSensor(SensorType.ROTATION, {
   interval: 20,
@@ -400,17 +400,17 @@ const sensor = useAnimatedSensor(SensorType.ROTATION, {
 
 ```jsx
 const rotateX = useDerivedValue(() => {
-  const {roll} = sensor.sensor.value;
+  const { roll } = sensor.sensor.value;
   const angle = clamp(roll, -Math.PI / 6, Math.PI / 6);
-  return withSpring(-angle, {damping: 300});
+  return withSpring(-angle, { damping: 300 });
 });
 const rotateY = useDerivedValue(() => {
-  const {pitch} = sensor.sensor.value;
+  const { pitch } = sensor.sensor.value;
   // const angle = clamp(pitch, -Math.PI / 6, Math.PI / 6);
   // Compensate the "default" angle that a user might hold the phone at :)
   // 40 degrees to radians
   const angle = clamp(pitch, -Math.PI / 4, Math.PI) - 40 * (Math.PI / 180);
-  return withSpring(-angle, {damping: 300});
+  return withSpring(-angle, { damping: 300 });
 });
 ```
 
@@ -466,10 +466,10 @@ const stylez = useAnimatedStyle(() => {
 
 ```jsx
 const translateX = useDerivedValue(() => {
-  return withSpring(-rotateX.value * 100, {damping: 300});
+  return withSpring(-rotateX.value * 100, { damping: 300 });
 });
 const translateY = useDerivedValue(() => {
-  return withSpring(rotateY.value * 100, {damping: 300});
+  return withSpring(rotateY.value * 100, { damping: 300 });
 });
 
 const stylez = useAnimatedStyle(() => {

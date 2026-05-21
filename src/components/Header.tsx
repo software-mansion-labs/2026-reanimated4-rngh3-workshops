@@ -1,10 +1,16 @@
-import {Pressable, StyleSheet, Text, View, useColorScheme} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useColorScheme,
+} from "react-native";
 
 interface Header {
   changeTheme: () => void;
 }
 
-export function Header({changeTheme}) {
+export function Header({ changeTheme }) {
   const colorScheme = useColorScheme();
 
   return (
@@ -12,17 +18,17 @@ export function Header({changeTheme}) {
       <Text
         style={[
           styles.header,
-          colorScheme === 'light' ? {color: '#0f172a'} : {color: '#f1f5f9'},
-        ]}
-      >
+          colorScheme === "light" ? { color: "#0f172a" } : { color: "#f1f5f9" },
+        ]}>
         Home
       </Text>
       <Pressable style={styles.themeSwitcher} onPress={changeTheme}>
         <Text
           style={
-            colorScheme === 'light' ? {color: '#0f172a'} : {color: '#f1f5f9'}
-          }
-        >
+            colorScheme === "light"
+              ? { color: "#0f172a" }
+              : { color: "#f1f5f9" }
+          }>
           Switch theme
         </Text>
       </Pressable>
@@ -32,9 +38,9 @@ export function Header({changeTheme}) {
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   themeSwitcher: {
     paddingBottom: 10,
@@ -42,7 +48,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 36,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
   },
 });

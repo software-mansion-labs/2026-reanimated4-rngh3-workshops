@@ -1,14 +1,14 @@
-import {AnimatedText} from '@/components/AnimatedText';
-import {Container} from '@/components/Container';
-import {items} from '@/lib/mock';
-import {colors, layout} from '@/lib/theme';
+import { AnimatedText } from "@/components/AnimatedText";
+import { Container } from "@/components/Container";
+import { items } from "@/lib/mock";
+import { colors, layout } from "@/lib/theme";
 import {
   FlatList,
   FlatListProps,
   ListRenderItemInfo,
   StyleSheet,
   Text,
-} from 'react-native';
+} from "react-native";
 import Animated, {
   SharedValue,
   interpolate,
@@ -16,7 +16,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 type ItemType = (typeof items)[0];
 const AnimatedFlatList =
@@ -37,7 +37,7 @@ export function Interpolation() {
           paddingHorizontal: (layout.screenWidth - layout.itemSize) / 2,
         }}
         snapToInterval={layout.itemSize + layout.spacing}
-        decelerationRate={'fast'}
+        decelerationRate={"fast"}
         renderItem={props => <Item {...props} scrollX={scrollX} />}
         onScroll={onScroll}
         scrollEventThrottle={1000 / 60}
@@ -50,7 +50,7 @@ type ItemProps = ListRenderItemInfo<ItemType> & {
   scrollX: SharedValue<number>;
 };
 
-export function Item({item, index, scrollX}: ItemProps) {
+export function Item({ item, index, scrollX }: ItemProps) {
   const stylez = useAnimatedStyle(() => {
     return {
       opacity: interpolate(
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     width: layout.itemSize,
     height: layout.itemSize * 1.67,
     borderRadius: layout.radius,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     padding: layout.spacing,
     backgroundColor: colors.overlay,
   },

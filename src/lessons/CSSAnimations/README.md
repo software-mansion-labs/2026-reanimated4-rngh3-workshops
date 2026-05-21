@@ -23,7 +23,7 @@ https://github.com/user-attachments/assets/eb5efd34-bdd3-4341-9863-704913f3cef5
 Make sure the <code>Animated</code> is imported from <code>react-native-reanimated</code>.
 
 ```jsx
-import Animated from 'react-native-reanimated';
+import Animated from "react-native-reanimated";
 
 <Animated.View>
   <AppIcon app={apps[0]} />
@@ -165,13 +165,13 @@ https://github.com/user-attachments/assets/c6cd3ecc-4d0d-4f38-8a1f-49cd50e3a269
 <br/>
 
 ```jsx
-import {useSharedValue} from 'react-native-reanimated';
+import { useSharedValue } from "react-native-reanimated";
 
 const scale = useSharedValue(1);
 
 const scaleStyle = useAnimatedStyle(() => {
   return {
-    transform: [{scale: scale.value}],
+    transform: [{ scale: scale.value }],
   };
 });
 
@@ -182,8 +182,7 @@ const scaleStyle = useAnimatedStyle(() => {
         /* ... */
       },
     scaleStyle,
-  ]}
->
+  ]}>
   {/* */}
 </Animated.View>;
 ```
@@ -201,17 +200,17 @@ const scaleStyle = useAnimatedStyle(() => {
 ```jsx
 const longPress = Gesture.LongPress()
   .onBegin(() => {
-    scale.value = withTiming(1.1, {duration: 500});
+    scale.value = withTiming(1.1, { duration: 500 });
   })
   .onStart(() => {
-    scale.value = withTiming(1, {duration: 150}, finished => {
+    scale.value = withTiming(1, { duration: 150 }, finished => {
       if (finished) {
         scheduleOnRN(setEditMode, true);
       }
     });
   })
   .onFinalize(() => {
-    scale.value = withTiming(1, {duration: 150});
+    scale.value = withTiming(1, { duration: 150 });
   });
 ```
 

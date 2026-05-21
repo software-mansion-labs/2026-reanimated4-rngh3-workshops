@@ -44,12 +44,11 @@ In this step, we will animate the FAB button container layout changes using `lay
   style={[
     {
       width: isOpen ? _openedSize : _closedSize,
-      height: isOpen ? 'auto' : _closedSize,
+      height: isOpen ? "auto" : _closedSize,
       minHeight: _closedSize,
     },
     styles.fabButton,
-  ]}
->
+  ]}>
   // ...
 </Animated.View>
 ```
@@ -65,13 +64,12 @@ In this step, we will animate the FAB button container layout changes using `lay
   style={[
     {
       width: isOpen ? _openedSize : _closedSize,
-      height: isOpen ? 'auto' : _closedSize,
+      height: isOpen ? "auto" : _closedSize,
       minHeight: _closedSize,
     },
     styles.fabButton,
   ]}
-  layout={LinearTransition.duration(_duration)}
->
+  layout={LinearTransition.duration(_duration)}>
   // ...
 </Animated.View>
 ```
@@ -226,8 +224,7 @@ In this step we'll animate the mounting/unmounting of the content and the title 
     <Animated.Text
       style={styles.heading}
       entering={FadeInDown.duration(_duration)}
-      exiting={FadeOutDown.duration(_duration)}
-    >
+      exiting={FadeOutDown.duration(_duration)}>
       App.js Workshop
     </Animated.Text>
   );
@@ -261,8 +258,7 @@ In this step we'll animate the mounting/unmounting of the content and the title 
     <Animated.View
       entering={FadeInDown.duration(_duration)}
       exiting={FadeOutDown.duration(_duration)}
-      style={styles.content}
-    >
+      style={styles.content}>
       // ...
     </Animated.View>
   );
@@ -293,7 +289,7 @@ We will use `useAnimatedKeyboard` and `KeyboardState` from `react-native-keyboar
 import {
   KeyboardState,
   useAnimatedKeyboard,
-} from 'react-native-keyboard-controller';
+} from "react-native-keyboard-controller";
 
 const keyboardState = useAnimatedKeyboard();
 ```
@@ -345,13 +341,12 @@ You should take into account the `bottom` position of the `fabButton` when calcu
   style={[
     {
       width: isOpen ? _openedSize : _closedSize,
-      height: isOpen ? 'auto' : _closedSize,
+      height: isOpen ? "auto" : _closedSize,
     },
     styles.fabButton,
     keyboardHeightStylez,
   ]}
-  layout={LinearTransition.duration(_duration)}
->
+  layout={LinearTransition.duration(_duration)}>
   //...
 </Animated.View>
 ```

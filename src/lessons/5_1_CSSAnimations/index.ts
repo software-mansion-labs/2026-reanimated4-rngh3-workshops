@@ -1,1 +1,1 @@
-export * from './CSSAnimations';
+export * from "./CSSAnimations";

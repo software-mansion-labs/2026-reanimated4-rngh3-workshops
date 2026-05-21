@@ -48,7 +48,7 @@ return (
   <Container>
     <GestureDetector gesture={gestures}>
       <View style={styles.slider} hitSlop={hitSlop}>
-        <Animated.View style={[styles.progress, {width: x}]} />
+        <Animated.View style={[styles.progress, { width: x }]} />
         <Animated.View style={[styles.knob, animatedStyle]} />
       </View>
     </GestureDetector>
@@ -61,15 +61,15 @@ We need some additional style to position everything correctly:
 ```tsx
 const styles = StyleSheet.create({
   slider: {
-    width: '80%',
+    width: "80%",
     backgroundColor: colorShades.purple.light,
     height: 5,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   progress: {
     height: 5,
     backgroundColor: colorShades.purple.dark,
-    position: 'absolute',
+    position: "absolute",
   },
 });
 ```
@@ -152,10 +152,10 @@ return (
       <View ref={aRef} style={styles.slider} hitSlop={hitSlop}>
         <Animated.View style={styles.balloon}>
           <View style={styles.textContainer}>
-            <Text style={{color: 'white', fontWeight: '600'}}>10</Text>
+            <Text style={{ color: "white", fontWeight: "600" }}>10</Text>
           </View>
         </Animated.View>
-        <Animated.View style={[styles.progress, {width: x}]} />
+        <Animated.View style={[styles.progress, { width: x }]} />
         <Animated.View style={[styles.knob, animatedStyle]} />
       </View>
     </GestureDetector>
@@ -174,21 +174,21 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colorShades.purple.base,
-    position: 'absolute',
+    position: "absolute",
     top: -layout.knobSize,
   },
   balloon: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 4,
     height: layout.indicatorSize,
     bottom: -layout.knobSize / 2,
     borderRadius: 2,
     backgroundColor: colorShades.purple.base,
-    position: 'absolute',
+    position: "absolute",
   },
 });
 ```
@@ -205,7 +205,7 @@ We create a new animated style object in our component and use shared value repr
 ```tsx
 const balloonStyle = useAnimatedStyle(() => {
   return {
-    transform: [{translateX: x.value}],
+    transform: [{ translateX: x.value }],
   };
 });
 ```
@@ -232,8 +232,8 @@ const balloonStyle = useAnimatedStyle(() => {
   return {
     opacity: scale.value,
     transform: [
-      {translateX: x.value},
-      {scale: scale.value},
+      { translateX: x.value },
+      { scale: scale.value },
       {
         translateY: interpolate(
           scale.value,
@@ -274,11 +274,11 @@ return (
           <View style={styles.textContainer}>
             <AnimatedText
               text={progress}
-              style={{color: 'white', fontWeight: '600'}}
+              style={{ color: "white", fontWeight: "600" }}
             />
           </View>
         </Animated.View>
-        <Animated.View style={[styles.progress, {width: x}]} />
+        <Animated.View style={[styles.progress, { width: x }]} />
         <Animated.View style={[styles.knob, animatedStyle]} />
       </View>
     </GestureDetector>
@@ -350,8 +350,8 @@ const balloonStyle = useAnimatedStyle(() => {
   return {
     opacity: knobScale.value,
     transform: [
-      {translateX: balloonSpringyX.value},
-      {scale: knobScale.value},
+      { translateX: balloonSpringyX.value },
+      { scale: knobScale.value },
       {
         translateY: interpolate(
           knobScale.value,
@@ -391,9 +391,9 @@ Below we present a template for defining the custom gravity animation:
 
 ```tsx
 function withGravity(userConfig) {
-  'worklet';
+  "worklet";
   return defineAnimation(0 /* initial position if none is specified */, () => {
-    'worklet';
+    "worklet";
     return {
       onStart: (
         animation /* animation object reference */,
@@ -428,7 +428,7 @@ useAnimatedReaction(
   },
   acceleration => {
     // start gravity animation
-    x.value = withGravity({acceleration});
+    x.value = withGravity({ acceleration });
   },
 );
 ```
@@ -446,9 +446,9 @@ Below we show an initial implementation of `withGravity` that
 
 ```tsx
 function withGravity(userConfig) {
-  'worklet';
+  "worklet";
   return defineAnimation(0, () => {
-    'worklet';
+    "worklet";
     const config = {
       acceleration: 9.81,
       velocity: 0,
@@ -459,8 +459,8 @@ function withGravity(userConfig) {
         animation.current = value;
       },
       onFrame: (animation, now) => {
-        const {lastTimestamp, current, velocity} = animation;
-        const {acceleration} = config;
+        const { lastTimestamp, current, velocity } = animation;
+        const { acceleration } = config;
         const delta = (now - lastTimestamp) / 1000;
         animation.current = current + velocity * delta;
         animation.velocity =
@@ -577,8 +577,8 @@ Note that when we reach bound the bound we want to finish the animation, however
 ```tsx
 return {
   onFrame: (animation, now) => {
-    const {lastTimestamp, current, velocity} = animation;
-    const {acceleration, bounds} = config;
+    const { lastTimestamp, current, velocity } = animation;
+    const { acceleration, bounds } = config;
     const delta = (now - lastTimestamp) / 1000;
     animation.current = current + velocity * delta;
     animation.velocity =

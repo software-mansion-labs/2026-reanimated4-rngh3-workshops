@@ -1,15 +1,15 @@
-import {Container} from '@/components/Container';
-import {hitSlop} from '@/lib/reanimated';
-import {colorShades, layout} from '@/lib/theme';
-import {StyleSheet} from 'react-native';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import { Container } from "@/components/Container";
+import { hitSlop } from "@/lib/reanimated";
+import { colorShades, layout } from "@/lib/theme";
+import { StyleSheet } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 export function BalloonSliderLesson() {
   const x = useSharedValue(0);
@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
     width: layout.knobSize,
     height: layout.knobSize,
     borderRadius: layout.knobSize / 2,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: layout.knobSize / 2,
     borderColor: colorShades.purple.base,
-    position: 'absolute',
+    position: "absolute",
     left: -layout.knobSize / 2,
   },
 });
