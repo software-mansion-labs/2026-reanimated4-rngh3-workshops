@@ -9,7 +9,8 @@ export function Content() {
       exiting={FadeOutDown}
       style={{
         padding: layout.spacing * 2,
-      }}>
+      }}
+    >
       <Text style={styles.paragraph}>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas quasi
         et nostrum harum repudiandae dolorem voluptatum assumenda in facere!

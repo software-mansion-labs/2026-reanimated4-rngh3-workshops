@@ -30,7 +30,8 @@ export function AdvancedLayoutAnimationsLesson() {
             height: isOpen ? "auto" : _closedSize,
           },
           styles.fabButton,
-        ]}>
+        ]}
+      >
         <View style={styles.rowBetween}>
           {isOpen && <Text style={styles.heading}>App.js Workshop</Text>}
           <Pressable onPress={() => setIsOpen(isOpen => !isOpen)}>

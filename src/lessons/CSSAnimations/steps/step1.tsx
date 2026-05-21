@@ -37,7 +37,8 @@ export function CSSAnimationsLesson() {
             animationDuration: 700,
             animationIterationCount: "infinite",
           },
-        ]}>
+        ]}
+      >
         <AppIcon app={apps[0]} />
       </Animated.View>
     </View>

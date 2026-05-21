@@ -68,7 +68,8 @@ const AlphabetLetter = ({
       ]}
       onLayout={e => {
         posY.value = e.nativeEvent.layout.y;
-      }}>
+      }}
+    >
       <Animated.Text
         style={[
           {
@@ -77,7 +78,8 @@ const AlphabetLetter = ({
             left: -20,
             fontWeight: "900",
           },
-        ]}>
+        ]}
+      >
         {letter.toUpperCase()}
       </Animated.Text>
     </Animated.View>
@@ -212,7 +214,8 @@ export function ScrollAnimationLesson() {
             right: 0,
             top: layout.indicatorSize,
             bottom: layout.indicatorSize,
-          }}>
+          }}
+        >
           <GestureDetector gesture={panGesture}>
             <Animated.View
               style={[styles.knob, animatedStyle]}
@@ -227,7 +230,8 @@ export function ScrollAnimationLesson() {
               justifyContent: "space-around",
             }}
             pointerEvents="box-none"
-            ref={alphabetRef}>
+            ref={alphabetRef}
+          >
             {[...Array(alphabet.length).keys()].map(i => {
               return (
                 <AlphabetLetter

@@ -33,7 +33,8 @@ export function AdvancedLayoutAnimationsLesson() {
           },
           styles.fabButton,
         ]}
-        layout={LinearTransition.duration(_duration)}>
+        layout={LinearTransition.duration(_duration)}
+      >
         <View style={styles.rowBetween}>
           {isOpen && <Text style={styles.heading}>App.js Workshop</Text>}
           <Pressable onPress={() => setIsOpen(isOpen => !isOpen)}>

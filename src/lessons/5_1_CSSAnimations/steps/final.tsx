@@ -20,7 +20,8 @@ export function Star({ size = 16 }) {
         animationDuration: "2.5s",
         animationIterationCount: "infinite",
         animationTimingFunction: "ease-in-out",
-      }}>
+      }}
+    >
       <Icon name="star" size={size} color="#475569" />
     </Animated.View>
   );

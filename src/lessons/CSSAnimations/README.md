@@ -182,7 +182,8 @@ const scaleStyle = useAnimatedStyle(() => {
         /* ... */
       },
     scaleStyle,
-  ]}>
+  ]}
+>
   {/* */}
 </Animated.View>;
 ```

@@ -23,7 +23,8 @@ export function Trending() {
         style={[
           styles.header,
           colorScheme === "light" ? { color: "#334155" } : { color: "#e2e8f0" },
-        ]}>
+        ]}
+      >
         Trending searches
       </Text>
       <View style={styles.wrapper}>
@@ -35,14 +36,16 @@ export function Trending() {
               colorScheme === "light"
                 ? { borderColor: "#cbd5e1" }
                 : { backgroundColor: "#334155" },
-            ]}>
+            ]}
+          >
             <Text
               style={[
                 styles.text,
                 colorScheme === "light"
                   ? { color: "#64748b" }
                   : { color: "#f1f5f9" },
-              ]}>
+              ]}
+            >
               {item}
             </Text>
           </TouchableOpacity>

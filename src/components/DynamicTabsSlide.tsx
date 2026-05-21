@@ -8,7 +8,8 @@ export function DynamicTabsSlide({ item }: { item: (typeof tabsList)[0] }) {
       style={{
         width: width,
         padding: layout.spacing,
-      }}>
+      }}
+    >
       <View style={styles.item}>
         <Text style={styles.text}>{item}</Text>
       </View>

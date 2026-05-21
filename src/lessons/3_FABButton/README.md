@@ -48,7 +48,8 @@ In this step, we will animate the FAB button container layout changes using `lay
       minHeight: _closedSize,
     },
     styles.fabButton,
-  ]}>
+  ]}
+>
   // ...
 </Animated.View>
 ```
@@ -69,7 +70,8 @@ In this step, we will animate the FAB button container layout changes using `lay
     },
     styles.fabButton,
   ]}
-  layout={LinearTransition.duration(_duration)}>
+  layout={LinearTransition.duration(_duration)}
+>
   // ...
 </Animated.View>
 ```
@@ -224,7 +226,8 @@ In this step we'll animate the mounting/unmounting of the content and the title 
     <Animated.Text
       style={styles.heading}
       entering={FadeInDown.duration(_duration)}
-      exiting={FadeOutDown.duration(_duration)}>
+      exiting={FadeOutDown.duration(_duration)}
+    >
       App.js Workshop
     </Animated.Text>
   );
@@ -258,7 +261,8 @@ In this step we'll animate the mounting/unmounting of the content and the title 
     <Animated.View
       entering={FadeInDown.duration(_duration)}
       exiting={FadeOutDown.duration(_duration)}
-      style={styles.content}>
+      style={styles.content}
+    >
       // ...
     </Animated.View>
   );
@@ -346,7 +350,8 @@ You should take into account the `bottom` position of the `fabButton` when calcu
     styles.fabButton,
     keyboardHeightStylez,
   ]}
-  layout={LinearTransition.duration(_duration)}>
+  layout={LinearTransition.duration(_duration)}
+>
   //...
 </Animated.View>
 ```

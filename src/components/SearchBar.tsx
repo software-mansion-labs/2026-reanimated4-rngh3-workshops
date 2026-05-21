@@ -15,12 +15,14 @@ export function SearchBar() {
         colorScheme === "light"
           ? { backgroundColor: "#f1f5f9" }
           : { backgroundColor: "#1e293b" },
-      ]}>
+      ]}
+    >
       <Text
         style={[
           styles.text,
           colorScheme === "light" ? { color: "#64748b" } : { color: "#f1f5f9" },
-        ]}>
+        ]}
+      >
         Search
       </Text>
     </TouchableOpacity>

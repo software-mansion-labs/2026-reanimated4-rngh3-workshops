@@ -80,7 +80,8 @@ export function CSSAnimationsLesson() {
               animationIterationCount: "infinite",
             },
             scaleStyle,
-          ]}>
+          ]}
+        >
           <AppIcon app={apps[0]} />
         </Animated.View>
       </GestureDetector>

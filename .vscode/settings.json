@@ -2,9 +2,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.format.enable": true,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
-  "typescript.validate.enable": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.codeActionsOnSave": [
     "source.addMissingImports",

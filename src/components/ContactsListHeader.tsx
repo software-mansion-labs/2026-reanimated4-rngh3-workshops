@@ -8,7 +8,8 @@ export function ContactsListHeader({ title }: { title: string }) {
         style={{
           fontSize: 42,
           fontWeight: "900",
-        }}>
+        }}
+      >
         {title}
       </Text>
     </View>

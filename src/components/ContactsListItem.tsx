@@ -10,7 +10,8 @@ export function ContactsListItem({ item }: { item: Contact }) {
         alignItems: "center",
         padding: layout.spacing,
         height: layout.contactListItemHeight,
-      }}>
+      }}
+    >
       <Image
         source={{ uri: item.avatar }}
         style={{

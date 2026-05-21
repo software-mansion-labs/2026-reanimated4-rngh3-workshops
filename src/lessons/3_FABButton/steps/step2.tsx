@@ -39,12 +39,14 @@ export function AdvancedLayoutAnimationsLesson() {
           },
           styles.fabButton,
         ]}
-        layout={LinearTransition.duration(_duration)}>
+        layout={LinearTransition.duration(_duration)}
+      >
         <View style={styles.rowBetween}>
           {isOpen && <Text style={styles.heading}>App.js Workshop</Text>}
           <AnimatedPressable
             onPress={() => setIsOpen(isOpen => !isOpen)}
-            layout={LinearTransition.duration(_duration)}>
+            layout={LinearTransition.duration(_duration)}
+          >
             {isOpen ? (
               <AnimatedEntypo
                 key="close"

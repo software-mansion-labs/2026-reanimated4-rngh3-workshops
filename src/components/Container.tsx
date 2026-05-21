@@ -22,7 +22,8 @@ export function Container({
         },
         centered && { justifyContent: "center", alignItems: "center" },
         style,
-      ]}>
+      ]}
+    >
       {children}
     </SafeAreaView>
   );

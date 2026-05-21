@@ -203,13 +203,16 @@ const Tab = memo(({ name, isActiveTabIndex, onActive }: TabProps) => {
       style={styles.tab}
       onLayout={() => {
         if (isActiveTabIndex) sendMeasurements();
-      }}>
+      }}
+    >
       <Pressable
         hitSlop={hitSlop}
         onPress={sendMeasurements}
-        style={styles.tabTouchable}>
+        style={styles.tabTouchable}
+      >
         <Text
-          style={[styles.tabText, isActiveTabIndex && styles.tabTextActive]}>
+          style={[styles.tabText, isActiveTabIndex && styles.tabTextActive]}
+        >
           {name}
         </Text>
       </Pressable>
@@ -338,7 +341,8 @@ function FadingCell({
       onLayout={e => {
         yOffset.value = e.nativeEvent.layout.y;
       }}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </Animated.View>
   );
@@ -367,7 +371,8 @@ function TweetPage({ tabsHeight }: TweetPageProps) {
         style={style}
         scrollY={scrollY}
         tabsHeight={tabsHeight}
-        {...props}>
+        {...props}
+      >
         {children}
       </FadingCell>
     ),
@@ -414,31 +419,36 @@ function ComposeFAB() {
   return (
     <Animated.View
       style={[styles.fab, keyboardStyle]}
-      layout={LinearTransition.duration(_fabDuration)}>
+      layout={LinearTransition.duration(_fabDuration)}
+    >
       <View style={styles.fabRow}>
         {isOpen && (
           <Animated.Text
             style={styles.fabTitle}
             entering={FadeInDown.duration(_fabDuration)}
-            exiting={FadeOutDown.duration(_fabDuration)}>
+            exiting={FadeOutDown.duration(_fabDuration)}
+          >
             New tweet
           </Animated.Text>
         )}
         <AnimatedPressable
           onPress={() => setIsOpen(v => !v)}
-          layout={LinearTransition.duration(_fabDuration)}>
+          layout={LinearTransition.duration(_fabDuration)}
+        >
           {isOpen ? (
             <Animated.View
               key="close"
               entering={FadeIn.duration(_fabDuration)}
-              exiting={FadeOut.duration(_fabDuration)}>
+              exiting={FadeOut.duration(_fabDuration)}
+            >
               <Feather name="x" size={24} color="#fff" />
             </Animated.View>
           ) : (
             <Animated.View
               key="compose"
               entering={FadeIn.duration(_fabDuration)}
-              exiting={FadeOut.duration(_fabDuration)}>
+              exiting={FadeOut.duration(_fabDuration)}
+            >
               <Feather name="edit-2" size={22} color="#fff" />
             </Animated.View>
           )}
@@ -449,7 +459,8 @@ function ComposeFAB() {
         <Animated.View
           entering={FadeInDown.duration(_fabDuration)}
           exiting={FadeOutDown.duration(_fabDuration)}
-          style={styles.fabBody}>
+          style={styles.fabBody}
+        >
           <View style={styles.composeRow}>
             <Image
               source={{ uri: "https://i.pravatar.cc/48?img=1" }}
@@ -472,7 +483,8 @@ function ComposeFAB() {
             </View>
             <Pressable
               style={styles.postButton}
-              onPress={() => setIsOpen(false)}>
+              onPress={() => setIsOpen(false)}
+            >
               <Text style={styles.postButtonText}>Post</Text>
             </Pressable>
           </View>
@@ -536,7 +548,8 @@ export function TwitterFeedLesson() {
           ref={tabsScrollRef as any}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.tabsContent}>
+          contentContainerStyle={styles.tabsContent}
+        >
           {TABS.map((tab, index) => (
             <Tab
               key={tab}

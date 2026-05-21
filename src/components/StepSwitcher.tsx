@@ -168,12 +168,14 @@ export function StepSwitcher({
       <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
         <View
           style={[styles.anchor, { bottom: insets.bottom + bottomOffset }]}
-          pointerEvents="box-none">
+          pointerEvents="box-none"
+        >
           <GestureDetector gesture={pan}>
             <Animated.View
               style={[styles.pill, stylez]}
               layout={layoutAnimation}
-              onLayout={onPillLayout}>
+              onLayout={onPillLayout}
+            >
               {/* Expanded step list */}
               {expanded && (
                 <Animated.View
@@ -196,7 +198,8 @@ export function StepSwitcher({
                     listPosition === "top"
                       ? FadeOutUp.springify()
                       : FadeOutDown.springify()
-                  }>
+                  }
+                >
                   {steps.map((step, i) => (
                     <AnimatedPressable
                       key={step.label}
@@ -204,12 +207,14 @@ export function StepSwitcher({
                         styles.listItem,
                         i === activeIndex && styles.listItemActive,
                       ]}
-                      onPress={() => select(i)}>
+                      onPress={() => select(i)}
+                    >
                       <Text
                         style={[
                           styles.listItemText,
                           i === activeIndex && styles.listItemTextActive,
-                        ]}>
+                        ]}
+                      >
                         {step.label}
                       </Text>
                     </AnimatedPressable>
@@ -221,18 +226,21 @@ export function StepSwitcher({
                 layout={layoutAnimation}
                 style={[styles.pillButton, { backgroundColor: colors.blue }]}
                 onPress={() => router.back()}
-                hitSlop={8}>
+                hitSlop={8}
+              >
                 <Ionicons color={"#fff"} name="arrow-back" size={16} />
               </AnimatedPressable>
 
               <Animated.View
                 style={styles.pillContent}
-                layout={layoutAnimation}>
+                layout={layoutAnimation}
+              >
                 <AnimatedPressable
                   layout={layoutAnimation}
                   style={styles.nav}
                   onPress={() => select(Math.max(0, activeIndex - 1))}
-                  hitSlop={8}>
+                  hitSlop={8}
+                >
                   <Ionicons
                     name="chevron-back"
                     style={[styles.arrow, activeIndex === 0 && styles.arrowDim]}
@@ -242,7 +250,8 @@ export function StepSwitcher({
                 <AnimatedPressable
                   layout={layoutAnimation}
                   style={styles.pillCenter}
-                  onPress={() => setExpanded(v => !v)}>
+                  onPress={() => setExpanded(v => !v)}
+                >
                   <Text style={styles.pillLabel} numberOfLines={1}>
                     {steps[activeIndex].label}
                   </Text>
@@ -257,7 +266,8 @@ export function StepSwitcher({
                   onPress={() =>
                     select(Math.min(steps.length - 1, activeIndex + 1))
                   }
-                  hitSlop={8}>
+                  hitSlop={8}
+                >
                   <Ionicons
                     name="chevron-forward"
                     style={[

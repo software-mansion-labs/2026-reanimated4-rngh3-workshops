@@ -18,7 +18,8 @@ const Tab = memo(({ name, isActiveTabIndex }: TabsProps) => {
       <TouchableOpacity
         hitSlop={hitSlop}
         style={{ marginHorizontal: layout.spacing }}
-        onPress={() => {}}>
+        onPress={() => {}}
+      >
         <Text>{name}</Text>
       </TouchableOpacity>
     </View>
@@ -43,7 +44,8 @@ export function DynamicTabsLesson({
       <ScrollView
         horizontal
         style={{ flexGrow: 0 }}
-        contentContainerStyle={styles.scrollViewContainer}>
+        contentContainerStyle={styles.scrollViewContainer}
+      >
         {tabsList.map((tab, index) => (
           <Tab
             key={`tab-${tab}-${index}`}

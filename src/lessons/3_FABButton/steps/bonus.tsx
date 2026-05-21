@@ -55,20 +55,23 @@ export function AdvancedLayoutAnimationsLesson() {
           keyboardHeightStylez,
         ]}
         // Use Layout if you're using an old version of Reanimated
-        layout={LinearTransition.duration(_duration)}>
+        layout={LinearTransition.duration(_duration)}
+      >
         <View style={styles.rowBetween}>
           {isOpen && (
             <Animated.Text
               style={styles.heading}
               entering={FadeInDown.duration(_duration)}
               exiting={FadeOutDown.duration(_duration)}
-              layout={LinearTransition.duration(_duration)}>
+              layout={LinearTransition.duration(_duration)}
+            >
               App.js Workshop
             </Animated.Text>
           )}
           <AnimatedPressable
             onPress={() => setIsOpen(isOpen => !isOpen)}
-            layout={LinearTransition.duration(_duration)}>
+            layout={LinearTransition.duration(_duration)}
+          >
             <LayoutAnimationConfig skipEntering>
               {isOpen ? (
                 <AnimatedEntypo
@@ -96,7 +99,8 @@ export function AdvancedLayoutAnimationsLesson() {
           <Animated.View
             entering={FadeInDown.duration(_duration)}
             exiting={FadeOutDown.duration(_duration)}
-            style={styles.content}>
+            style={styles.content}
+          >
             <Text style={styles.body}>
               This is a start of your journey to become an animation expert in
               React Native. We're going to dive deep into more advanced

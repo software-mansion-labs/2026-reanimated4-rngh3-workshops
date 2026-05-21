@@ -19,7 +19,8 @@ export function Header({ changeTheme }) {
         style={[
           styles.header,
           colorScheme === "light" ? { color: "#0f172a" } : { color: "#f1f5f9" },
-        ]}>
+        ]}
+      >
         Home
       </Text>
       <Pressable style={styles.themeSwitcher} onPress={changeTheme}>
@@ -28,7 +29,8 @@ export function Header({ changeTheme }) {
             colorScheme === "light"
               ? { color: "#0f172a" }
               : { color: "#f1f5f9" }
-          }>
+          }
+        >
           Switch theme
         </Text>
       </Pressable>

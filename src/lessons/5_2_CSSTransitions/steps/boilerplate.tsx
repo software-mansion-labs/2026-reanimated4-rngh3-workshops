@@ -10,10 +10,12 @@ export function SelectSizeButton() {
   return (
     <Pressable
       onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}>
+      onPressOut={() => setPressed(false)}
+    >
       <View
         style={styles.selectSizeButton}
-        onLayout={e => setLayout(e.nativeEvent.layout)}>
+        onLayout={e => setLayout(e.nativeEvent.layout)}
+      >
         <Text style={styles.selectSizeButtonText}>Select Size</Text>
         <View>
           <Icon name="arrow-right" size={24} color="white" />

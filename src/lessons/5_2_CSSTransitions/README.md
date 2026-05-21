@@ -42,7 +42,8 @@ import Animated from "react-native-reanimated";
     transitionProperty: "transform",
     transitionDuration: 150,
     transform: [{ translateX: pressed ? 5 : 0 }],
-  }}>
+  }}
+>
   <Icon name="arrow-right" size={24} color="white" />
 </Animated.View>
 ```
