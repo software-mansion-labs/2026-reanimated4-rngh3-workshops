@@ -43,3 +43,33 @@ expo-env.d.ts
 
 android/
 ios/
+
+# AI / LLM Config Files
+.claude/
+.cursor/
+.copilot/
+.openai/
+.agents/
+.agent/
+.vscode/settings.json
+.env
+*.ai
+*.gpt
+*.prompt
+.DS_Store*
+*.llm
+.ollama/
+.lm-cache/
+copilot-instructions.md
+claude.md
+.anthropic/
+
+# MCP & OpenCode Config
+.opencode/
+.mcp/
+.skills/
+skills-lock.json
+.argent/
+.mcp.json
+opencode.json
+.vscode/
