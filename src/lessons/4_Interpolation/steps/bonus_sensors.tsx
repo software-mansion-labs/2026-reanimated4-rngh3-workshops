@@ -1,7 +1,7 @@
-import { AnimatedText } from "@/components/AnimatedText";
-import { Container } from "@/components/Container";
-import { items } from "@/lib/mock";
-import { colors, layout } from "@/lib/theme";
+import {AnimatedText} from '@/components/AnimatedText';
+import {Container} from '@/components/Container';
+import {items} from '@/lib/mock';
+import {colors, layout} from '@/lib/theme';
 import {
   CellRendererProps,
   FlatList,
@@ -9,7 +9,7 @@ import {
   ListRenderItemInfo,
   StyleSheet,
   Text,
-} from "react-native";
+} from 'react-native';
 import Animated, {
   AnimatedSensor,
   Extrapolation,
@@ -25,7 +25,7 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
   withSpring,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<ItemType>>(FlatList);
@@ -34,7 +34,7 @@ type ItemType = (typeof items)[0];
 
 export function Interpolation() {
   const scrollX = useSharedValue(0);
-  const onScroll = useAnimatedScrollHandler((e) => {
+  const onScroll = useAnimatedScrollHandler(e => {
     scrollX.value = e.contentOffset.x / (layout.itemSize + layout.spacing);
   });
   const sensor = useAnimatedSensor(SensorType.ROTATION, {
@@ -46,17 +46,17 @@ export function Interpolation() {
       <AnimatedFlatList
         data={items}
         horizontal
-        CellRendererComponent={(props) => (
+        CellRendererComponent={props => (
           <CellRenderer {...props} scrollX={scrollX} sensor={sensor} />
         )}
         contentContainerStyle={{
           gap: layout.spacing,
           paddingHorizontal: (layout.screenWidth - layout.itemSize) / 2,
-          alignItems: "center",
+          alignItems: 'center',
         }}
         snapToInterval={layout.itemSize + layout.spacing}
-        decelerationRate={"fast"}
-        renderItem={(props) => <Item {...props} scrollX={scrollX} />}
+        decelerationRate={'fast'}
+        renderItem={props => <Item {...props} scrollX={scrollX} />}
         onScroll={onScroll}
         scrollEventThrottle={1000 / 60}
       />
@@ -72,7 +72,7 @@ type CellRendererItemProps = CellRendererProps<ItemType> & {
   sensor: AnimatedSensor<ValueRotation>;
 };
 
-export function Item({ item, index, scrollX }: ItemProps) {
+export function Item({item, index, scrollX}: ItemProps) {
   const stylez = useAnimatedStyle(() => {
     return {
       backgroundColor: interpolateColor(
@@ -108,22 +108,22 @@ export function CellRenderer({
   ...rest
 }: CellRendererItemProps) {
   const rotateX = useDerivedValue(() => {
-    const { roll } = sensor.sensor.value;
+    const {roll} = sensor.sensor.value;
     const angle = clamp(roll, -Math.PI / 6, Math.PI / 6);
-    return withSpring(-angle, { damping: 300 });
+    return withSpring(-angle, {damping: 300});
   });
   const rotateY = useDerivedValue(() => {
-    const { pitch } = sensor.sensor.value;
+    const {pitch} = sensor.sensor.value;
     // Compensate the "default" angle that a user might hold the phone at :)
     // 40 degrees to radians
     const angle = clamp(pitch, -Math.PI / 4, Math.PI) - 40 * (Math.PI / 180);
-    return withSpring(-angle, { damping: 300 });
+    return withSpring(-angle, {damping: 300});
   });
   const translateX = useDerivedValue(() => {
-    return withSpring(-rotateX.value * 100, { damping: 300 });
+    return withSpring(-rotateX.value * 100, {damping: 300});
   });
   const translateY = useDerivedValue(() => {
-    return withSpring(rotateY.value * 100, { damping: 300 });
+    return withSpring(rotateY.value * 100, {damping: 300});
   });
   const stylez = useAnimatedStyle(() => {
     return {
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     width: layout.itemSize,
     height: layout.itemSize * 1.67,
     borderRadius: layout.radius,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     padding: layout.spacing,
     backgroundColor: colors.overlay,
   },

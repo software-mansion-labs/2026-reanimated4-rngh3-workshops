@@ -1,7 +1,7 @@
-import { hitSlop } from "@/lib/reanimated";
-import { colors,layout } from "@/lib/theme";
-import { Feather } from "@expo/vector-icons";
-import { memo,useCallback,useEffect,useRef,useState } from "react";
+import {hitSlop} from '@/lib/reanimated';
+import {colors, layout} from '@/lib/theme';
+import {Feather} from '@expo/vector-icons';
+import {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -12,9 +12,9 @@ import {
   Text,
   TextInput,
   View,
-} from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import Animated,{
+} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import Animated, {
   Extrapolation,
   FadeIn,
   FadeInDown,
@@ -34,13 +34,13 @@ import Animated,{
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { scheduleOnRN,scheduleOnUI } from "react-native-worklets";
+} from 'react-native-reanimated';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {scheduleOnRN, scheduleOnUI} from 'react-native-worklets';
 
-const { width: SCREEN_WIDTH } = Dimensions.get("screen");
+const {width: SCREEN_WIDTH} = Dimensions.get('screen');
 
-const TABS = ["For you", "Following"];
+const TABS = ['For you', 'Following'];
 
 // ---------------------------------------------------------------------------
 // Mock data
@@ -54,7 +54,7 @@ type Tweet = {
   time: string;
   content: string;
   imageUri?: string;
-  linkPreview?: { text: string; domain: string };
+  linkPreview?: {text: string; domain: string};
   replies: number;
   retweets: number;
   likes: string;
@@ -63,112 +63,112 @@ type Tweet = {
 
 const tweets: Tweet[] = [
   {
-    id: "1",
-    avatar: "https://i.pravatar.cc/48?img=1",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
+    id: '1',
+    avatar: 'https://i.pravatar.cc/48?img=1',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
   {
-    id: "2",
-    avatar: "https://i.pravatar.cc/48?img=5",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
-    imageUri: "https://picsum.photos/seed/tweet2/400/220",
+    id: '2',
+    avatar: 'https://i.pravatar.cc/48?img=5',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
+    imageUri: 'https://picsum.photos/seed/tweet2/400/220',
     linkPreview: {
-      text: "What is this link? We may never know. Then again, maybe we will know some...",
-      domain: "example.com",
+      text: 'What is this link? We may never know. Then again, maybe we will know some...',
+      domain: 'example.com',
     },
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
   {
-    id: "3",
-    avatar: "https://i.pravatar.cc/48?img=9",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
+    id: '3',
+    avatar: 'https://i.pravatar.cc/48?img=9',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
   {
-    id: "4",
-    avatar: "https://i.pravatar.cc/48?img=12",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
-    imageUri: "https://picsum.photos/seed/tweet4/400/220",
+    id: '4',
+    avatar: 'https://i.pravatar.cc/48?img=12',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
+    imageUri: 'https://picsum.photos/seed/tweet4/400/220',
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
   {
-    id: "5",
-    avatar: "https://i.pravatar.cc/48?img=15",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
+    id: '5',
+    avatar: 'https://i.pravatar.cc/48?img=15',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
   {
-    id: "6",
-    avatar: "https://i.pravatar.cc/48?img=20",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
-    imageUri: "https://picsum.photos/seed/tweet6/400/220",
+    id: '6',
+    avatar: 'https://i.pravatar.cc/48?img=20',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
+    imageUri: 'https://picsum.photos/seed/tweet6/400/220',
     linkPreview: {
-      text: "What is this link? We may never know. Then again, maybe we will know some...",
-      domain: "example.com",
+      text: 'What is this link? We may never know. Then again, maybe we will know some...',
+      domain: 'example.com',
     },
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
   {
-    id: "7",
-    avatar: "https://i.pravatar.cc/48?img=25",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
+    id: '7',
+    avatar: 'https://i.pravatar.cc/48?img=25',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
   {
-    id: "8",
-    avatar: "https://i.pravatar.cc/48?img=30",
-    name: "Name",
-    handle: "@handle",
-    time: "0m",
-    content: "Thats it. thats the tweet.",
-    imageUri: "https://picsum.photos/seed/tweet8/400/220",
+    id: '8',
+    avatar: 'https://i.pravatar.cc/48?img=30',
+    name: 'Name',
+    handle: '@handle',
+    time: '0m',
+    content: 'Thats it. thats the tweet.',
+    imageUri: 'https://picsum.photos/seed/tweet8/400/220',
     replies: 11,
     retweets: 270,
-    likes: "1,869",
-    views: "99.6k",
+    likes: '1,869',
+    views: '99.6k',
   },
 ];
 
@@ -182,7 +182,7 @@ type TabProps = {
   onActive: (measurements: MeasuredDimensions) => void;
 };
 
-const Tab = memo(({ name, isActiveTabIndex, onActive }: TabProps) => {
+const Tab = memo(({name, isActiveTabIndex, onActive}: TabProps) => {
   const tabRef = useAnimatedRef<View>();
 
   const sendMeasurements = () => {
@@ -203,12 +203,16 @@ const Tab = memo(({ name, isActiveTabIndex, onActive }: TabProps) => {
       style={styles.tab}
       onLayout={() => {
         if (isActiveTabIndex) sendMeasurements();
-      }}>
+      }}
+    >
       <Pressable
         hitSlop={hitSlop}
         onPress={sendMeasurements}
-        style={styles.tabTouchable}>
-        <Text style={[styles.tabText, isActiveTabIndex && styles.tabTextActive]}>
+        style={styles.tabTouchable}
+      >
+        <Text
+          style={[styles.tabText, isActiveTabIndex && styles.tabTextActive]}
+        >
           {name}
         </Text>
       </Pressable>
@@ -222,8 +226,8 @@ function Indicator({
   measurements: SharedValue<MeasuredDimensions | null>;
 }) {
   const stylez = useAnimatedStyle(() => {
-    if (!measurements.value) return { opacity: 0 };
-    const { x, width } = measurements.value;
+    if (!measurements.value) return {opacity: 0};
+    const {x, width} = measurements.value;
     return {
       opacity: 1,
       left: withTiming(x),
@@ -237,7 +241,7 @@ function Indicator({
 // Tweet item
 // ---------------------------------------------------------------------------
 
-function TweetActions({ item }: { item: Tweet }) {
+function TweetActions({item}: {item: Tweet}) {
   return (
     <View style={styles.actions}>
       <View style={styles.actionItem}>
@@ -261,16 +265,16 @@ function TweetActions({ item }: { item: Tweet }) {
   );
 }
 
-function TweetItem({ item }: { item: Tweet }) {
+function TweetItem({item}: {item: Tweet}) {
   return (
     <View style={styles.tweet}>
       <View style={styles.tweetRow}>
-        <Image source={{ uri: item.avatar }} style={styles.avatar} />
+        <Image source={{uri: item.avatar}} style={styles.avatar} />
         <View style={styles.tweetContent}>
           <Text style={styles.tweetMeta} numberOfLines={1}>
             <Text style={styles.tweetName}>{item.name}</Text>
             <Text style={styles.tweetHandle}>
-              {" "}
+              {' '}
               {item.handle} · {item.time}
             </Text>
           </Text>
@@ -278,7 +282,7 @@ function TweetItem({ item }: { item: Tweet }) {
           {item.imageUri && (
             <>
               <Image
-                source={{ uri: item.imageUri }}
+                source={{uri: item.imageUri}}
                 style={styles.tweetImage}
                 resizeMode="cover"
               />
@@ -287,7 +291,9 @@ function TweetItem({ item }: { item: Tweet }) {
                   <Text style={styles.linkText} numberOfLines={2}>
                     {item.linkPreview.text}
                   </Text>
-                  <Text style={styles.linkDomain}>{item.linkPreview.domain}</Text>
+                  <Text style={styles.linkDomain}>
+                    {item.linkPreview.domain}
+                  </Text>
                 </View>
               )}
             </>
@@ -325,17 +331,18 @@ function FadingCell({
       yOffset.value - scrollY.value,
       [-tabsHeight.value, 0],
       [0, 1],
-      Extrapolation.CLAMP
+      Extrapolation.CLAMP,
     ),
   }));
 
   return (
     <Animated.View
       style={[style, animStyle]}
-      onLayout={(e) => {
+      onLayout={e => {
         yOffset.value = e.nativeEvent.layout.y;
       }}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </Animated.View>
   );
@@ -350,34 +357,39 @@ type TweetPageProps = {
   tabsHeight: SharedValue<number>;
 };
 
-function TweetPage({ tabsHeight }: TweetPageProps) {
+function TweetPage({tabsHeight}: TweetPageProps) {
   const scrollY = useSharedValue(0);
 
-  const onScroll = useAnimatedScrollHandler((e) => {
+  const onScroll = useAnimatedScrollHandler(e => {
     scrollY.value = e.contentOffset.y;
   });
 
   // Stable component reference - SharedValues never change identity so [] is correct.
   const CellRenderer = useCallback(
-    ({ style, children, ...props }: any) => (
-      <FadingCell style={style} scrollY={scrollY} tabsHeight={tabsHeight} {...props}>
+    ({style, children, ...props}: any) => (
+      <FadingCell
+        style={style}
+        scrollY={scrollY}
+        tabsHeight={tabsHeight}
+        {...props}
+      >
         {children}
       </FadingCell>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   );
 
   return (
     <Animated.FlatList
       data={tweets}
-      keyExtractor={(item) => item.id}
+      keyExtractor={item => item.id}
       onScroll={onScroll}
       scrollEventThrottle={1000 / 60}
       CellRendererComponent={CellRenderer as any}
-      renderItem={({ item }) => <TweetItem item={item} />}
+      renderItem={({item}) => <TweetItem item={item} />}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
-      style={{ width: SCREEN_WIDTH }}
+      style={{width: SCREEN_WIDTH}}
     />
   );
 }
@@ -407,31 +419,36 @@ function ComposeFAB() {
   return (
     <Animated.View
       style={[styles.fab, keyboardStyle]}
-      layout={LinearTransition.duration(_fabDuration)}>
+      layout={LinearTransition.duration(_fabDuration)}
+    >
       <View style={styles.fabRow}>
         {isOpen && (
           <Animated.Text
             style={styles.fabTitle}
             entering={FadeInDown.duration(_fabDuration)}
-            exiting={FadeOutDown.duration(_fabDuration)}>
+            exiting={FadeOutDown.duration(_fabDuration)}
+          >
             New tweet
           </Animated.Text>
         )}
         <AnimatedPressable
-          onPress={() => setIsOpen((v) => !v)}
-          layout={LinearTransition.duration(_fabDuration)}>
+          onPress={() => setIsOpen(v => !v)}
+          layout={LinearTransition.duration(_fabDuration)}
+        >
           {isOpen ? (
             <Animated.View
               key="close"
               entering={FadeIn.duration(_fabDuration)}
-              exiting={FadeOut.duration(_fabDuration)}>
+              exiting={FadeOut.duration(_fabDuration)}
+            >
               <Feather name="x" size={24} color="#fff" />
             </Animated.View>
           ) : (
             <Animated.View
               key="compose"
               entering={FadeIn.duration(_fabDuration)}
-              exiting={FadeOut.duration(_fabDuration)}>
+              exiting={FadeOut.duration(_fabDuration)}
+            >
               <Feather name="edit-2" size={22} color="#fff" />
             </Animated.View>
           )}
@@ -442,10 +459,11 @@ function ComposeFAB() {
         <Animated.View
           entering={FadeInDown.duration(_fabDuration)}
           exiting={FadeOutDown.duration(_fabDuration)}
-          style={styles.fabBody}>
+          style={styles.fabBody}
+        >
           <View style={styles.composeRow}>
             <Image
-              source={{ uri: "https://i.pravatar.cc/48?img=1" }}
+              source={{uri: 'https://i.pravatar.cc/48?img=1'}}
               style={styles.composeAvatar}
             />
             <TextInput
@@ -465,7 +483,8 @@ function ComposeFAB() {
             </View>
             <Pressable
               style={styles.postButton}
-              onPress={() => setIsOpen(false)}>
+              onPress={() => setIsOpen(false)}
+            >
               <Text style={styles.postButtonText}>Post</Text>
             </Pressable>
           </View>
@@ -502,7 +521,7 @@ export function TwitterFeedLesson() {
         tabMeasurements.value.x -
           (dims.width - tabMeasurements.value.width) / 2,
         0,
-        true
+        true,
       );
     });
   };
@@ -512,14 +531,12 @@ export function TwitterFeedLesson() {
     tabMeasurements.value = measurements;
     setSelectedTab(index);
     scrollToTab();
-    pagerRef.current?.scrollToIndex({ index, animated: true });
+    pagerRef.current?.scrollToIndex({index, animated: true});
   };
 
   // Pager swiped → update selected tab (Tab useEffect picks it up and sends measurements)
   const handlePagerScrollEnd = (e: any) => {
-    const index = Math.round(
-      e.nativeEvent.contentOffset.x / SCREEN_WIDTH
-    );
+    const index = Math.round(e.nativeEvent.contentOffset.x / SCREEN_WIDTH);
     setSelectedTab(index);
   };
 
@@ -531,13 +548,14 @@ export function TwitterFeedLesson() {
           ref={tabsScrollRef as any}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.tabsContent}>
+          contentContainerStyle={styles.tabsContent}
+        >
           {TABS.map((tab, index) => (
             <Tab
               key={tab}
               name={tab}
               isActiveTabIndex={index === selectedTab}
-              onActive={(measurements) => handleTabActive(index, measurements)}
+              onActive={measurements => handleTabActive(index, measurements)}
             />
           ))}
           <Indicator measurements={tabMeasurements} />
@@ -549,7 +567,7 @@ export function TwitterFeedLesson() {
       <FlatList
         ref={pagerRef}
         data={TABS}
-        keyExtractor={(tab) => tab}
+        keyExtractor={tab => tab}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
@@ -578,11 +596,11 @@ const AVATAR_SIZE = 44;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   // Tabs
   tabsContent: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   tab: {
     flex: 1,
@@ -591,19 +609,19 @@ const styles = StyleSheet.create({
   tabTouchable: {
     paddingVertical: layout.spacing * 1.5,
     paddingHorizontal: layout.spacing * 2,
-    alignItems: "center",
+    alignItems: 'center',
   },
   tabText: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#555",
+    fontWeight: '500',
+    color: '#555',
   },
   tabTextActive: {
-    color: "#000",
-    fontWeight: "700",
+    color: '#000',
+    fontWeight: '700',
   },
   indicator: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     height: 3,
     borderRadius: 2,
@@ -611,7 +629,7 @@ const styles = StyleSheet.create({
   },
   tabsDivider: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: '#e0e0e0',
   },
   // Pager
   pager: {
@@ -623,14 +641,14 @@ const styles = StyleSheet.create({
     paddingVertical: layout.spacing * 1.5,
   },
   tweetRow: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: layout.spacing * 1.5,
   },
   avatar: {
     width: AVATAR_SIZE,
     height: AVATAR_SIZE,
     borderRadius: AVATAR_SIZE / 2,
-    backgroundColor: "#eee",
+    backgroundColor: '#eee',
   },
   tweetContent: {
     flex: 1,
@@ -640,90 +658,90 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   tweetName: {
-    fontWeight: "700",
-    color: "#000",
+    fontWeight: '700',
+    color: '#000',
   },
   tweetHandle: {
-    color: "#555",
+    color: '#555',
   },
   tweetText: {
     fontSize: 14,
-    color: "#0f0f0f",
+    color: '#0f0f0f',
     lineHeight: 20,
   },
   tweetImage: {
-    width: "100%",
+    width: '100%',
     height: 200,
     borderRadius: layout.radius * 1.5,
     marginTop: layout.spacing,
-    backgroundColor: "#eee",
+    backgroundColor: '#eee',
   },
   linkPreview: {
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "#ddd",
+    borderColor: '#ddd',
     borderBottomLeftRadius: layout.radius * 1.5,
     borderBottomRightRadius: layout.radius * 1.5,
     padding: layout.spacing,
     marginTop: -layout.radius,
     paddingTop: layout.spacing + layout.radius,
-    backgroundColor: "#fafafa",
+    backgroundColor: '#fafafa',
   },
   linkText: {
     fontSize: 13,
-    color: "#444",
+    color: '#444',
     lineHeight: 18,
   },
   linkDomain: {
     fontSize: 12,
-    color: "#888",
+    color: '#888',
     marginTop: 2,
   },
   actions: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: layout.spacing,
     paddingRight: layout.spacing,
   },
   actionItem: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 4,
   },
   actionText: {
     fontSize: 13,
-    color: "#666",
+    color: '#666',
   },
   separator: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: "#e8e8e8",
+    backgroundColor: '#e8e8e8',
   },
   // FAB
   fab: {
-    position: "absolute",
+    position: 'absolute',
     bottom: _fabSpacing,
     right: _fabSpacing,
     backgroundColor: colors.blue,
     borderRadius: _fabSize / 2,
     padding: _fabSpacing * 0.75,
-    overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 6,
   },
   fabRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     minHeight: _fabSize - _fabSpacing * 1.5,
     gap: layout.spacing * 2,
   },
   fabTitle: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   fabBody: {
     marginTop: layout.spacing,
@@ -731,45 +749,45 @@ const styles = StyleSheet.create({
     gap: layout.spacing,
   },
   composeRow: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: layout.spacing,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
   composeAvatar: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
   },
   composeInput: {
     flex: 1,
-    color: "#fff",
+    color: '#fff',
     fontSize: 16,
     lineHeight: 22,
     minHeight: 80,
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
   },
   composeFooter: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingTop: layout.spacing,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "rgba(255,255,255,0.2)",
+    borderTopColor: 'rgba(255,255,255,0.2)',
   },
   composeTools: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: layout.spacing * 1.5,
   },
   postButton: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 20,
     paddingHorizontal: layout.spacing * 2,
     paddingVertical: layout.spacing * 0.75,
   },
   postButtonText: {
     color: colors.blue,
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: 14,
   },
 });

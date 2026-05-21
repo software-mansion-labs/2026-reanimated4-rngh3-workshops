@@ -2,13 +2,13 @@
 
 https://user-images.githubusercontent.com/2805320/236649726-82140d72-177f-4895-ac61-6827a13dd8e9.MP4
 
-| | Goal | Checkpoint |
-|---|---|---|
-| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
-| Step 1 | Measure tabs and animate the indicator | [`steps/step1.tsx`](./steps/step1.tsx) |
-| Final | Scroll ScrollView to the selected tab | [`steps/final.tsx`](./steps/final.tsx) |
-| Bonus start | Starting point for FlatList bonus | [`steps/bonus_boilerplate.tsx`](./steps/bonus_boilerplate.tsx) |
-| Bonus | Bi-directional scroll with FlatList | [`steps/bonus.tsx`](./steps/bonus.tsx) |
+|             | Goal                                   | Checkpoint                                                     |
+| ----------- | -------------------------------------- | -------------------------------------------------------------- |
+| Start       | Starting point                         | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx)             |
+| Step 1      | Measure tabs and animate the indicator | [`steps/step1.tsx`](./steps/step1.tsx)                         |
+| Final       | Scroll ScrollView to the selected tab  | [`steps/final.tsx`](./steps/final.tsx)                         |
+| Bonus start | Starting point for FlatList bonus      | [`steps/bonus_boilerplate.tsx`](./steps/bonus_boilerplate.tsx) |
+| Bonus       | Bi-directional scroll with FlatList    | [`steps/bonus.tsx`](./steps/bonus.tsx)                         |
 
 ## Step 1 - Get active tab and animate the indicator
 
@@ -100,7 +100,7 @@ useEffect(() => {
 </summary>
 
 ```tsx
-import type { MeasuredDimensions } from "react-native-reanimated";
+import type {MeasuredDimensions} from 'react-native-reanimated';
 const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
 ```
 
@@ -115,7 +115,7 @@ const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
 // Where we display the tab add `onActive` prop as such
 <Tab
   // the other props
-  onActive={(measurements) => {
+  onActive={measurements => {
     tabMeasurements.value = measurements;
   }}
 />
@@ -154,7 +154,7 @@ const stylez = useAnimatedStyle(() => {
     return {};
   }
 
-  const { x, width } = selectedTabMeasurements.value;
+  const {x, width} = selectedTabMeasurements.value;
 
   return {
     left: withTiming(x),
@@ -213,7 +213,7 @@ const scrollToTab = (index: number) => {
         // this is how to place the item in the middle
         (scrollViewDimensions.width - tabMeasurements.value.width) / 2,
       0,
-      true
+      true,
     );
   });
 };
@@ -294,7 +294,7 @@ change `selectedTabIndex` whenever the slide inside the `FlatList` has changed (
 ```tsx
 <FlatList
   // other props
-  onMomentumScrollEnd={(ev) => {
+  onMomentumScrollEnd={ev => {
     setSelectedTabIndex(Math.floor(ev.nativeEvent.contentOffset.x / width));
   }}
 />

@@ -1,9 +1,9 @@
-import { AnimatedText } from "@/components/AnimatedText";
-import { Container } from "@/components/Container";
-import { hitSlop } from "@/lib/reanimated";
-import { colorShades, layout } from "@/lib/theme";
-import { StyleSheet, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import {AnimatedText} from '@/components/AnimatedText';
+import {Container} from '@/components/Container';
+import {hitSlop} from '@/lib/reanimated';
+import {colorShades, layout} from '@/lib/theme';
+import {StyleSheet, View} from 'react-native';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   Extrapolation,
   SensorType,
@@ -18,14 +18,14 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
   withSpring,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 const GRAVITY = 9.81 * 100;
 
 function withGravity(userConfig) {
-  "worklet";
+  'worklet';
   return defineAnimation(0, () => {
-    "worklet";
+    'worklet';
     const config = {
       acceleration: 9.81,
       velocity: 0,
@@ -38,9 +38,8 @@ function withGravity(userConfig) {
         animation.velocity = previousAnimation?.velocity ?? config.velocity;
       },
       onFrame: (animation, now) => {
-        const { lastTimestamp, current, velocity } = animation;
-        const { acceleration, bounds, staticFriction, kineticFriction } =
-          config;
+        const {lastTimestamp, current, velocity} = animation;
+        const {acceleration, bounds, staticFriction, kineticFriction} = config;
         const delta = (now - lastTimestamp) / 1000;
         animation.current = current + velocity * delta;
         animation.velocity =
@@ -82,7 +81,7 @@ export function BalloonSliderLesson() {
   const progress = useSharedValue(0);
   const isTouching = useSharedValue(false);
   const scale = useSharedValue(0);
-  const { sensor } = useAnimatedSensor(SensorType.GRAVITY);
+  const {sensor} = useAnimatedSensor(SensorType.GRAVITY);
   const aRef = useAnimatedRef<View>();
 
   const panGesture = Gesture.Pan()
@@ -94,7 +93,7 @@ export function BalloonSliderLesson() {
     .onStart(() => {
       scale.value = withSpring(1);
     })
-    .onChange((ev) => {
+    .onChange(ev => {
       const size = measure(aRef);
       if (!size) {
         return;
@@ -113,7 +112,7 @@ export function BalloonSliderLesson() {
     () => {
       return isTouching.value ? undefined : GRAVITY * Math.sin(sensor.value.x);
     },
-    (gravity) => {
+    gravity => {
       if (gravity !== undefined) {
         const size = measure(aRef);
         if (!size) {
@@ -126,7 +125,7 @@ export function BalloonSliderLesson() {
           kineticFriction: 500,
         });
       }
-    }
+    },
   );
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -135,7 +134,7 @@ export function BalloonSliderLesson() {
         scale.value,
         [0, 1],
         [layout.knobSize / 2, 2],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
       transform: [
         {
@@ -156,19 +155,19 @@ export function BalloonSliderLesson() {
     return {
       opacity: scale.value,
       transform: [
-        { translateX: balloonSpringyX.value },
-        { scale: scale.value },
+        {translateX: balloonSpringyX.value},
+        {scale: scale.value},
         {
           translateY: interpolate(
             scale.value,
             [0, 1],
-            [0, -layout.indicatorSize]
+            [0, -layout.indicatorSize],
           ),
         },
         {
           rotate: `${Math.atan2(
             balloonSpringyX.value - x.value,
-            layout.indicatorSize * 2
+            layout.indicatorSize * 2,
           )}rad`,
         },
       ],
@@ -183,11 +182,11 @@ export function BalloonSliderLesson() {
             <View style={styles.textContainer}>
               <AnimatedText
                 text={progress}
-                style={{ color: "white", fontWeight: "600" }}
+                style={{color: 'white', fontWeight: '600'}}
               />
             </View>
           </Animated.View>
-          <Animated.View style={[styles.progress, { width: x }]} />
+          <Animated.View style={[styles.progress, {width: x}]} />
           <Animated.View style={[styles.knob, animatedStyle]} />
         </View>
       </GestureDetector>
@@ -200,17 +199,17 @@ const styles = StyleSheet.create({
     width: layout.knobSize,
     height: layout.knobSize,
     borderRadius: layout.knobSize / 2,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderWidth: layout.knobSize / 2,
     borderColor: colorShades.purple.base,
-    position: "absolute",
+    position: 'absolute',
     left: -layout.knobSize / 2,
   },
   slider: {
-    width: "80%",
+    width: '80%',
     backgroundColor: colorShades.purple.light,
     height: 5,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   textContainer: {
     width: 40,
@@ -219,25 +218,25 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colorShades.purple.base,
-    position: "absolute",
+    position: 'absolute',
     top: -layout.knobSize,
   },
   balloon: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 4,
     height: layout.indicatorSize,
     bottom: -layout.knobSize / 2,
     borderRadius: 2,
     backgroundColor: colorShades.purple.base,
-    position: "absolute",
+    position: 'absolute',
   },
   progress: {
     height: 5,
     backgroundColor: colorShades.purple.dark,
-    position: "absolute",
+    position: 'absolute',
   },
 });

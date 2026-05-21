@@ -1,8 +1,8 @@
-import { useChat } from "@/components/ChatProvider";
-import { Pressable, StyleSheet } from "react-native";
+import {useChat} from '@/components/ChatProvider';
+import {Pressable, StyleSheet} from 'react-native';
 
 export function Overlay() {
-  const { currentPopupId, setCurrentPopupId } = useChat();
+  const {currentPopupId, setCurrentPopupId} = useChat();
 
   return (
     currentPopupId && (

@@ -1,4 +1,4 @@
-import { layout } from "@/lib/theme";
+import {layout} from '@/lib/theme';
 import {
   Image,
   ImageSourcePropType,
@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
+} from 'react-native';
 
 interface AppIconProps {
   app: {
@@ -17,7 +17,7 @@ interface AppIconProps {
   onLayout?: (event: any) => void;
 }
 
-export function AppIcon({ app, onLayout }: AppIconProps) {
+export function AppIcon({app, onLayout}: AppIconProps) {
   return (
     <View style={styles.appContainer} onLayout={onLayout}>
       <Image source={app.icon} style={styles.appIcon} />
@@ -30,21 +30,21 @@ export function AppIcon({ app, onLayout }: AppIconProps) {
 
 const styles = StyleSheet.create({
   appContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   appIcon: {
     width: layout.tileSize,
     height: layout.tileSize,
     aspectRatio: 1,
-    borderRadius: Platform.OS === "android" ? layout.tileSize : 20,
-    borderCurve: "continuous",
+    borderRadius: Platform.OS === 'android' ? layout.tileSize : 20,
+    borderCurve: 'continuous',
     marginBottom: 4,
   },
   appName: {
     fontSize: 13,
-    color: "#fff",
+    color: '#fff',
     width: layout.tileSize,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

@@ -2,12 +2,12 @@
 
 https://github.com/software-mansion-labs/appjs-2023-workshop-reanimated/assets/2805320/064d6dff-06a0-42fd-b223-ab2adee68ffe
 
-| | Goal | Checkpoint |
-|---|---|---|
-| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
-| Step 1 | Animate alphabet letters with interpolate | [`steps/step1.tsx`](./steps/step1.tsx) |
-| Step 2 | Scroll SectionList when knob moves | [`steps/step2.tsx`](./steps/step2.tsx) |
-| Final | Sync knob position from SectionList scroll | [`steps/final.tsx`](./steps/final.tsx) |
+|        | Goal                                       | Checkpoint                                         |
+| ------ | ------------------------------------------ | -------------------------------------------------- |
+| Start  | Starting point                             | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Animate alphabet letters with interpolate  | [`steps/step1.tsx`](./steps/step1.tsx)             |
+| Step 2 | Scroll SectionList when knob moves         | [`steps/step2.tsx`](./steps/step2.tsx)             |
+| Final  | Sync knob position from SectionList scroll | [`steps/final.tsx`](./steps/final.tsx)             |
 
 ## Step 1 - Animate Alphabet letters
 
@@ -55,7 +55,7 @@ if (!alphabetLayout) {
 y.value = clamp(
   (y.value += ev.changeY),
   alphabetLayout.y, // take into account the knob size
-  alphabetLayout.height - layout.knobSize
+  alphabetLayout.height - layout.knobSize,
 );
 ```
 
@@ -103,6 +103,7 @@ scrollingIndex = position / element_height = 2.5
 active_element = round(scrollingIndex)
 scrolling_position is between [2,3]
 ```
+
 :::
 
 <br/>
@@ -155,6 +156,7 @@ const snapIndicatorTo = (index: number) => {
 This method should be called with `scheduleOnRN`
 :::
 <br/>
+
 <details>
 <summary>
   <b>[7]</b> We should animate the letter now right? :) Pass the shared value with the float index to each `<AlphabetLetter />` as prop, update the `TypeScript` props and create a style using `useAnimatedStyle` that will change the `opacity` and `scale` when the `shared value` is in `[index - 1, index, index + 1]` range and apply this style to the `Animated.View`. (You you're own values for the output range or `opacity: 0.5 and 1` `scale: 1 and 1.5`
@@ -204,11 +206,11 @@ const styles = useAnimatedStyle(() => {
 </details>
 
 :::tip
+
 - use `interpolate` for the styles
 - You can think about the input range of the interpolation as `(previous, current, next)` index and what should happen when the position is within this range.
 - To avoid animating the letter when the position is outside the range, use `CLAMP` for extrapolation.
-:::
-
+  :::
 
 <br/>
 
@@ -225,6 +227,7 @@ Because `SectionList` its a virtualized list, it might happen that the section i
 
 Check `scrollToLocation` [method signature here](https://reactnative.dev/docs/sectionlist#scrolltolocation)
 :::
+
 <details>
 <summary>
   <b>[1]</b> create the ref for `SectionList` and add it to the list
@@ -284,6 +287,7 @@ By now, the `knob` will change scroll inside the `SectionList` (we can call this
 :::tip
 The section index might be missing
 :::
+
 <details>
 <summary>
   solution

@@ -1,1 +1,1 @@
-export * from './DynamicTabs'
+export * from './DynamicTabs';

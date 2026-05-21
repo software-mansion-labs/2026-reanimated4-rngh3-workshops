@@ -1,11 +1,11 @@
-import { Container } from "@/components/Container";
-import { tabsList } from "@/lib/mock";
-import { hitSlop } from "@/lib/reanimated";
-import { colorShades, layout } from "@/lib/theme";
-import { memo, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
+import {Container} from '@/components/Container';
+import {tabsList} from '@/lib/mock';
+import {hitSlop} from '@/lib/reanimated';
+import {colorShades, layout} from '@/lib/theme';
+import {memo, useEffect} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {scheduleOnRN, scheduleOnUI} from 'react-native-worklets';
 import Animated, {
   MeasuredDimensions,
   SharedValue,
@@ -15,7 +15,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 type TabsProps = {
   name: string;
@@ -23,7 +23,7 @@ type TabsProps = {
   isActiveTabIndex: boolean;
 };
 
-const Tab = memo(({ onActive, name, isActiveTabIndex }: TabsProps) => {
+const Tab = memo(({onActive, name, isActiveTabIndex}: TabsProps) => {
   const tabRef = useAnimatedRef<View>();
   const sendMeasurements = () => {
     scheduleOnUI(() => {
@@ -52,11 +52,13 @@ const Tab = memo(({ onActive, name, isActiveTabIndex }: TabsProps) => {
         if (isActiveTabIndex) {
           sendMeasurements();
         }
-      }}>
+      }}
+    >
       <TouchableOpacity
         onPress={sendMeasurements}
         hitSlop={hitSlop}
-        style={{ marginHorizontal: layout.spacing }}>
+        style={{marginHorizontal: layout.spacing}}
+      >
         <Text>{name}</Text>
       </TouchableOpacity>
     </View>
@@ -73,7 +75,7 @@ function Indicator({
       return {};
     }
 
-    const { x, width } = selectedTabMeasurements.value;
+    const {x, width} = selectedTabMeasurements.value;
 
     return {
       left: withTiming(x),
@@ -107,7 +109,7 @@ export function DynamicTabsLesson({
         tabMeasurements.value.x -
           (scrollViewDimensions.width - tabMeasurements.value.width) / 2,
         0,
-        true
+        true,
       );
       // Here, you can send the selected tab index to the parent via a callback
       if (onChangeTab) {
@@ -120,15 +122,16 @@ export function DynamicTabsLesson({
     <Container>
       <ScrollView
         horizontal
-        style={{ flexGrow: 0 }}
+        style={{flexGrow: 0}}
         contentContainerStyle={styles.scrollViewContainer}
-        ref={scrollViewRef}>
+        ref={scrollViewRef}
+      >
         {tabsList.map((tab, index) => (
           <Tab
             key={`tab-${tab}-${index}`}
             name={tab}
             isActiveTabIndex={index === selectedTabIndex}
-            onActive={(measurements) => {
+            onActive={measurements => {
               tabMeasurements.value = measurements;
               scrollToTab(index);
             }}
@@ -142,7 +145,7 @@ export function DynamicTabsLesson({
 
 const styles = StyleSheet.create({
   indicator: {
-    position: "absolute",
+    position: 'absolute',
     backgroundColor: colorShades.purple.base,
     height: 4,
     borderRadius: 2,

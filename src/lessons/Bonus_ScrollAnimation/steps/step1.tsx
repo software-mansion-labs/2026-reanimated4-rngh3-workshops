@@ -1,13 +1,13 @@
-import { ContactsListHeader } from "@/components/ContactsListHeader";
-import { ContactsListItem } from "@/components/ContactsListItem";
-import { Container } from "@/components/Container";
-import { alphabet, contacts } from "@/lib/mock";
-import { hitSlop } from "@/lib/reanimated";
-import { colorShades, layout } from "@/lib/theme";
-import { useMemo } from "react";
-import { SectionList, StyleSheet, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
+import {ContactsListHeader} from '@/components/ContactsListHeader';
+import {ContactsListItem} from '@/components/ContactsListItem';
+import {Container} from '@/components/Container';
+import {alphabet, contacts} from '@/lib/mock';
+import {hitSlop} from '@/lib/reanimated';
+import {colorShades, layout} from '@/lib/theme';
+import {useMemo} from 'react';
+import {SectionList, StyleSheet, View} from 'react-native';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {scheduleOnRN, scheduleOnUI} from 'react-native-worklets';
 import Animated, {
   Extrapolation,
   SharedValue,
@@ -20,8 +20,8 @@ import Animated, {
   useSharedValue,
   withSpring,
   withTiming,
-} from "react-native-reanimated";
-import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
+} from 'react-native-reanimated';
+import sectionListGetItemLayout from 'react-native-section-list-get-item-layout';
 
 type AlphabetLetterProps = {
   index: number;
@@ -41,7 +41,7 @@ const AlphabetLetter = ({
         scrollableIndex.value,
         [index - 1, index, index + 1],
         [0.5, 1, 0.5],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
       transform: [
         {
@@ -49,7 +49,7 @@ const AlphabetLetter = ({
             scrollableIndex.value,
             [index - 2, index, index + 2],
             [1, 1.5, 1],
-            Extrapolation.CLAMP
+            Extrapolation.CLAMP,
           ),
         },
       ],
@@ -59,22 +59,24 @@ const AlphabetLetter = ({
     <Animated.View
       style={[
         {
-          position: "relative",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "row",
+          position: 'relative',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'row',
         },
         styles,
-      ]}>
+      ]}
+    >
       <Animated.Text
         style={[
           {
-            position: "absolute",
-            fontFamily: "Menlo",
+            position: 'absolute',
+            fontFamily: 'Menlo',
             left: -20,
-            fontWeight: "900",
+            fontWeight: '900',
           },
-        ]}>
+        ]}
+      >
         {letter.toUpperCase()}
       </Animated.Text>
     </Animated.View>
@@ -122,7 +124,7 @@ export function ScrollAnimationLesson() {
     .onBegin(() => {
       isInteracting.value = true;
     })
-    .onChange((ev) => {
+    .onChange(ev => {
       const alphabetLayout = measure(alphabetRef);
       if (!alphabetLayout) {
         return;
@@ -130,7 +132,7 @@ export function ScrollAnimationLesson() {
       y.value = clamp(
         (y.value += ev.changeY),
         alphabetLayout.y, // take into account the knob size
-        alphabetLayout.height - layout.knobSize
+        alphabetLayout.height - layout.knobSize,
       );
       // This is snapTo by the same interval. This will snap to the nearest
       // letter based on the knob position.
@@ -161,7 +163,7 @@ export function ScrollAnimationLesson() {
         knobScale.value,
         [0, 1],
         [layout.knobSize / 2, 2],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
       transform: [
         {
@@ -176,27 +178,28 @@ export function ScrollAnimationLesson() {
 
   return (
     <Container centered={false}>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <SectionList
-          contentContainerStyle={{ paddingHorizontal: layout.spacing * 2 }}
+          contentContainerStyle={{paddingHorizontal: layout.spacing * 2}}
           stickySectionHeadersEnabled={false}
           // @ts-ignore
           getItemLayout={getItemLayout}
           sections={contacts}
-          renderSectionHeader={({ section: { title } }) => {
+          renderSectionHeader={({section: {title}}) => {
             return <ContactsListHeader title={title} />;
           }}
-          renderItem={({ item }) => {
+          renderItem={({item}) => {
             return <ContactsListItem item={item} />;
           }}
         />
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             right: 0,
             top: layout.indicatorSize,
             bottom: layout.indicatorSize,
-          }}>
+          }}
+        >
           <GestureDetector gesture={panGesture}>
             <Animated.View
               style={[styles.knob, animatedStyle]}
@@ -206,13 +209,14 @@ export function ScrollAnimationLesson() {
           <View
             ref={alphabetRef}
             style={{
-              transform: [{ translateX: -layout.indicatorSize / 4 }],
+              transform: [{translateX: -layout.indicatorSize / 4}],
               flex: 1,
               width: 20,
-              justifyContent: "space-around",
+              justifyContent: 'space-around',
             }}
-            pointerEvents='box-none'>
-            {[...Array(alphabet.length).keys()].map((i) => {
+            pointerEvents="box-none"
+          >
+            {[...Array(alphabet.length).keys()].map(i => {
               return (
                 <AlphabetLetter
                   key={i}
@@ -234,10 +238,10 @@ const styles = StyleSheet.create({
     width: layout.knobSize,
     height: layout.knobSize,
     borderRadius: layout.knobSize / 2,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderWidth: layout.knobSize / 2,
     borderColor: colorShades.purple.base,
-    position: "absolute",
+    position: 'absolute',
     left: -layout.knobSize / 2,
   },
 });

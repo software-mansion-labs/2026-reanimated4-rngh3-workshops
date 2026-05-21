@@ -2,14 +2,14 @@
 
 https://github.com/user-attachments/assets/b83c7b61-361d-48a3-8f3d-4fa7061222c7
 
-| | Goal | Checkpoint |
-|---|---|---|
-| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
-| Step 1 | Animate FAB container layout with LinearTransition | [`steps/step1.tsx`](./steps/step1.tsx) |
-| Step 2 | Animate icon mount/unmount with FadeIn/FadeOut | [`steps/step2.tsx`](./steps/step2.tsx) |
-| Step 3 | Animate heading and content on open | [`steps/step3.tsx`](./steps/step3.tsx) |
-| Final | Handle keyboard with useAnimatedKeyboard | [`steps/final.tsx`](./steps/final.tsx) |
-| Bonus | Skip initial enter with LayoutAnimationConfig | [`steps/bonus.tsx`](./steps/bonus.tsx) |
+|        | Goal                                               | Checkpoint                                         |
+| ------ | -------------------------------------------------- | -------------------------------------------------- |
+| Start  | Starting point                                     | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Animate FAB container layout with LinearTransition | [`steps/step1.tsx`](./steps/step1.tsx)             |
+| Step 2 | Animate icon mount/unmount with FadeIn/FadeOut     | [`steps/step2.tsx`](./steps/step2.tsx)             |
+| Step 3 | Animate heading and content on open                | [`steps/step3.tsx`](./steps/step3.tsx)             |
+| Final  | Handle keyboard with useAnimatedKeyboard           | [`steps/final.tsx`](./steps/final.tsx)             |
+| Bonus  | Skip initial enter with LayoutAnimationConfig      | [`steps/bonus.tsx`](./steps/bonus.tsx)             |
 
 In this exercise you'll create a smooth and visually appealing animation for a Floating Action Button (FAB) that expands to reveal additional content when pressed.
 The FAB will be animated using `LayoutAnimation` to smoothly transition between its collapsed and expanded states and will also include a keyboard handling feature to adjust its position when the keyboard is open.
@@ -32,7 +32,6 @@ For `opened` state we display
 
 https://github.com/user-attachments/assets/ca2dfa7e-6e5a-4064-8c5a-f84956716364
 
-
 In this step, we will animate the FAB button container layout changes using `layout` property, based on `isOpen` (inline styles)
 
 <details>
@@ -45,11 +44,12 @@ In this step, we will animate the FAB button container layout changes using `lay
   style={[
     {
       width: isOpen ? _openedSize : _closedSize,
-      height: isOpen ? "auto" : _closedSize,
+      height: isOpen ? 'auto' : _closedSize,
       minHeight: _closedSize,
     },
     styles.fabButton,
-  ]}>
+  ]}
+>
   // ...
 </Animated.View>
 ```
@@ -65,12 +65,13 @@ In this step, we will animate the FAB button container layout changes using `lay
   style={[
     {
       width: isOpen ? _openedSize : _closedSize,
-      height: isOpen ? "auto" : _closedSize,
+      height: isOpen ? 'auto' : _closedSize,
       minHeight: _closedSize,
     },
     styles.fabButton,
   ]}
-  layout={LinearTransition.duration(_duration)}>
+  layout={LinearTransition.duration(_duration)}
+>
   // ...
 </Animated.View>
 ```
@@ -105,13 +106,13 @@ const AnimatedEntypo = Animated.createAnimatedComponent(Entypo);
 {
   isOpen ? (
     <AnimatedEntypo
-      key='close'
-      name='cross'
+      key="close"
+      name="cross"
       size={_closeIconSize}
-      color='#fff'
+      color="#fff"
     />
   ) : (
-    <AnimatedEntypo key='open' name='plus' size={_openIconSize} color='#fff' />
+    <AnimatedEntypo key="open" name="plus" size={_openIconSize} color="#fff" />
   );
 }
 ```
@@ -132,16 +133,16 @@ Now, because the icon can be animated, we will leverage `layout animations`, mor
 {
   isOpen ? (
     <AnimatedEntypo
-      key='close'
-      name='cross'
+      key="close"
+      name="cross"
       // ...
       entering={FadeIn.duration(_duration)}
       exiting={FadeOut.duration(_duration)}
     />
   ) : (
     <AnimatedEntypo
-      key='open'
-      name='plus'
+      key="open"
+      name="plus"
       // ...
       entering={FadeIn.duration(_duration)}
       exiting={FadeOut.duration(_duration)}
@@ -151,7 +152,6 @@ Now, because the icon can be animated, we will leverage `layout animations`, mor
 ```
 
 </details>
-
 
 > [4] Since we are changing the layout of the container, `small -> large` based on `isOpen`, the position (x,y) of the icon is changed hence, we need to apply the motion to the `layout` changes of the icons container.
 
@@ -172,7 +172,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 </summary>
 
 ```jsx
-<AnimatedPressable onPress={() => setIsOpen((isOpen) => !isOpen)} />
+<AnimatedPressable onPress={() => setIsOpen(isOpen => !isOpen)} />
 ```
 
 </details>
@@ -226,7 +226,8 @@ In this step we'll animate the mounting/unmounting of the content and the title 
     <Animated.Text
       style={styles.heading}
       entering={FadeInDown.duration(_duration)}
-      exiting={FadeOutDown.duration(_duration)}>
+      exiting={FadeOutDown.duration(_duration)}
+    >
       App.js Workshop
     </Animated.Text>
   );
@@ -260,7 +261,8 @@ In this step we'll animate the mounting/unmounting of the content and the title 
     <Animated.View
       entering={FadeInDown.duration(_duration)}
       exiting={FadeOutDown.duration(_duration)}
-      style={styles.content}>
+      style={styles.content}
+    >
       // ...
     </Animated.View>
   );
@@ -290,8 +292,8 @@ We will use `useAnimatedKeyboard` and `KeyboardState` from `react-native-keyboar
 ```jsx
 import {
   KeyboardState,
-  useAnimatedKeyboard
-} from "react-native-keyboard-controller";
+  useAnimatedKeyboard,
+} from 'react-native-keyboard-controller';
 
 const keyboardState = useAnimatedKeyboard();
 ```
@@ -343,12 +345,13 @@ You should take into account the `bottom` position of the `fabButton` when calcu
   style={[
     {
       width: isOpen ? _openedSize : _closedSize,
-      height: isOpen ? "auto" : _closedSize,
+      height: isOpen ? 'auto' : _closedSize,
     },
     styles.fabButton,
     keyboardHeightStylez,
   ]}
-  layout={LinearTransition.duration(_duration)}>
+  layout={LinearTransition.duration(_duration)}
+>
   //...
 </Animated.View>
 ```
@@ -373,7 +376,6 @@ This is useful if you don't want to animate the initial entering of the icon (Fa
 ```
 
 </details>
-
 
 > Checkpoint: compare your work with [`steps/bonus.tsx`](./steps/bonus.tsx)
 

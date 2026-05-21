@@ -1,16 +1,16 @@
-import { Container } from "@/components/Container";
-import { DynamicTabsSlide } from "@/components/DynamicTabsSlide";
-import { tabsList } from "@/lib/mock";
-import { hitSlop } from "@/lib/reanimated";
-import { colorShades, layout } from "@/lib/theme";
-import { memo, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {Container} from '@/components/Container';
+import {DynamicTabsSlide} from '@/components/DynamicTabsSlide';
+import {tabsList} from '@/lib/mock';
+import {hitSlop} from '@/lib/reanimated';
+import {colorShades, layout} from '@/lib/theme';
+import {memo, useEffect} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {
   FlatList,
   ScrollView,
   TouchableOpacity,
-} from "react-native-gesture-handler";
-import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
+} from 'react-native-gesture-handler';
+import {scheduleOnRN, scheduleOnUI} from 'react-native-worklets';
 import Animated, {
   SharedValue,
   measure,
@@ -19,8 +19,8 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
-import type { MeasuredDimensions } from "react-native-reanimated/src/reanimated2/commonTypes";
+} from 'react-native-reanimated';
+import type {MeasuredDimensions} from 'react-native-reanimated/src/reanimated2/commonTypes';
 
 type TabsProps = {
   name: string;
@@ -28,7 +28,7 @@ type TabsProps = {
   isActiveTabIndex: boolean;
 };
 
-const Tab = memo(({ onActive, name, isActiveTabIndex }: TabsProps) => {
+const Tab = memo(({onActive, name, isActiveTabIndex}: TabsProps) => {
   const tabRef = useAnimatedRef<View>();
   const sendMeasurements = () => {
     scheduleOnUI(() => {
@@ -57,11 +57,13 @@ const Tab = memo(({ onActive, name, isActiveTabIndex }: TabsProps) => {
         if (isActiveTabIndex) {
           sendMeasurements();
         }
-      }}>
+      }}
+    >
       <TouchableOpacity
         onPress={sendMeasurements}
         hitSlop={hitSlop}
-        style={{ marginHorizontal: layout.spacing }}>
+        style={{marginHorizontal: layout.spacing}}
+      >
         <Text>{name}</Text>
       </TouchableOpacity>
     </View>
@@ -78,7 +80,7 @@ function Indicator({
       return {};
     }
 
-    const { x, width } = selectedTabMeasurements.value;
+    const {x, width} = selectedTabMeasurements.value;
 
     return {
       left: withTiming(x),
@@ -112,7 +114,7 @@ function DynamicTabs({
         tabMeasurements.value.x -
           (scrollViewDimensions.width - tabMeasurements.value.width) / 2,
         0,
-        true
+        true,
       );
       // Here, you can send the selected tab index to the parent via a callback
       if (onChangeTab) {
@@ -124,15 +126,16 @@ function DynamicTabs({
   return (
     <ScrollView
       horizontal
-      style={{ flexGrow: 0 }}
+      style={{flexGrow: 0}}
       contentContainerStyle={styles.scrollViewContainer}
-      ref={scrollViewRef}>
+      ref={scrollViewRef}
+    >
       {tabsList.map((tab, index) => (
         <Tab
           key={`tab-${tab}-${index}`}
           name={tab}
           isActiveTabIndex={index === selectedTabIndex}
-          onActive={(measurements) => {
+          onActive={measurements => {
             tabMeasurements.value = measurements;
             scrollToTab(index);
           }}
@@ -145,7 +148,7 @@ function DynamicTabs({
 
 const styles = StyleSheet.create({
   indicator: {
-    position: "absolute",
+    position: 'absolute',
     backgroundColor: colorShades.purple.base,
     height: 4,
     borderRadius: 2,
@@ -160,19 +163,19 @@ const styles = StyleSheet.create({
 
 export function DynamicTabsLesson() {
   return (
-    <Container style={{ padding: 0 }}>
+    <Container style={{padding: 0}}>
       <DynamicTabs
         selectedTabIndex={0}
-        onChangeTab={(tabIndex) => {
+        onChangeTab={tabIndex => {
           console.log(`We have ${tabIndex} selected, now what?`);
         }}
       />
       <FlatList
         data={tabsList}
-        keyExtractor={(item) => item}
+        keyExtractor={item => item}
         horizontal
         pagingEnabled
-        renderItem={({ item }) => {
+        renderItem={({item}) => {
           return <DynamicTabsSlide item={item} />;
         }}
       />

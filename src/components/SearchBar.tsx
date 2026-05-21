@@ -1,9 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, useColorScheme} from 'react-native';
 
 export function SearchBar() {
   const colorScheme = useColorScheme();
@@ -12,15 +7,15 @@ export function SearchBar() {
       style={[
         styles.container,
         styles.padding,
-        colorScheme === "light"
-          ? { backgroundColor: "#f1f5f9" }
-          : { backgroundColor: "#1e293b" },
+        colorScheme === 'light'
+          ? {backgroundColor: '#f1f5f9'}
+          : {backgroundColor: '#1e293b'},
       ]}
     >
       <Text
         style={[
           styles.text,
-          colorScheme === "light" ? { color: "#64748b" } : { color: "#f1f5f9" },
+          colorScheme === 'light' ? {color: '#64748b'} : {color: '#f1f5f9'},
         ]}
       >
         Search
@@ -33,9 +28,9 @@ const styles = StyleSheet.create({
   container: {
     height: 60,
     borderRadius: 20,
-    borderCurve: "continuous",
-    alignItems: "center",
-    flexDirection: "row",
+    borderCurve: 'continuous',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   padding: {
     padding: 16,

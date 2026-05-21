@@ -1,1 +1,1 @@
-export * from "./Interpolation";
+export * from './Interpolation';

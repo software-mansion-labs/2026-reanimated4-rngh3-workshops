@@ -1,15 +1,15 @@
-import { Container } from "@/components/Container";
-import { hitSlop } from "@/lib/reanimated";
-import { colorShades, layout } from "@/lib/theme";
-import { StyleSheet, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import {Container} from '@/components/Container';
+import {hitSlop} from '@/lib/reanimated';
+import {colorShades, layout} from '@/lib/theme';
+import {StyleSheet, View} from 'react-native';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 export function CircleGesturesLesson() {
   const scale = useSharedValue(1);
@@ -29,7 +29,7 @@ export function CircleGesturesLesson() {
         scale.value,
         [1, 2],
         [layout.knobSize / 2, 2],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
       transform: [
         {
@@ -40,7 +40,7 @@ export function CircleGesturesLesson() {
   });
   return (
     <Container>
-      <View style={{ flex: 1, justifyContent: "center" }}>
+      <View style={{flex: 1, justifyContent: 'center'}}>
         <GestureDetector gesture={tapGesture}>
           <Animated.View
             style={[styles.knob, animatedStyle]}
@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
     width: layout.knobSize,
     height: layout.knobSize,
     borderRadius: layout.knobSize / 2,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderWidth: layout.knobSize / 2,
     borderColor: colorShades.purple.base,
-    position: "absolute",
+    position: 'absolute',
     left: -layout.knobSize / 2,
   },
 });

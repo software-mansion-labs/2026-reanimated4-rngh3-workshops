@@ -1,25 +1,25 @@
-import React from "react";
+import React from 'react';
 import {
   StyleProp,
   StyleSheet,
   TextInput,
   TextInputProps,
   TextStyle,
-} from "react-native";
+} from 'react-native';
 import Animated, {
   AnimatedStyle,
   SharedValue,
   useAnimatedProps,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
-Animated.addWhitelistedNativeProps({ text: true });
+Animated.addWhitelistedNativeProps({text: true});
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 export function AnimatedText({
   style,
   text,
-  label = "",
+  label = '',
   decimals = 0,
 }: {
   style?: StyleProp<AnimatedStyle<StyleProp<TextStyle>>>;
@@ -47,9 +47,9 @@ export function AnimatedText({
 
 const styles = StyleSheet.create({
   text: {
-    color: "black",
+    color: 'black',
     flexGrow: 1,
-    width: "100%",
-    textAlign: "center",
+    width: '100%',
+    textAlign: 'center',
   },
 });

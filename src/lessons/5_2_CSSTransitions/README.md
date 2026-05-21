@@ -4,16 +4,15 @@
 
 In this lesson we're going to use CSS Transitions to to make a simple button animation on press.
 
-| | Goal | Checkpoint |
-|---|---|---|
-| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
-| Step 1 | Move arrow icon on press with CSS transition | [`steps/step1.tsx`](./steps/step1.tsx) |
-| Final | Animate button background on press | [`steps/final.tsx`](./steps/final.tsx) |
+|        | Goal                                         | Checkpoint                                         |
+| ------ | -------------------------------------------- | -------------------------------------------------- |
+| Start  | Starting point                               | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Move arrow icon on press with CSS transition | [`steps/step1.tsx`](./steps/step1.tsx)             |
+| Final  | Animate button background on press           | [`steps/final.tsx`](./steps/final.tsx)             |
 
 ## Step 1 - Move the arrow to the right on press
 
 https://github.com/user-attachments/assets/c3221460-8789-4e64-ad59-255291a08fe4
-
 
 <details>
 <summary>
@@ -21,11 +20,11 @@ https://github.com/user-attachments/assets/c3221460-8789-4e64-ad59-255291a08fe4
 </summary>
 
 ```jsx
-import Animated from "react-native-reanimated";
+import Animated from 'react-native-reanimated';
 
 <Animated.View>
   <Icon name="arrow-right" size={24} color="white" />
-</Animated.View>
+</Animated.View>;
 ```
 
 </details>
@@ -40,9 +39,9 @@ import Animated from "react-native-reanimated";
 ```jsx
 <Animated.View
   style={{
-    transitionProperty: "transform",
+    transitionProperty: 'transform',
     transitionDuration: 150,
-    transform: [{ translateX: pressed ? 5 : 0 }],
+    transform: [{translateX: pressed ? 5 : 0}],
   }}
 >
   <Icon name="arrow-right" size={24} color="white" />
@@ -87,7 +86,7 @@ https://github.com/user-attachments/assets/c7b5ff97-54d0-4b49-a8e0-d03be69e7bf9
 <Animated.View
   style={[
     styles.selectSizeButtonBackground,
-    { width: layout.width, height: layout.height },
+    {width: layout.width, height: layout.height},
   ]}
 />
 ```
@@ -104,13 +103,13 @@ https://github.com/user-attachments/assets/c7b5ff97-54d0-4b49-a8e0-d03be69e7bf9
 <Animated.View
   style={[
     styles.selectSizeButtonBackground,
-    { width: layout.width, height: layout.height },
+    {width: layout.width, height: layout.height},
     {
-      transitionProperty: "transform",
+      transitionProperty: 'transform',
       transitionDuration: 150,
       transform: [
-        { translateX: pressed ? -5 : 0 },
-        { translateY: pressed ? -5 : 0 },
+        {translateX: pressed ? -5 : 0},
+        {translateY: pressed ? -5 : 0},
       ],
     },
   ]}

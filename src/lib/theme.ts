@@ -1,6 +1,6 @@
-import { Dimensions } from "react-native";
+import {Dimensions} from 'react-native';
 
-const { width } = Dimensions.get("screen");
+const {width} = Dimensions.get('screen');
 
 const maxVisibleItems = 2; // this is 0.5 - 1 - 0.5 combo
 
@@ -26,13 +26,13 @@ export const layout = {
 };
 
 export const colors = {
-  purple: "#683FC2",
-  blue: "#007AFF",
-  green: "#34C759",
-  primary: "#001A72",
-  accent: "#782AEB",
-  overlay: "rgba(98, 98, 98, 0.6)",
-  border: "#C1C6E5",
+  purple: '#683FC2',
+  blue: '#007AFF',
+  green: '#34C759',
+  primary: '#001A72',
+  accent: '#782AEB',
+  overlay: 'rgba(98, 98, 98, 0.6)',
+  border: '#C1C6E5',
 };
 
 type ColorShades = {
@@ -52,5 +52,5 @@ export const colorShades: ColorShades = Object.entries(colors).reduce(
     };
     return acc;
   },
-  {} as ColorShades
+  {} as ColorShades,
 );

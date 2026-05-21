@@ -2,12 +2,12 @@
 
 https://user-images.githubusercontent.com/2805320/236633815-8a714b8d-97d0-4b26-b04e-1e1b5bbf8c0d.MP4
 
-| | Goal | Checkpoint |
-|---|---|---|
-| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
-| Step 1 | Add tap gesture with scale animation | [`steps/step1.tsx`](./steps/step1.tsx) |
-| Step 2 | Combine tap and pan gestures | [`steps/step2.tsx`](./steps/step2.tsx) |
-| Final | Pan only with derived scale value | [`steps/final.tsx`](./steps/final.tsx) |
+|        | Goal                                 | Checkpoint                                         |
+| ------ | ------------------------------------ | -------------------------------------------------- |
+| Start  | Starting point                       | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
+| Step 1 | Add tap gesture with scale animation | [`steps/step1.tsx`](./steps/step1.tsx)             |
+| Step 2 | Combine tap and pan gestures         | [`steps/step2.tsx`](./steps/step2.tsx)             |
+| Final  | Pan only with derived scale value    | [`steps/final.tsx`](./steps/final.tsx)             |
 
 ## Step 1 - Add tap gesture to the knob
 
@@ -80,7 +80,7 @@ const animatedStyle = useAnimatedStyle(() => {
       scale.value,
       [1, 2],
       [layout.knobSize / 2, 2],
-      Extrapolation.CLAMP
+      Extrapolation.CLAMP,
     ),
     transform: [
       {
@@ -99,10 +99,7 @@ apply this style to the knob
 </summary>
 
 ```jsx
-<Animated.View
-  style={[styles.knob, animatedStyle]}
-  hitSlop={hitSlop}
-/>
+<Animated.View style={[styles.knob, animatedStyle]} hitSlop={hitSlop} />
 ```
 
 </details>
@@ -152,12 +149,12 @@ add onChange method and change x value based on `changeX`
 })
 ```
 
-
 </details>
 
 :::tip
 The reason why we're using `changeX` instead of `translationX` is that we would like to start from where we left when the gesture is triggered again (aka when we start panning again), in other words it keeps the knob in place and next time will move from the current position
 :::
+
 <details>
 <summary>
 when gesture has finished, bring back the knob `scale` to 1.

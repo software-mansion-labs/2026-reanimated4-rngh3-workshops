@@ -2,15 +2,15 @@
 
 https://github.com/software-mansion-labs/appjs-2024-workshop-reanimated/assets/2805320/2d4ab5c7-3e0e-4657-8d23-4a1708ae11ca
 
-| | Goal | Checkpoint |
-|---|---|---|
-| Start | Starting point | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx) |
-| Step 1 | Listen to scroll with useAnimatedScrollHandler | [`steps/step1.tsx`](./steps/step1.tsx) |
-| Step 2 | Normalize scrollX to index-based value | [`steps/step2.tsx`](./steps/step2.tsx) |
-| Step 3 | Animate items with interpolate | [`steps/step3.tsx`](./steps/step3.tsx) |
-| Final | Manual clamp for scale animation | [`steps/final.tsx`](./steps/final.tsx) |
-| Bonus start | Starting point for sensors bonus | [`steps/bonus_boilerplate.tsx`](./steps/bonus_boilerplate.tsx) |
-| Bonus | Sensors parallax with rotation | [`steps/bonus.tsx`](./steps/bonus.tsx) |
+|             | Goal                                           | Checkpoint                                                     |
+| ----------- | ---------------------------------------------- | -------------------------------------------------------------- |
+| Start       | Starting point                                 | [`steps/boilerplate.tsx`](./steps/boilerplate.tsx)             |
+| Step 1      | Listen to scroll with useAnimatedScrollHandler | [`steps/step1.tsx`](./steps/step1.tsx)                         |
+| Step 2      | Normalize scrollX to index-based value         | [`steps/step2.tsx`](./steps/step2.tsx)                         |
+| Step 3      | Animate items with interpolate                 | [`steps/step3.tsx`](./steps/step3.tsx)                         |
+| Final       | Manual clamp for scale animation               | [`steps/final.tsx`](./steps/final.tsx)                         |
+| Bonus start | Starting point for sensors bonus               | [`steps/bonus_boilerplate.tsx`](./steps/bonus_boilerplate.tsx) |
+| Bonus       | Sensors parallax with rotation                 | [`steps/bonus.tsx`](./steps/bonus.tsx)                         |
 
 ## Step 1 - Scroll events
 
@@ -40,7 +40,7 @@ import Animated from 'react-native-reanimated';
 </summary>
 
 ```jsx
-import { useSharedValue } from "react-native-reanimated";
+import {useSharedValue} from 'react-native-reanimated';
 
 export function Interpolation() {
   const scrollX = useSharedValue(0);
@@ -56,16 +56,16 @@ export function Interpolation() {
 </summary>
 
 ```jsx
-import { useAnimatedScrollHandler } from "react-native-reanimated";
+import {useAnimatedScrollHandler} from 'react-native-reanimated';
 
 // shorthand notation
-const onScroll = useAnimatedScrollHandler((e) => {
+const onScroll = useAnimatedScrollHandler(e => {
   scrollX.value = e.contentOffset.x;
 });
 
 // targeting specifically onScroll
 const onScroll = useAnimatedScrollHandler({
-  onScroll: (e) => {
+  onScroll: e => {
     scrollX.value = e.contentOffset.x;
   },
 });
@@ -79,7 +79,7 @@ const onScroll = useAnimatedScrollHandler({
 </summary>
 
 ```jsx
-import Animated from "react-native-reanimated";
+import Animated from 'react-native-reanimated';
 
 <Animated.FlatList
   data={items}
@@ -110,7 +110,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
 Update `ItemProps` type to receive `scrollX`:
 
 ```tsx
-import { SharedValue } from "react-native-reanimated";
+import {SharedValue} from 'react-native-reanimated';
 
 type ItemProps = ListRenderItemInfo<ItemType> & {
   scrollX: SharedValue<number>;
@@ -134,22 +134,21 @@ https://github.com/software-mansion-labs/appjs-2024-workshop-reanimated/assets/2
   <b>[1]</b> Let's modify the scrollX to move by index, instead of the actual scroll offset.
   In this way we are going to get the current active index from the slide / carousel.
 
+This is helpful because you can visualize the interpolation by index. Each slide from `renderItem` will receive it's index from the entire list, based on which we're going to use the `interpolate` method to style it.
 
-  This is helpful because you can visualize the interpolation by index. Each slide from `renderItem` will receive it's index from the entire list, based on which we're going to use the `interpolate` method to style it.
 </summary>
 
 ```tsx
 import {
   useSharedValue,
   useAnimatedScrollHandler,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 const scrollX = useSharedValue(0);
-const onScroll = useAnimatedScrollHandler((e) => {
+const onScroll = useAnimatedScrollHandler(e => {
   scrollX.value = e.contentOffset.x / (layout.itemSize + layout.spacing);
 });
 ```
-
 
 </details>
 :::tip
@@ -162,7 +161,7 @@ You already have the item size (width, in our case because we're using a horizon
 </summary>
 
 ```tsx
-import { Animated } from "react-native-reanimated";
+import {Animated} from 'react-native-reanimated';
 
 <Animated.FlatList
   scrollEventThrottle={16.67}
@@ -171,10 +170,10 @@ import { Animated } from "react-native-reanimated";
 />;
 ```
 
-
 :::tip
 `16.67` means `60 times per second`, and the equation is `1000 / 60` -> how many frames per second do you want to receive from the scroll event.
 :::
+
 </details>
 
 > Checkpoint: compare your work with [`steps/step2.tsx`](./steps/step2.tsx)
@@ -223,7 +222,6 @@ export function Item({ item, index, scrollX }: ItemProps) {
 ```
 
 </details>
-
 
 <details>
 
@@ -295,8 +293,6 @@ export function Item({ item, index, scrollX }: ItemProps) {
 
 </details>
 
-
-
 > Checkpoint: compare your work with [`steps/step3.tsx`](./steps/step3.tsx)
 
 ## Step 4 - Manual clamp of animation
@@ -343,7 +339,6 @@ export function Item({ item, index, scrollX }: ItemProps) {
 
 </details>
 
-
 <details>
 
 <summary>
@@ -363,7 +358,6 @@ import Animated from "react-native-reanimated";
 ```
 
 </details>
-
 
 > Checkpoint: compare your work with [`steps/final.tsx`](./steps/final.tsx)
 
@@ -389,7 +383,7 @@ We are going to extend the `FlatList` CellRendererComponent, in this way, we can
 </summary>
 
 ```jsx
-import { useAnimatedSensor, SensorType } from "react-native-reanimated";
+import {useAnimatedSensor, SensorType} from 'react-native-reanimated';
 
 const sensor = useAnimatedSensor(SensorType.ROTATION, {
   interval: 20,
@@ -406,17 +400,17 @@ const sensor = useAnimatedSensor(SensorType.ROTATION, {
 
 ```jsx
 const rotateX = useDerivedValue(() => {
-  const { roll } = sensor.sensor.value;
+  const {roll} = sensor.sensor.value;
   const angle = clamp(roll, -Math.PI / 6, Math.PI / 6);
-  return withSpring(-angle, { damping: 300 });
+  return withSpring(-angle, {damping: 300});
 });
 const rotateY = useDerivedValue(() => {
-  const { pitch } = sensor.sensor.value;
+  const {pitch} = sensor.sensor.value;
   // const angle = clamp(pitch, -Math.PI / 6, Math.PI / 6);
   // Compensate the "default" angle that a user might hold the phone at :)
   // 40 degrees to radians
   const angle = clamp(pitch, -Math.PI / 4, Math.PI) - 40 * (Math.PI / 180);
-  return withSpring(-angle, { damping: 300 });
+  return withSpring(-angle, {damping: 300});
 });
 ```
 
@@ -427,9 +421,10 @@ const rotateY = useDerivedValue(() => {
 <summary>
   <b>[4]</b> Apply `rotateX` and `rotateY` to the `<Animated.View />`.
 
-  :::tip
-  To apply the animation only to the current selected/active item, you can use `interpolate` with `index-1, index, index+1` and add the `rotateX/Y` only for `index` `outputRange`.
-  :::
+:::tip
+To apply the animation only to the current selected/active item, you can use `interpolate` with `index-1, index, index+1` and add the `rotateX/Y` only for `index` `outputRange`.
+:::
+
 </summary>
 
 ```jsx
@@ -445,7 +440,7 @@ const stylez = useAnimatedStyle(() => {
           scrollX.value,
           [index - 1, index, index + 1],
           [0, rotateX.value, 0],
-          Extrapolation.CLAMP
+          Extrapolation.CLAMP,
         )}rad`,
       },
       {
@@ -453,7 +448,7 @@ const stylez = useAnimatedStyle(() => {
           scrollX.value,
           [index - 1, index, index + 1],
           [0, rotateY.value, 0],
-          Extrapolation.CLAMP
+          Extrapolation.CLAMP,
         )}rad`,
       },
     ],
@@ -471,10 +466,10 @@ const stylez = useAnimatedStyle(() => {
 
 ```jsx
 const translateX = useDerivedValue(() => {
-  return withSpring(-rotateX.value * 100, { damping: 300 });
+  return withSpring(-rotateX.value * 100, {damping: 300});
 });
 const translateY = useDerivedValue(() => {
-  return withSpring(rotateY.value * 100, { damping: 300 });
+  return withSpring(rotateY.value * 100, {damping: 300});
 });
 
 const stylez = useAnimatedStyle(() => {
@@ -490,7 +485,7 @@ const stylez = useAnimatedStyle(() => {
           scrollX.value,
           [index - 1, index, index + 1],
           [0, translateY.value, 0],
-          Extrapolation.CLAMP
+          Extrapolation.CLAMP,
         ),
       },
       {
@@ -498,7 +493,7 @@ const stylez = useAnimatedStyle(() => {
           scrollX.value,
           [index - 1, index, index + 1],
           [0, translateX.value, 0],
-          Extrapolation.CLAMP
+          Extrapolation.CLAMP,
         ),
       },
     ],

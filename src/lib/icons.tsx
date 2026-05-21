@@ -1,12 +1,8 @@
-import { colors } from "@/lib/theme";
-import { Path, Svg } from "react-native-svg";
+import {colors} from '@/lib/theme';
+import {Path, Svg} from 'react-native-svg';
 
 export const MicrophoneIcon = () => (
-  <Svg
-    width={24}
-    height={24}
-    fill="none"
-  >
+  <Svg width={24} height={24} fill="none">
     <Path
       stroke={colors.primary}
       strokeLinecap="round"
@@ -18,11 +14,7 @@ export const MicrophoneIcon = () => (
 );
 
 export const SendIcon = () => (
-  <Svg
-    width={24}
-    height={24}
-    fill="none"
-  >
+  <Svg width={24} height={24} fill="none">
     <Path
       stroke={colors.primary}
       strokeLinecap="round"
@@ -34,11 +26,7 @@ export const SendIcon = () => (
 );
 
 export const SettingsIcon = () => (
-  <Svg
-    width={24}
-    height={24}
-    fill="none"
-  >
+  <Svg width={24} height={24} fill="none">
     <Path
       stroke={colors.primary}
       strokeWidth={1.5}
@@ -53,11 +41,7 @@ export const SettingsIcon = () => (
 );
 
 export const ArrowLeftIcon = () => (
-  <Svg
-    width={24}
-    height={24}
-    fill="none"
-  >
+  <Svg width={24} height={24} fill="none">
     <Path
       stroke={colors.primary}
       strokeLinecap="round"

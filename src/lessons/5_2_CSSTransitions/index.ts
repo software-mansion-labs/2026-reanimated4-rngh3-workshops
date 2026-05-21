@@ -1,1 +1,1 @@
-export * from "./CSSTransitions";
+export * from './CSSTransitions';

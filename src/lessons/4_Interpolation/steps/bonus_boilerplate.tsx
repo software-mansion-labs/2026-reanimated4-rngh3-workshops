@@ -1,7 +1,7 @@
-import { AnimatedText } from "@/components/AnimatedText";
-import { Container } from "@/components/Container";
-import { items } from "@/lib/mock";
-import { colors, layout } from "@/lib/theme";
+import {AnimatedText} from '@/components/AnimatedText';
+import {Container} from '@/components/Container';
+import {items} from '@/lib/mock';
+import {colors, layout} from '@/lib/theme';
 import {
   CellRendererProps,
   FlatList,
@@ -9,7 +9,7 @@ import {
   ListRenderItemInfo,
   StyleSheet,
   Text,
-} from "react-native";
+} from 'react-native';
 import Animated, {
   AnimatedSensor,
   Extrapolation,
@@ -20,7 +20,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 type ItemType = (typeof items)[0];
 const AnimatedFlatList =
@@ -28,7 +28,7 @@ const AnimatedFlatList =
 
 export function Interpolation() {
   const scrollX = useSharedValue(0);
-  const onScroll = useAnimatedScrollHandler((e) => {
+  const onScroll = useAnimatedScrollHandler(e => {
     scrollX.value = e.contentOffset.x / (layout.itemSize + layout.spacing);
   });
   const sensor = null;
@@ -38,17 +38,17 @@ export function Interpolation() {
       <AnimatedFlatList
         data={items}
         horizontal
-        CellRendererComponent={(props) => (
+        CellRendererComponent={props => (
           <CellRenderer {...props} scrollX={scrollX} sensor={sensor} />
         )}
         contentContainerStyle={{
           gap: layout.spacing,
           paddingHorizontal: (layout.screenWidth - layout.itemSize) / 2,
-          alignItems: "center",
+          alignItems: 'center',
         }}
         snapToInterval={layout.itemSize + layout.spacing}
-        decelerationRate={"fast"}
-        renderItem={(props) => <Item {...props} scrollX={scrollX} />}
+        decelerationRate={'fast'}
+        renderItem={props => <Item {...props} scrollX={scrollX} />}
         onScroll={onScroll}
         scrollEventThrottle={1000 / 60}
       />
@@ -64,7 +64,7 @@ type CellRendererItemProps = CellRendererProps<ItemType> & {
   sensor: AnimatedSensor<ValueRotation>;
 };
 
-export function Item({ item, index, scrollX }: ItemProps) {
+export function Item({item, index, scrollX}: ItemProps) {
   const stylez = useAnimatedStyle(() => {
     return {
       backgroundColor: interpolateColor(
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     width: layout.itemSize,
     height: layout.itemSize * 1.67,
     borderRadius: layout.radius,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     padding: layout.spacing,
     backgroundColor: colors.overlay,
   },

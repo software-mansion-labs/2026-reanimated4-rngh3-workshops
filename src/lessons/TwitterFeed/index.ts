@@ -1,1 +1,1 @@
-export { TwitterFeedLesson } from "./TwitterFeed";
+export {TwitterFeedLesson} from './TwitterFeed';

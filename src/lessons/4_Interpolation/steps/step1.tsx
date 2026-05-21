@@ -1,19 +1,19 @@
-import { AnimatedText } from "@/components/AnimatedText";
-import { Container } from "@/components/Container";
-import { items } from "@/lib/mock";
-import { colors, layout } from "@/lib/theme";
-import { ListRenderItemInfo, StyleSheet, Text, View } from "react-native";
+import {AnimatedText} from '@/components/AnimatedText';
+import {Container} from '@/components/Container';
+import {items} from '@/lib/mock';
+import {colors, layout} from '@/lib/theme';
+import {ListRenderItemInfo, StyleSheet, Text, View} from 'react-native';
 import Animated, {
   SharedValue,
   useAnimatedScrollHandler,
   useSharedValue,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 type ItemType = (typeof items)[0];
 
 export function Interpolation() {
   const scrollX = useSharedValue(0);
-  const onScroll = useAnimatedScrollHandler((e) => {
+  const onScroll = useAnimatedScrollHandler(e => {
     scrollX.value = e.contentOffset.x;
   });
   return (
@@ -26,8 +26,8 @@ export function Interpolation() {
           paddingHorizontal: (layout.screenWidth - layout.itemSize) / 2,
         }}
         snapToInterval={layout.itemSize + layout.spacing}
-        decelerationRate={"fast"}
-        renderItem={(props) => <Item {...props} scrollX={scrollX} />}
+        decelerationRate={'fast'}
+        renderItem={props => <Item {...props} scrollX={scrollX} />}
         onScroll={onScroll}
       />
     </Container>
@@ -38,7 +38,7 @@ type ItemProps = ListRenderItemInfo<ItemType> & {
   scrollX: SharedValue<number>;
 };
 
-export function Item({ item, index, scrollX }: ItemProps) {
+export function Item({item, index, scrollX}: ItemProps) {
   return (
     <View style={styles.item}>
       <Text>{item.label}</Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: layout.itemSize,
     height: layout.itemSize * 1.67,
     borderRadius: layout.radius,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     padding: layout.spacing,
     backgroundColor: colors.overlay,
   },

@@ -1,1 +1,1 @@
-export * from './BalloonSlider'
+export * from './BalloonSlider';
