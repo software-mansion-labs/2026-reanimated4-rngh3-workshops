@@ -2,6 +2,7 @@ import { AnimatedText } from "@/components/AnimatedText";
 import { Container } from "@/components/Container";
 import { items } from "@/lib/mock";
 import { colors, layout } from "@/lib/theme";
+import type { ComponentClass } from "react";
 import {
   CellRendererProps,
   FlatList,
@@ -27,8 +28,9 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 
-const AnimatedFlatList =
-  Animated.createAnimatedComponent<FlatListProps<ItemType>>(FlatList);
+const AnimatedFlatList = Animated.createAnimatedComponent(
+  FlatList as ComponentClass<FlatListProps<ItemType>>,
+);
 
 type ItemType = (typeof items)[0];
 

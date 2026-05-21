@@ -2,6 +2,7 @@ import { AnimatedText } from "@/components/AnimatedText";
 import { Container } from "@/components/Container";
 import { items } from "@/lib/mock";
 import { colors, layout } from "@/lib/theme";
+import type { ComponentClass } from "react";
 import {
   CellRendererProps,
   FlatList,
@@ -23,8 +24,9 @@ import Animated, {
 } from "react-native-reanimated";
 
 type ItemType = (typeof items)[0];
-const AnimatedFlatList =
-  Animated.createAnimatedComponent<FlatListProps<ItemType>>(FlatList);
+const AnimatedFlatList = Animated.createAnimatedComponent(
+  FlatList as ComponentClass<FlatListProps<ItemType>>,
+);
 
 export function Interpolation() {
   const scrollX = useSharedValue(0);
