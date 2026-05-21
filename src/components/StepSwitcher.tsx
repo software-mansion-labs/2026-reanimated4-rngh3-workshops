@@ -7,7 +7,6 @@ import {
   Platform,
   Pressable,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -17,6 +16,7 @@ import Animated, {
   FadeInUp,
   FadeOutDown,
   FadeOutUp,
+  LayoutAnimationConfig,
   LinearTransition,
   useAnimatedReaction,
   useAnimatedStyle,
@@ -209,14 +209,16 @@ export function StepSwitcher({
                       ]}
                       onPress={() => select(i)}
                     >
-                      <Text
+                      <Animated.Text
+                        entering={FadeInDown.springify().delay(i * 25)}
+                        exiting={FadeOutUp.springify()}
                         style={[
                           styles.listItemText,
                           i === activeIndex && styles.listItemTextActive,
                         ]}
                       >
                         {step.label}
-                      </Text>
+                      </Animated.Text>
                     </AnimatedPressable>
                   ))}
                 </Animated.View>
@@ -252,12 +254,23 @@ export function StepSwitcher({
                   style={styles.pillCenter}
                   onPress={() => setExpanded((v) => !v)}
                 >
-                  <Text style={styles.pillLabel} numberOfLines={1}>
-                    {steps[activeIndex].label}
-                  </Text>
-                  <Text style={styles.pillCount}>
+                  <LayoutAnimationConfig skipEntering>
+                    <Animated.Text
+                      style={styles.pillLabel}
+                      numberOfLines={1}
+                      key={`${steps[activeIndex].label}`}
+                      entering={FadeInDown.springify()}
+                      exiting={FadeOutUp.springify()}
+                    >
+                      {steps[activeIndex].label}
+                    </Animated.Text>
+                  </LayoutAnimationConfig>
+                  <Animated.Text
+                    style={styles.pillCount}
+                    layout={layoutAnimation}
+                  >
                     {activeIndex + 1}/{steps.length}
-                  </Text>
+                  </Animated.Text>
                 </AnimatedPressable>
 
                 <AnimatedPressable
@@ -337,6 +350,7 @@ const styles = StyleSheet.create({
     borderRadius: PILL_H / 2,
     paddingHorizontal: 4,
     gap: 8,
+    overflow: "hidden",
   },
   pill: {
     flexDirection: "row",
