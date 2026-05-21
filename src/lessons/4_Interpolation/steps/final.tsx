@@ -2,7 +2,6 @@ import { AnimatedText } from "@/components/AnimatedText";
 import { Container } from "@/components/Container";
 import { items } from "@/lib/mock";
 import { colors, layout } from "@/lib/theme";
-import React from "react";
 import { ListRenderItemInfo, StyleSheet, Text } from "react-native";
 import Animated, {
   SharedValue,
@@ -49,7 +48,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
       backgroundColor: interpolateColor(
         scrollX.value,
         [index - 1, index, index + 1],
-        [colors.purple, colors.overlay, colors.green]
+        [colors.purple, colors.overlay, colors.green],
       ),
       transform: [
         {
@@ -60,7 +59,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
             // [index - 1, index, index + 1, index + 2],
             // targeting more on when the items moves more by index on the right
             // [index - 2, index - 1, index, index + 1],
-            [0.9, 1, 0.9]
+            [0.9, 1, 0.9],
             // For this example, the next index+-2 will be 0.9-1 = -0.1 smaller than the current index
             // Clamp to 1 on left
             // [0.9, 1, 1],
@@ -76,7 +75,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
   return (
     <Animated.View style={[styles.item, stylez]}>
       <Text>{item.label}</Text>
-      <AnimatedText text={scrollX} label='offset: ' />
+      <AnimatedText text={scrollX} label="offset: " decimals={2} />
     </Animated.View>
   );
 }

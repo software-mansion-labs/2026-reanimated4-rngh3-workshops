@@ -7,10 +7,10 @@ import { colorShades, layout } from "@/lib/theme";
 import { useMemo, useRef } from "react";
 import { SectionList, StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 import Animated, {
   Extrapolation,
   SharedValue,
+  clamp,
   interpolate,
   measure,
   useAnimatedRef,
@@ -21,6 +21,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
+import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 
 type AlphabetLetterProps = {
   index: number;
@@ -40,7 +41,7 @@ const AlphabetLetter = ({
         scrollableIndex.value,
         [index - 1, index, index + 1],
         [0.5, 1, 0.5],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
       transform: [
         {
@@ -48,7 +49,7 @@ const AlphabetLetter = ({
             scrollableIndex.value,
             [index - 2, index, index + 2],
             [1, 1.5, 1],
-            Extrapolation.CLAMP
+            Extrapolation.CLAMP,
           ),
         },
       ],
@@ -67,7 +68,8 @@ const AlphabetLetter = ({
       ]}
       onLayout={(e) => {
         posY.value = e.nativeEvent.layout.y;
-      }}>
+      }}
+    >
       <Animated.Text
         style={[
           {
@@ -76,7 +78,8 @@ const AlphabetLetter = ({
             left: -20,
             fontWeight: "900",
           },
-        ]}>
+        ]}
+      >
         {letter.toUpperCase()}
       </Animated.Text>
     </Animated.View>
@@ -143,7 +146,7 @@ export function ScrollAnimationLesson() {
       y.value = clamp(
         (y.value += ev.changeY),
         alphabetLayout.y, // take into account the knob size
-        alphabetLayout.height - layout.knobSize
+        alphabetLayout.height - layout.knobSize,
       );
       // This is snapTo by the same interval. This will snap to the nearest
       // letter based on the knob position.
@@ -175,7 +178,7 @@ export function ScrollAnimationLesson() {
         knobScale.value,
         [0, 1],
         [layout.knobSize / 2, 2],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
       transform: [
         {
@@ -211,7 +214,8 @@ export function ScrollAnimationLesson() {
             right: 0,
             top: layout.indicatorSize,
             bottom: layout.indicatorSize,
-          }}>
+          }}
+        >
           <GestureDetector gesture={panGesture}>
             <Animated.View
               style={[styles.knob, animatedStyle]}
@@ -225,8 +229,9 @@ export function ScrollAnimationLesson() {
               width: 20,
               justifyContent: "space-around",
             }}
-            pointerEvents='box-none'
-            ref={alphabetRef}>
+            pointerEvents="box-none"
+            ref={alphabetRef}
+          >
             {[...Array(alphabet.length).keys()].map((i) => {
               return (
                 <AlphabetLetter

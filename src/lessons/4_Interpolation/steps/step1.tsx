@@ -2,7 +2,6 @@ import { AnimatedText } from "@/components/AnimatedText";
 import { Container } from "@/components/Container";
 import { items } from "@/lib/mock";
 import { colors, layout } from "@/lib/theme";
-import React from "react";
 import { ListRenderItemInfo, StyleSheet, Text, View } from "react-native";
 import Animated, {
   SharedValue,
@@ -43,7 +42,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
   return (
     <View style={styles.item}>
       <Text>{item.label}</Text>
-      <AnimatedText text={scrollX} label='offset: ' />
+      <AnimatedText text={scrollX} label="offset: " decimals={2} />
     </View>
   );
 }

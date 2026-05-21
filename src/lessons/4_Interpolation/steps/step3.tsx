@@ -2,7 +2,6 @@ import { AnimatedText } from "@/components/AnimatedText";
 import { Container } from "@/components/Container";
 import { items } from "@/lib/mock";
 import { colors, layout } from "@/lib/theme";
-import React from "react";
 import {
   FlatList,
   FlatListProps,
@@ -57,19 +56,19 @@ export function Item({ item, index, scrollX }: ItemProps) {
       opacity: interpolate(
         scrollX.value,
         [index - 1, index, index + 1],
-        [0.75, 1, 0.75]
+        [0.75, 1, 0.75],
       ),
       backgroundColor: interpolateColor(
         scrollX.value,
         [index - 1, index, index + 1],
-        [colors.purple, colors.overlay, colors.green]
+        [colors.purple, colors.overlay, colors.green],
       ),
     };
   });
   return (
     <Animated.View style={[styles.item, stylez]}>
       <Text>{item.label}</Text>
-      <AnimatedText text={scrollX} label='offset: ' />
+      <AnimatedText text={scrollX} label="offset: " decimals={2} />
     </Animated.View>
   );
 }

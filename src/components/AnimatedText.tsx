@@ -20,24 +20,27 @@ export function AnimatedText({
   style,
   text,
   label = "",
+  decimals = 0,
 }: {
   style?: StyleProp<AnimatedStyle<StyleProp<TextStyle>>>;
   label?: string;
+  decimals?: number;
   text: SharedValue<number>;
 }): React.ReactElement {
   const animatedProps = useAnimatedProps(() => {
     return {
-      text: `${label}${text.value.toFixed(1)}`,
+      text: `${label}${text.value.toFixed(decimals)}`,
     } as unknown as TextInputProps;
   });
 
   return (
     <AnimatedTextInput
-      underlineColorAndroid='transparent'
+      underlineColorAndroid="transparent"
       editable={false}
-      value={`${label}${text.value.toFixed(1)}`}
+      value={`${label}${text.value.toFixed(decimals)}`}
       style={[styles.text, style]}
       animatedProps={animatedProps}
+      multiline={false}
     />
   );
 }
@@ -45,5 +48,8 @@ export function AnimatedText({
 const styles = StyleSheet.create({
   text: {
     color: "black",
+    flexGrow: 1,
+    width: "100%",
+    textAlign: "center",
   },
 });

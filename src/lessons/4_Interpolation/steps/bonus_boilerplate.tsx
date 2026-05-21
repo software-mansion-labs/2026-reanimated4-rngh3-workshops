@@ -2,7 +2,6 @@ import { AnimatedText } from "@/components/AnimatedText";
 import { Container } from "@/components/Container";
 import { items } from "@/lib/mock";
 import { colors, layout } from "@/lib/theme";
-import React from "react";
 import {
   CellRendererProps,
   FlatList,
@@ -71,14 +70,14 @@ export function Item({ item, index, scrollX }: ItemProps) {
       backgroundColor: interpolateColor(
         scrollX.value,
         [index - 1, index, index + 1],
-        [colors.purple, colors.overlay, colors.green]
+        [colors.purple, colors.overlay, colors.green],
       ),
       transform: [
         {
           scale: interpolate(
             scrollX.value,
             [index - 1, index, index + 1],
-            [0.9, 1, 0.9]
+            [0.9, 1, 0.9],
           ),
         },
       ],
@@ -87,7 +86,7 @@ export function Item({ item, index, scrollX }: ItemProps) {
   return (
     <Animated.View style={[styles.item, stylez]}>
       <Text>{item.label}</Text>
-      <AnimatedText text={scrollX} label='offset: ' />
+      <AnimatedText text={scrollX} label="offset: " decimals={2} />
     </Animated.View>
   );
 }
@@ -103,7 +102,11 @@ export function CellRenderer({
   const stylez = useAnimatedStyle(() => {
     return {
       zIndex: Math.floor(
-        interpolate(scrollX.value, [index - 1, index, index + 1], [0, 10000, 0])
+        interpolate(
+          scrollX.value,
+          [index - 1, index, index + 1],
+          [0, 10000, 0],
+        ),
       ),
       transform: [
         {
@@ -114,7 +117,7 @@ export function CellRenderer({
             scrollX.value,
             [index - 1, index, index + 1],
             [15, 0, -15],
-            Extrapolation.CLAMP
+            Extrapolation.CLAMP,
           )}deg`,
         },
       ],

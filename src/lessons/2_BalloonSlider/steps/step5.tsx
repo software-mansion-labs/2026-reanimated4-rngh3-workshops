@@ -44,7 +44,7 @@ export function BalloonSliderLesson() {
         scale.value,
         [0, 1],
         [layout.knobSize / 2, 2],
-        Extrapolation.CLAMP
+        Extrapolation.CLAMP,
       ),
       transform: [
         {
@@ -71,13 +71,13 @@ export function BalloonSliderLesson() {
           translateY: interpolate(
             scale.value,
             [0, 1],
-            [0, -layout.indicatorSize]
+            [0, -layout.indicatorSize],
           ),
         },
         {
           rotate: `${Math.atan2(
             balloonSpringyX.value - x.value,
-            layout.indicatorSize * 2
+            layout.indicatorSize * 2,
           )}rad`,
         },
       ],
