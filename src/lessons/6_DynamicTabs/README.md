@@ -357,4 +357,4 @@ const { width } = useWindowDimensions()
 
 ## Next step
 
-**Go to: [Scroll Animation](../Bonus_ScrollAnimation/)**
+**Go to: [Music](../7_Music/)**

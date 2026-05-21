@@ -13,6 +13,7 @@
     "install:simulator:android": "eas build:run --platform=android --latest"
   },
   "dependencies": {
+    "@expo/vector-icons": "^15.0.2",
     "@shopify/react-native-skia": "2.6.2",
     "expo": "^56.0.2",
     "expo-linking": "~56.0.10",
