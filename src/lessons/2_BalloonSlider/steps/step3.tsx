@@ -28,7 +28,7 @@ export function BalloonSliderLesson() {
       scale.value = withSpring(1);
       balloonScale.value = withSpring(1);
     })
-    .onChange(ev => {
+    .onChange((ev) => {
       const size = measure(aRef);
       x.value = clamp((x.value += ev.changeX), 0, size.width);
     })

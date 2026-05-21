@@ -24,7 +24,7 @@ export function BalloonSliderLesson() {
     .onStart(() => {
       scale.value = withSpring(1);
     })
-    .onChange(ev => {
+    .onChange((ev) => {
       x.value += ev.changeX;
     })
     .onEnd(() => {

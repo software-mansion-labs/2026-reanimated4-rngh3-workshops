@@ -94,7 +94,7 @@ export function BalloonSliderLesson() {
     .onStart(() => {
       scale.value = withSpring(1);
     })
-    .onChange(ev => {
+    .onChange((ev) => {
       const size = measure(aRef);
       if (!size) {
         return;
@@ -113,7 +113,7 @@ export function BalloonSliderLesson() {
     () => {
       return isTouching.value ? undefined : GRAVITY * Math.sin(sensor.value.x);
     },
-    gravity => {
+    (gravity) => {
       if (gravity !== undefined) {
         const size = measure(aRef);
         if (!size) {

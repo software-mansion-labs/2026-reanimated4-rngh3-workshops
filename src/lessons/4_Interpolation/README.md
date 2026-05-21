@@ -59,13 +59,13 @@ export function Interpolation() {
 import { useAnimatedScrollHandler } from "react-native-reanimated";
 
 // shorthand notation
-const onScroll = useAnimatedScrollHandler(e => {
+const onScroll = useAnimatedScrollHandler((e) => {
   scrollX.value = e.contentOffset.x;
 });
 
 // targeting specifically onScroll
 const onScroll = useAnimatedScrollHandler({
-  onScroll: e => {
+  onScroll: (e) => {
     scrollX.value = e.contentOffset.x;
   },
 });
@@ -145,7 +145,7 @@ import {
 } from "react-native-reanimated";
 
 const scrollX = useSharedValue(0);
-const onScroll = useAnimatedScrollHandler(e => {
+const onScroll = useAnimatedScrollHandler((e) => {
   scrollX.value = e.contentOffset.x / (layout.itemSize + layout.spacing);
 });
 ```

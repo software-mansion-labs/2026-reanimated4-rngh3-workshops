@@ -115,7 +115,7 @@ const tabMeasurements = useSharedValue<MeasuredDimensions | null>(null);
 // Where we display the tab add `onActive` prop as such
 <Tab
   // the other props
-  onActive={measurements => {
+  onActive={(measurements) => {
     tabMeasurements.value = measurements;
   }}
 />
@@ -294,7 +294,7 @@ change `selectedTabIndex` whenever the slide inside the `FlatList` has changed (
 ```tsx
 <FlatList
   // other props
-  onMomentumScrollEnd={ev => {
+  onMomentumScrollEnd={(ev) => {
     setSelectedTabIndex(Math.floor(ev.nativeEvent.contentOffset.x / width));
   }}
 />

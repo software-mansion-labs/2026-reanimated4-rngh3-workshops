@@ -54,7 +54,7 @@ export function AdvancedLayoutAnimationsLesson() {
             </Animated.Text>
           )}
           <AnimatedPressable
-            onPress={() => setIsOpen(isOpen => !isOpen)}
+            onPress={() => setIsOpen((isOpen) => !isOpen)}
             layout={LinearTransition.duration(_duration)}
           >
             {isOpen ? (

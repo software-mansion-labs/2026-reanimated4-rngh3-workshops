@@ -15,7 +15,7 @@ export function SelectSizeButton() {
     >
       <View
         style={styles.selectSizeButton}
-        onLayout={e => setLayout(e.nativeEvent.layout)}
+        onLayout={(e) => setLayout(e.nativeEvent.layout)}
       >
         <Text style={styles.selectSizeButtonText}>Select Size</Text>
         <Animated.View

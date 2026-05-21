@@ -119,7 +119,7 @@ const aRef = useAnimatedRef<View>();
 We can use `clamp` method from `react-native-reanimated` helper file to implement `onChange` handler as follows:
 
 ```tsx
-const panGesture = Gesture.Pan().onChange(ev => {
+const panGesture = Gesture.Pan().onChange((ev) => {
   const size = measure(aRef);
   x.value = clamp((x.value += ev.changeX), 0, size.width);
 });
@@ -426,7 +426,7 @@ useAnimatedReaction(
   () => {
     return calculateAccelerationBasedOnRotation(sensor.value.x);
   },
-  acceleration => {
+  (acceleration) => {
     // start gravity animation
     x.value = withGravity({ acceleration });
   },
@@ -510,7 +510,7 @@ useAnimatedReaction(
   () => {
     return GRAVITY * Math.sin(sensor.value.x);
   },
-  gravity => {
+  (gravity) => {
     const size = measure(aRef);
     x.value = withGravity({
       clamp: [0, size.width],
@@ -554,7 +554,7 @@ useAnimatedReaction(
   () => {
     return isTouching.value ? undefined : GRAVITY * Math.sin(sensor.value.x);
   },
-  gravity => {
+  (gravity) => {
     if (gravity !== undefined) {
       x.value = withGravity({
         acceleration: gravity,

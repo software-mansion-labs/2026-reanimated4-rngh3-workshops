@@ -34,7 +34,7 @@ export function AdvancedLayoutAnimationsLesson() {
       >
         <View style={styles.rowBetween}>
           {isOpen && <Text style={styles.heading}>App.js Workshop</Text>}
-          <Pressable onPress={() => setIsOpen(isOpen => !isOpen)}>
+          <Pressable onPress={() => setIsOpen((isOpen) => !isOpen)}>
             {isOpen ? (
               <Entypo
                 key="close"

@@ -12,7 +12,7 @@ const myImages = images.splice(0, 6);
 export function Cards() {
   return (
     <View style={styles.container}>
-      {myImages.map(image => (
+      {myImages.map((image) => (
         <Card key={image.id} image={{ uri: image.originalUri }} />
       ))}
     </View>

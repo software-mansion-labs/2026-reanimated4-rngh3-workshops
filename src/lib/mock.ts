@@ -31,13 +31,13 @@ export type ContactSection = {
 
 export const contacts: ContactSection[] = [
   ...Array(alphabet.length).keys(),
-].map(sectionIndex => {
+].map((sectionIndex) => {
   const letter = alphabet.charAt(sectionIndex).toUpperCase();
   return {
     title: letter,
     index: sectionIndex,
     key: `list-${letter}`,
-    data: [...Array(Math.floor(Math.random() * 7) + 5).keys()].map(i => ({
+    data: [...Array(Math.floor(Math.random() * 7) + 5).keys()].map((i) => ({
       name: `${letter}-Contact ${i + 1}`,
       avatar: randomAvatar(),
     })),
@@ -55,7 +55,7 @@ export type Post = {
   originalUri: string;
 };
 
-export const images: Post[] = [...Array(30).keys()].map(index => {
+export const images: Post[] = [...Array(30).keys()].map((index) => {
   const _baseUri = `https://picsum.photos/id/${index + 10}`;
   return {
     id: index + 1,
@@ -128,7 +128,7 @@ export const messages: MessageType[] = [
   },
 ];
 
-export const items = [...Array(16).keys()].map(index => {
+export const items = [...Array(16).keys()].map((index) => {
   return {
     key: `item-${index}`,
     label: `slide index: ${index}`,

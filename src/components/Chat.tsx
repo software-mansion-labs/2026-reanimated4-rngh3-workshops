@@ -10,7 +10,7 @@ export function Chat() {
       inverted
       contentContainerStyle={styles.reverse}
       renderItem={({ item }) => <Message key={item.id} message={item} />}
-      keyExtractor={item => item.id}
+      keyExtractor={(item) => item.id}
     />
   );
 }

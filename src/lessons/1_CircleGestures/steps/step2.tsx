@@ -26,7 +26,7 @@ export function CircleGesturesLesson() {
 
   const panGesture = Gesture.Pan()
     .averageTouches(true)
-    .onChange(ev => {
+    .onChange((ev) => {
       x.value += ev.changeX;
     })
     .onEnd(() => {

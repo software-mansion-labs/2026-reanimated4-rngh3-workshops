@@ -31,7 +31,7 @@ export function Interpolation() {
         snapToInterval={layout.itemSize + layout.spacing}
         // This is to snap faster to the closest item
         decelerationRate={"fast"}
-        renderItem={props => <Item {...props} />}
+        renderItem={(props) => <Item {...props} />}
       />
     </Container>
   );

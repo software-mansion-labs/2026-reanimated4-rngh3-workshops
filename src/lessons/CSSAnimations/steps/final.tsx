@@ -47,7 +47,7 @@ export function CSSAnimationsLesson() {
       scale.value = withTiming(1.1, { duration: 500 });
     })
     .onStart(() => {
-      scale.value = withTiming(1, { duration: 150 }, finished => {
+      scale.value = withTiming(1, { duration: 150 }, (finished) => {
         if (finished) {
           scheduleOnRN(setEditMode, true);
         }

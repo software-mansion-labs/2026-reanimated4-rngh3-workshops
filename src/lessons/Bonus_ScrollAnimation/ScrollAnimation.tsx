@@ -69,7 +69,7 @@ export function ScrollAnimationLesson() {
     .onBegin(() => {
       isInteracting.value = true;
     })
-    .onChange(ev => {
+    .onChange((ev) => {
       // take into account the knob size
       y.value += ev.changeY;
     })
@@ -138,7 +138,7 @@ export function ScrollAnimationLesson() {
             }}
             pointerEvents="box-none"
           >
-            {[...Array(alphabet.length).keys()].map(i => {
+            {[...Array(alphabet.length).keys()].map((i) => {
               return (
                 <AlphabetLetter key={i} letter={alphabet.charAt(i)} index={i} />
               );

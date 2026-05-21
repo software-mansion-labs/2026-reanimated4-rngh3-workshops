@@ -5,7 +5,7 @@ import { Image, Text, TextStyle, View } from "react-native";
 export function Creators() {
   return (
     <View style={{ flexDirection: "row", flex: 1 }}>
-      {friends.map(avatar => (
+      {friends.map((avatar) => (
         <Image
           key={avatar}
           source={{ uri: avatar }}

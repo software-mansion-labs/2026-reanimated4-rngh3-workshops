@@ -44,7 +44,7 @@ export function AdvancedLayoutAnimationsLesson() {
         <View style={styles.rowBetween}>
           {isOpen && <Text style={styles.heading}>App.js Workshop</Text>}
           <AnimatedPressable
-            onPress={() => setIsOpen(isOpen => !isOpen)}
+            onPress={() => setIsOpen((isOpen) => !isOpen)}
             layout={LinearTransition.duration(_duration)}
           >
             {isOpen ? (

@@ -89,11 +89,11 @@ function useDragSwitcher(bottomOffset: number) {
   );
 
   const pan = Gesture.Pan()
-    .onChange(e => {
+    .onChange((e) => {
       x.value += e.changeX;
       y.value += e.changeY;
     })
-    .onEnd(e => {
+    .onEnd((e) => {
       if (pillWidth.value === 0) return;
 
       // Pill visual center X = translateX + half-width (pill starts at left: 0).
@@ -250,7 +250,7 @@ export function StepSwitcher({
                 <AnimatedPressable
                   layout={layoutAnimation}
                   style={styles.pillCenter}
-                  onPress={() => setExpanded(v => !v)}
+                  onPress={() => setExpanded((v) => !v)}
                 >
                   <Text style={styles.pillLabel} numberOfLines={1}>
                     {steps[activeIndex].label}

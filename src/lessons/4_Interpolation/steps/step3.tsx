@@ -24,7 +24,7 @@ const AnimatedFlatList =
 
 export function Interpolation() {
   const scrollX = useSharedValue(0);
-  const onScroll = useAnimatedScrollHandler(e => {
+  const onScroll = useAnimatedScrollHandler((e) => {
     scrollX.value = e.contentOffset.x / (layout.itemSize + layout.spacing);
   });
   return (
@@ -38,7 +38,7 @@ export function Interpolation() {
         }}
         snapToInterval={layout.itemSize + layout.spacing}
         decelerationRate={"fast"}
-        renderItem={props => <Item {...props} scrollX={scrollX} />}
+        renderItem={(props) => <Item {...props} scrollX={scrollX} />}
         onScroll={onScroll}
         scrollEventThrottle={1000 / 60}
       />

@@ -106,7 +106,7 @@ export function DynamicTabsLesson({
             key={`tab-${tab}-${index}`}
             name={tab}
             isActiveTabIndex={index === selectedTabIndex}
-            onActive={measurements => {
+            onActive={(measurements) => {
               tabMeasurements.value = measurements;
             }}
           />

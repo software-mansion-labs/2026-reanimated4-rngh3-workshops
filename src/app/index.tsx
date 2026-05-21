@@ -9,7 +9,7 @@ export default function HomeScreen() {
   return (
     <Container centered={false}>
       <ScrollView contentContainerStyle={{ padding: layout.spacing * 2 }}>
-        {routes.map(route => (
+        {routes.map((route) => (
           <TouchableOpacity
             // @ts-ignore
             onPress={() => router.navigate(route.href)}

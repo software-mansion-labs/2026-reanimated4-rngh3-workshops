@@ -66,7 +66,7 @@ const AlphabetLetter = ({
         },
         styles,
       ]}
-      onLayout={e => {
+      onLayout={(e) => {
         posY.value = e.nativeEvent.layout.y;
       }}
     >
@@ -138,7 +138,7 @@ export function ScrollAnimationLesson() {
     .onBegin(() => {
       isInteracting.value = true;
     })
-    .onChange(ev => {
+    .onChange((ev) => {
       const alphabetLayout = measure(alphabetRef);
       if (!alphabetLayout) {
         return;
@@ -232,7 +232,7 @@ export function ScrollAnimationLesson() {
             pointerEvents="box-none"
             ref={alphabetRef}
           >
-            {[...Array(alphabet.length).keys()].map(i => {
+            {[...Array(alphabet.length).keys()].map((i) => {
               return (
                 <AlphabetLetter
                   key={i}

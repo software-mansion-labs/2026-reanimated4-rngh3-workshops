@@ -338,7 +338,7 @@ function FadingCell({
   return (
     <Animated.View
       style={[style, animStyle]}
-      onLayout={e => {
+      onLayout={(e) => {
         yOffset.value = e.nativeEvent.layout.y;
       }}
       {...rest}
@@ -360,7 +360,7 @@ type TweetPageProps = {
 function TweetPage({ tabsHeight }: TweetPageProps) {
   const scrollY = useSharedValue(0);
 
-  const onScroll = useAnimatedScrollHandler(e => {
+  const onScroll = useAnimatedScrollHandler((e) => {
     scrollY.value = e.contentOffset.y;
   });
 
@@ -383,7 +383,7 @@ function TweetPage({ tabsHeight }: TweetPageProps) {
   return (
     <Animated.FlatList
       data={tweets}
-      keyExtractor={item => item.id}
+      keyExtractor={(item) => item.id}
       onScroll={onScroll}
       scrollEventThrottle={1000 / 60}
       CellRendererComponent={CellRenderer as any}
@@ -432,7 +432,7 @@ function ComposeFAB() {
           </Animated.Text>
         )}
         <AnimatedPressable
-          onPress={() => setIsOpen(v => !v)}
+          onPress={() => setIsOpen((v) => !v)}
           layout={LinearTransition.duration(_fabDuration)}
         >
           {isOpen ? (
@@ -555,7 +555,7 @@ export function TwitterFeedLesson() {
               key={tab}
               name={tab}
               isActiveTabIndex={index === selectedTab}
-              onActive={measurements => handleTabActive(index, measurements)}
+              onActive={(measurements) => handleTabActive(index, measurements)}
             />
           ))}
           <Indicator measurements={tabMeasurements} />
@@ -567,7 +567,7 @@ export function TwitterFeedLesson() {
       <FlatList
         ref={pagerRef}
         data={TABS}
-        keyExtractor={tab => tab}
+        keyExtractor={(tab) => tab}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}

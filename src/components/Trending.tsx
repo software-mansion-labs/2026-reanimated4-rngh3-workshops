@@ -28,7 +28,7 @@ export function Trending() {
         Trending searches
       </Text>
       <View style={styles.wrapper}>
-        {trending.map(item => (
+        {trending.map((item) => (
           <TouchableOpacity
             key={item}
             style={[

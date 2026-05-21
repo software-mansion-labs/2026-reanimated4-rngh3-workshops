@@ -24,7 +24,7 @@ export function CircleGesturesLesson() {
     .onBegin(() => {
       isInteracting.value = true;
     })
-    .onChange(ev => {
+    .onChange((ev) => {
       x.value += ev.changeX;
     })
     .onEnd(() => {

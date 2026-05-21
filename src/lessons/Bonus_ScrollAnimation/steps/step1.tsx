@@ -124,7 +124,7 @@ export function ScrollAnimationLesson() {
     .onBegin(() => {
       isInteracting.value = true;
     })
-    .onChange(ev => {
+    .onChange((ev) => {
       const alphabetLayout = measure(alphabetRef);
       if (!alphabetLayout) {
         return;
@@ -216,7 +216,7 @@ export function ScrollAnimationLesson() {
             }}
             pointerEvents="box-none"
           >
-            {[...Array(alphabet.length).keys()].map(i => {
+            {[...Array(alphabet.length).keys()].map((i) => {
               return (
                 <AlphabetLetter
                   key={i}

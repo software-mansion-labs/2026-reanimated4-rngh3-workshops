@@ -135,7 +135,7 @@ function DynamicTabs({
           key={`tab-${tab}-${index}`}
           name={tab}
           isActiveTabIndex={index === selectedTabIndex}
-          onActive={measurements => {
+          onActive={(measurements) => {
             tabMeasurements.value = measurements;
             scrollToTab(index);
           }}
@@ -166,13 +166,13 @@ export function DynamicTabsLesson() {
     <Container style={{ padding: 0 }}>
       <DynamicTabs
         selectedTabIndex={0}
-        onChangeTab={tabIndex => {
+        onChangeTab={(tabIndex) => {
           console.log(`We have ${tabIndex} selected, now what?`);
         }}
       />
       <FlatList
         data={tabsList}
-        keyExtractor={item => item}
+        keyExtractor={(item) => item}
         horizontal
         pagingEnabled
         renderItem={({ item }) => {

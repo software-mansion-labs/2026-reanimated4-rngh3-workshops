@@ -172,7 +172,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 </summary>
 
 ```jsx
-<AnimatedPressable onPress={() => setIsOpen(isOpen => !isOpen)} />
+<AnimatedPressable onPress={() => setIsOpen((isOpen) => !isOpen)} />
 ```
 
 </details>
