@@ -1,4 +1,4 @@
-# The Reanimated Workshop – App.js Conference 2025
+# The Reanimated Workshop – App.js Conference 2026
 
 ## Hosted by
 
