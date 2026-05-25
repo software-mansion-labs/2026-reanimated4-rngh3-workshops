@@ -17,11 +17,6 @@ import {
   spacing,
 } from "@/lessons/7_Music/shared/data";
 
-import {
-  PAN_ACTIVATION_THRESHOLD,
-  SNAP_EXPAND_THRESHOLD,
-  VELOCITY_SNAP_THRESHOLD,
-} from "./layout";
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -35,32 +30,30 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   const position = useVariantPosition();
 
   const sheetStyle = useAnimatedStyle(() => {
-    const progressValue = progress.value;
-
     return {
       top: interpolate(
-        progressValue,
+        progress.value,
         [0, 1],
         [position.mini.top, position.full.top],
       ),
       bottom: interpolate(
-        progressValue,
+        progress.value,
         [0, 1],
         [position.mini.bottom, position.full.bottom],
       ),
       left: interpolate(
-        progressValue,
+        progress.value,
         [0, 1],
         [position.mini.left, position.full.left],
       ),
       right: interpolate(
-        progressValue,
+        progress.value,
         [0, 1],
         [position.mini.right, position.full.right],
       ),
-      borderRadius: interpolate(progressValue, [0, 1], [8, 0]),
+      borderRadius: interpolate(progress.value, [0, 1], [8, 0]),
       backgroundColor: interpolateColor(
-        progressValue,
+        progress.value,
         [0, 1],
         [colors.surfaceElevated, colors.background],
       ),
@@ -68,7 +61,6 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   });
 
   const pan = Gesture.Pan()
-    .activeOffsetY([-PAN_ACTIVATION_THRESHOLD, PAN_ACTIVATION_THRESHOLD])
     .onStart(() => {
       startProgress.value = progress.value;
     })
@@ -77,13 +69,10 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
       const next = startProgress.value + delta;
       progress.value = next < 0 ? 0 : next > 1 ? 1 : next;
     })
-    .onEnd((event) => {
-      const flickUp = event.velocityY < -VELOCITY_SNAP_THRESHOLD;
-      const flickDown = event.velocityY > VELOCITY_SNAP_THRESHOLD;
-      const shouldExpand =
-        flickUp || (!flickDown && progress.value > SNAP_EXPAND_THRESHOLD);
-
-      progress.value = withSpring(shouldExpand ? 1 : 0);
+    .onEnd(() => {
+      // a velocity threshold could also be used here
+      const shouldBeExpanded = progress.value > 0.5;
+      progress.value = withSpring(shouldBeExpanded ? 1 : 0);
     });
 
   if (!state.currentSong) {

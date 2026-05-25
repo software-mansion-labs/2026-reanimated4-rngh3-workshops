@@ -25,7 +25,7 @@ export {
   type PlayerVariant,
 } from "@/lessons/7_Music/shared/context";
 
-const SWAP = 0.5;
+const SWAP = 0.2;
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
   const progress = useSharedValue(0);
