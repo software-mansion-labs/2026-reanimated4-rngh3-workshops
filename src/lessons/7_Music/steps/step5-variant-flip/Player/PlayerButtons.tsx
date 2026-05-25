@@ -40,11 +40,6 @@ export function PlayerPlayPauseButton() {
         name={state.isPlaying ? "pause" : "play"}
         size={icon.size}
         color={icon.color}
-        style={
-          variant === "full" && !state.isPlaying
-            ? variantStyle.playIcon
-            : undefined
-        }
       />
     </Pressable>
   );
@@ -95,9 +90,6 @@ const variantStyles = {
       backgroundColor: colors.text,
       alignItems: "center",
       justifyContent: "center",
-    },
-    playIcon: {
-      marginLeft: 2,
     },
   }),
 };

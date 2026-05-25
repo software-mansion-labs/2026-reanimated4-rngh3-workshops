@@ -12,49 +12,21 @@ import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
-  const insets = useSafeAreaInsets();
+  const variant = state.isExpanded ? "full" : "mini";
+  const variantInsets = useVariantInsets(variant);
 
   if (!state.currentSong) {
     return null;
   }
 
-  const variant = state.isExpanded ? "full" : "mini";
   const variantStyle = variantStyles[variant];
 
   return (
     <Pressable
       onPress={variant === "mini" ? actions.expand : undefined}
-      style={[
-        styles.surface,
-        variantStyle.surface,
-        variant === "mini"
-          ? {
-              bottom: insets.bottom + spacing.two,
-              left: spacing.two,
-              right: spacing.two,
-              height: MINI_PLAYER_HEIGHT,
-            }
-          : {
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-            },
-      ]}
+      style={[styles.surface, variantStyle.surface, variantInsets.surface]}
     >
-      <View
-        style={
-          variant === "mini"
-            ? variantStyle.inner
-            : [
-                variantStyle.inner,
-                {
-                  paddingTop: insets.top + spacing.two,
-                  paddingBottom: insets.bottom + spacing.four,
-                },
-              ]
-        }
-      >
+      <View style={[styles.innerBase, variantStyle.inner, variantInsets.inner]}>
         <PlayerVariantProvider value={variant}>
           {children}
         </PlayerVariantProvider>
@@ -68,6 +40,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     overflow: "hidden",
   },
+  innerBase: {
+    flex: 1,
+  },
 });
 
 const variantStyles = {
@@ -78,7 +53,6 @@ const variantStyles = {
       boxShadow: "0px 0px 5px rgba(255, 255, 255, 0.5)",
     },
     inner: {
-      flex: 1,
       flexDirection: "row",
       alignItems: "center",
       paddingHorizontal: spacing.two,
@@ -88,14 +62,41 @@ const variantStyles = {
   }),
   full: StyleSheet.create({
     surface: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
       borderRadius: 0,
       backgroundColor: colors.background,
     },
     inner: {
-      flex: 1,
       flexDirection: "column",
       paddingHorizontal: spacing.four,
       gap: spacing.three,
     },
   }),
 };
+
+function useVariantInsets(variant: "mini" | "full") {
+  const insets = useSafeAreaInsets();
+
+  if (variant === "mini") {
+    return {
+      surface: {
+        bottom: insets.bottom + spacing.two,
+        left: spacing.two,
+        right: spacing.two,
+        height: MINI_PLAYER_HEIGHT,
+      },
+      inner: undefined,
+    };
+  }
+
+  return {
+    surface: undefined,
+    inner: {
+      paddingTop: insets.top + spacing.two,
+      paddingBottom: insets.bottom + spacing.four,
+    },
+  };
+}

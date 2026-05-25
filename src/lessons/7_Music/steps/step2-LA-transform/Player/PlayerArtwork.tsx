@@ -4,10 +4,8 @@ import Animated from "react-native-reanimated";
 
 import { colors } from "@/lessons/7_Music/shared/data";
 
-import { playerLayout } from "./layout";
+import { AnimatedImage, playerLayout } from "./layout";
 import { usePlayer, useVariant } from "./PlayerProvider";
-
-const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 export function PlayerArtwork() {
   const { state } = usePlayer();

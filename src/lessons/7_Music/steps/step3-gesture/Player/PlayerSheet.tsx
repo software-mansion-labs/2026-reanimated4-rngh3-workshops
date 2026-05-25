@@ -27,18 +27,15 @@ import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const { progress } = useAnimationMeta();
-  const insets = useSafeAreaInsets();
   const { height: screenHeight } = useWindowDimensions();
   const startProgress = useSharedValue(0);
   const variant = state.variant ?? "mini";
-  const variantStyle = variantStyles[variant];
-  const miniBottom = insets.bottom + spacing.two;
-  const miniLeft = spacing.two;
-  const miniRight = spacing.two;
-  const miniTop = screenHeight - miniBottom - MINI_PLAYER_HEIGHT;
+  const variantInsets = useVariantInsets(variant, screenHeight);
 
   const sheetStyle = useAnimatedStyle(() => {
     const progressValue = progress.value;
+    const { miniTop, miniBottom, miniLeft, miniRight } =
+      variantInsets.miniFrame;
 
     return {
       top: interpolate(progressValue, [0, 1], [miniTop, 0]),
@@ -77,6 +74,8 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     return null;
   }
 
+  const variantStyle = variantStyles[variant];
+
   return (
     <GestureDetector gesture={pan}>
       <Animated.View style={[styles.surface, sheetStyle]}>
@@ -85,17 +84,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
           style={styles.pressable}
         >
           <View
-            style={
-              variant === "mini"
-                ? variantStyle.inner
-                : [
-                    variantStyle.inner,
-                    {
-                      paddingTop: insets.top + spacing.two,
-                      paddingBottom: insets.bottom + spacing.four,
-                    },
-                  ]
-            }
+            style={[styles.innerBase, variantStyle.inner, variantInsets.inner]}
           >
             <PlayerVariantProvider value={variant}>
               {children}
@@ -108,19 +97,21 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
 }
 
 const styles = StyleSheet.create({
-  pressable: {
-    flex: 1,
-  },
   surface: {
     position: "absolute",
     overflow: "hidden",
+  },
+  pressable: {
+    flex: 1,
+  },
+  innerBase: {
+    flex: 1,
   },
 });
 
 const variantStyles = {
   mini: StyleSheet.create({
     inner: {
-      flex: 1,
       flexDirection: "row",
       alignItems: "center",
       paddingHorizontal: spacing.two,
@@ -130,10 +121,29 @@ const variantStyles = {
   }),
   full: StyleSheet.create({
     inner: {
-      flex: 1,
       flexDirection: "column",
       paddingHorizontal: spacing.four,
       gap: spacing.three,
     },
   }),
 };
+
+function useVariantInsets(variant: "mini" | "full", screenHeight: number) {
+  const insets = useSafeAreaInsets();
+
+  const miniBottom = insets.bottom + spacing.two;
+  const miniLeft = spacing.two;
+  const miniRight = spacing.two;
+  const miniTop = screenHeight - miniBottom - MINI_PLAYER_HEIGHT;
+
+  return {
+    inner:
+      variant === "full"
+        ? {
+            paddingTop: insets.top + spacing.two,
+            paddingBottom: insets.bottom + spacing.four,
+          }
+        : undefined,
+    miniFrame: { miniTop, miniBottom, miniLeft, miniRight },
+  };
+}

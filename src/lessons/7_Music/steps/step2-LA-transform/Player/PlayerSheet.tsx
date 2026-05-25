@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import Animated, {
   useAnimatedStyle,
   withTiming,
@@ -12,16 +12,14 @@ import {
   spacing,
 } from "@/lessons/7_Music/shared/data";
 
-import { playerLayout } from "./layout";
+import { AnimatedPressable, playerLayout } from "./layout";
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
-  const insets = useSafeAreaInsets();
   const variant = state.isExpanded ? "full" : "mini";
-  const variantStyle = variantStyles[variant];
+  const variantInsets = useVariantInsets(variant);
+
   const animatedSurfaceStyle = useAnimatedStyle(() => ({
     backgroundColor: withTiming(
       state.isExpanded ? colors.background : colors.surfaceElevated,
@@ -34,6 +32,8 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     return null;
   }
 
+  const variantStyle = variantStyles[variant];
+
   return (
     <AnimatedPressable
       layout={playerLayout}
@@ -41,35 +41,13 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
       style={[
         styles.surface,
         variantStyle.surface,
+        variantInsets.surface,
         animatedSurfaceStyle,
-        variant === "mini"
-          ? {
-              bottom: insets.bottom + spacing.two,
-              left: spacing.two,
-              right: spacing.two,
-              height: MINI_PLAYER_HEIGHT,
-            }
-          : {
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-            },
       ]}
     >
       <Animated.View
         layout={playerLayout}
-        style={
-          variant === "mini"
-            ? variantStyle.inner
-            : [
-                variantStyle.inner,
-                {
-                  paddingTop: insets.top + spacing.two,
-                  paddingBottom: insets.bottom + spacing.four,
-                },
-              ]
-        }
+        style={[styles.innerBase, variantStyle.inner, variantInsets.inner]}
       >
         <PlayerVariantProvider value={variant}>
           {children}
@@ -84,6 +62,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     overflow: "hidden",
   },
+  innerBase: {
+    flex: 1,
+  },
 });
 
 const variantStyles = {
@@ -92,7 +73,6 @@ const variantStyles = {
       boxShadow: "0px 0px 5px rgba(255, 255, 255, 0.5)",
     },
     inner: {
-      flex: 1,
       flexDirection: "row",
       alignItems: "center",
       paddingHorizontal: spacing.two,
@@ -101,12 +81,40 @@ const variantStyles = {
     },
   }),
   full: StyleSheet.create({
-    surface: {},
+    surface: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
     inner: {
-      flex: 1,
       flexDirection: "column",
       paddingHorizontal: spacing.four,
       gap: spacing.three,
     },
   }),
 };
+
+function useVariantInsets(variant: "mini" | "full") {
+  const insets = useSafeAreaInsets();
+
+  if (variant === "mini") {
+    return {
+      surface: {
+        bottom: insets.bottom + spacing.two,
+        left: spacing.two,
+        right: spacing.two,
+        height: MINI_PLAYER_HEIGHT,
+      },
+      inner: undefined,
+    };
+  }
+
+  return {
+    surface: undefined,
+    inner: {
+      paddingTop: insets.top + spacing.two,
+      paddingBottom: insets.bottom + spacing.four,
+    },
+  };
+}

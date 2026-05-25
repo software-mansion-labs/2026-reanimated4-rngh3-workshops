@@ -1,12 +1,17 @@
+import { Image } from "expo-image";
+import { Pressable } from "react-native";
 import Animated, {
   LinearTransition,
-  withTiming,
+  withSpring,
   type LayoutAnimationFunction,
 } from "react-native-reanimated";
 
 export const playerLayout = LinearTransition.duration(500).springify();
 
-const LAYOUT_DURATION_MS = 500;
+export const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+export const AnimatedImage = Animated.createAnimatedComponent(Image);
+
+const LAYOUT_DURATION_MS = 300;
 
 export const createScaledTextLayout = (
   currentScale: number,
@@ -24,18 +29,18 @@ export const createScaledTextLayout = (
         transform: [{ scale: currentScale }],
       },
       animations: {
-        originX: withTiming(values.targetOriginX, {
+        originX: withSpring(values.targetOriginX, {
           duration: LAYOUT_DURATION_MS,
         }),
-        originY: withTiming(values.targetOriginY, {
+        originY: withSpring(values.targetOriginY, {
           duration: LAYOUT_DURATION_MS,
         }),
-        width: withTiming(values.targetWidth, { duration: LAYOUT_DURATION_MS }),
-        height: withTiming(values.targetHeight, {
+        width: withSpring(values.targetWidth, { duration: LAYOUT_DURATION_MS }),
+        height: withSpring(values.targetHeight, {
           duration: LAYOUT_DURATION_MS,
         }),
         transform: [
-          { scale: withTiming(targetScale, { duration: LAYOUT_DURATION_MS }) },
+          { scale: withSpring(targetScale, { duration: LAYOUT_DURATION_MS }) },
         ],
       },
     };
