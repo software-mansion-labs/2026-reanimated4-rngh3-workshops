@@ -4,12 +4,11 @@ import Animated from "react-native-reanimated";
 import { colors } from "@/lessons/7_Music/shared/data";
 
 import { titleToFullLayout, titleToMiniLayout } from "./layout";
-import { usePlayer, useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerTitle() {
   const { state } = usePlayer();
-  const variant = useVariant();
-  const variantStyle = variantStyles[variant];
+  const variantStyle = variantStyles[state.variant];
 
   if (!state.currentSong) {
     return null;
@@ -17,7 +16,7 @@ export function PlayerTitle() {
 
   return (
     <Animated.Text
-      layout={variant === "mini" ? titleToMiniLayout : titleToFullLayout}
+      layout={state.variant === "mini" ? titleToMiniLayout : titleToFullLayout}
       style={variantStyle.text}
       numberOfLines={1}
     >

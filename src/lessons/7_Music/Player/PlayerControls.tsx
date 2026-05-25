@@ -3,12 +3,12 @@ import { View } from "react-native";
 
 import { spacing } from "@/lessons/7_Music/shared/data";
 
-import { useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerControls({ children }: { children: ReactNode }) {
-  const variant = useVariant();
+  const { state } = usePlayer();
 
-  return <View style={styles[variant]}>{children}</View>;
+  return <View style={styles[state.variant]}>{children}</View>;
 }
 
 const styles = {

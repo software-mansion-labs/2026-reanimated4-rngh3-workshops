@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext } from "react";
 import { type GestureResponderEvent } from "react-native";
 
 import type { Song } from "../data";
@@ -8,8 +8,7 @@ export type PlayerVariant = "mini" | "full";
 export type PlayerState = {
   currentSong: Song | null;
   isPlaying: boolean;
-  isExpanded?: boolean;
-  variant?: PlayerVariant;
+  variant: PlayerVariant;
 };
 
 export type PlayerActions = {
@@ -27,7 +26,6 @@ export type PlayerContextValue = {
 };
 
 export const PlayerContext = createContext<PlayerContextValue | null>(null);
-export const VariantContext = createContext<PlayerVariant>("mini");
 
 export function usePlayer() {
   const context = useContext(PlayerContext);
@@ -39,23 +37,7 @@ export function usePlayer() {
   return context;
 }
 
-export function useVariant() {
-  return useContext(VariantContext);
-}
-
 export function stopPress(event: GestureResponderEvent, onPress: () => void) {
   event.stopPropagation();
   onPress();
-}
-
-export function PlayerVariantProvider({
-  children,
-  value,
-}: {
-  children: ReactNode;
-  value: PlayerVariant;
-}) {
-  return (
-    <VariantContext.Provider value={value}>{children}</VariantContext.Provider>
-  );
 }

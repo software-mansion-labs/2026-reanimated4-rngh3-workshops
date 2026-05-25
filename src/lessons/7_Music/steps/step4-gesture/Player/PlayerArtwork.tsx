@@ -10,14 +10,13 @@ import Animated, {
 import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 
 import { spacing } from "@/lessons/7_Music/shared/data";
-import { usePlayer, useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 export function PlayerArtwork() {
   const { state } = usePlayer();
   const { progress } = useAnimationMeta();
-  const variant = useVariant();
 
   const animatedStyle = useAnimatedStyle<ViewStyle>(() => ({
     borderRadius: interpolate(progress.value, [0, 1], [4, 8]),
@@ -27,12 +26,12 @@ export function PlayerArtwork() {
     return null;
   }
 
-  const variantStyle = variantStyles[variant];
+  const variantStyle = variantStyles[state.variant];
 
   return (
     <LayoutAnimationConfig skipEntering>
       <Animated.View
-        key={variant}
+        key={state.variant}
         entering={FadeIn}
         style={variantStyle.container}
       >

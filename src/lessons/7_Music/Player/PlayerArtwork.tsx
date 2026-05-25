@@ -3,17 +3,16 @@ import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/lessons/7_Music/shared/data";
 
-import { usePlayer, useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerArtwork() {
   const { state } = usePlayer();
-  const variant = useVariant();
 
   if (!state.currentSong) {
     return null;
   }
 
-  const variantStyle = styles[variant];
+  const variantStyle = styles[state.variant];
 
   return (
     <View style={variantStyle.container}>

@@ -18,14 +18,13 @@ import {
   spacing,
 } from "@/lessons/7_Music/shared/data";
 
-import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const { progress } = useAnimationMeta();
   const { height: screenHeight } = useWindowDimensions();
   const startProgress = useSharedValue(0);
-  const variant = state.variant ?? "mini";
   const position = useVariantPosition();
 
   const sheetStyle = useAnimatedStyle(() => {
@@ -75,7 +74,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     });
 
   const tap = Gesture.Tap()
-    .enabled(variant === "mini")
+    .enabled(state.variant === "mini")
     .onStart(() => scheduleOnRN(actions.expand));
 
   const gesture = Gesture.Exclusive(pan, tap);
@@ -86,10 +85,8 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View style={[styles[variant], position[variant], sheetStyle]}>
-        <PlayerVariantProvider value={variant}>
-          {children}
-        </PlayerVariantProvider>
+      <Animated.View style={[styles[state.variant], position[state.variant], sheetStyle]}>
+        {children}
       </Animated.View>
     </GestureDetector>
   );

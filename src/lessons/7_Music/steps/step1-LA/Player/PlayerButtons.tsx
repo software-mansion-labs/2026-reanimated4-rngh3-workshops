@@ -3,13 +3,12 @@ import { Pressable, StyleSheet } from "react-native";
 
 import { colors } from "@/lessons/7_Music/shared/data";
 
-import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
+import { stopPress, usePlayer } from "./PlayerProvider";
 
 export function PlayerPrevButton() {
-  const { actions } = usePlayer();
-  const variant = useVariant();
+  const { state, actions } = usePlayer();
 
-  if (variant === "mini") {
+  if (state.variant === "mini") {
     return null;
   }
 
@@ -26,9 +25,8 @@ export function PlayerPrevButton() {
 
 export function PlayerPlayPauseButton() {
   const { state, actions } = usePlayer();
-  const variant = useVariant();
-  const variantStyle = variantStyles[variant];
-  const icon = variantIcon[variant];
+  const variantStyle = variantStyles[state.variant];
+  const icon = variantIcon[state.variant];
 
   return (
     <Pressable
@@ -46,10 +44,9 @@ export function PlayerPlayPauseButton() {
 }
 
 export function PlayerNextButton() {
-  const { actions } = usePlayer();
-  const variant = useVariant();
+  const { state, actions } = usePlayer();
 
-  if (variant === "mini") {
+  if (state.variant === "mini") {
     return null;
   }
 

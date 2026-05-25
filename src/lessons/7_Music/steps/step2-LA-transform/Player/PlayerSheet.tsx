@@ -13,21 +13,20 @@ import {
 } from "@/lessons/7_Music/shared/data";
 
 import { playerLayout } from "./layout";
-import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
-  const variant = state.isExpanded ? "full" : "mini";
   const position = useVariantPosition();
 
   const animatedSurfaceStyle = useAnimatedStyle(() => ({
     backgroundColor: withTiming(
-      state.isExpanded ? colors.background : colors.surfaceElevated,
+      state.variant === "full" ? colors.background : colors.surfaceElevated,
       { duration: 220 },
     ),
-    borderRadius: withTiming(state.isExpanded ? 0 : 8, { duration: 220 }),
+    borderRadius: withTiming(state.variant === "full" ? 0 : 8, { duration: 220 }),
   }));
 
   if (!state.currentSong) {
@@ -37,10 +36,10 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   return (
     <AnimatedPressable
       layout={playerLayout}
-      onPress={variant === "mini" ? actions.expand : undefined}
-      style={[styles[variant], position[variant], animatedSurfaceStyle]}
+      onPress={state.variant === "mini" ? actions.expand : undefined}
+      style={[styles[state.variant], position[state.variant], animatedSurfaceStyle]}
     >
-      <PlayerVariantProvider value={variant}>{children}</PlayerVariantProvider>
+      {children}
     </AnimatedPressable>
   );
 }

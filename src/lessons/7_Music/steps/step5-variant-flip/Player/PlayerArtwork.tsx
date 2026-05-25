@@ -9,13 +9,12 @@ import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 
 import { spacing } from "@/lessons/7_Music/shared/data";
 import { useVariantFlip } from "../useVariantFlip";
-import { usePlayer, useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerArtwork() {
   const { state } = usePlayer();
   const { progress } = useAnimationMeta();
-  const variant = useVariant();
-  const { targetRef, flipStyle } = useVariantFlip(variant);
+  const { targetRef, flipStyle } = useVariantFlip(state.variant);
 
   const animatedStyle = useAnimatedStyle<ViewStyle>(() => ({
     borderRadius: interpolate(progress.value, [0, 1], [4, 8]),
@@ -25,7 +24,7 @@ export function PlayerArtwork() {
     return null;
   }
 
-  const variantStyle = variantStyles[variant];
+  const variantStyle = variantStyles[state.variant];
 
   return (
     <View style={variantStyle.container}>

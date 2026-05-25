@@ -3,13 +3,12 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { colors, formatDuration, spacing } from "@/lessons/7_Music/shared/data";
 
-import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
+import { stopPress, usePlayer } from "./PlayerProvider";
 
 function PlayerCollapseButton() {
-  const { actions } = usePlayer();
-  const variant = useVariant();
+  const { state, actions } = usePlayer();
 
-  if (variant === "mini") {
+  if (state.variant === "mini") {
     return null;
   }
 
@@ -25,9 +24,9 @@ function PlayerCollapseButton() {
 }
 
 export function PlayerHeader() {
-  const variant = useVariant();
+  const { state } = usePlayer();
 
-  if (variant === "mini") {
+  if (state.variant === "mini") {
     return null;
   }
 
@@ -45,9 +44,8 @@ export function PlayerHeader() {
 
 export function PlayerScrubber() {
   const { state } = usePlayer();
-  const variant = useVariant();
 
-  if (variant === "mini" || !state.currentSong) {
+  if (state.variant === "mini" || !state.currentSong) {
     return null;
   }
 

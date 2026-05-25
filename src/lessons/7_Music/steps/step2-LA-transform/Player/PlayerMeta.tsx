@@ -5,11 +5,11 @@ import Animated from "react-native-reanimated";
 import { spacing } from "@/lessons/7_Music/shared/data";
 
 import { playerLayout } from "./layout";
-import { useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerMeta({ children }: { children: ReactNode }) {
-  const variant = useVariant();
-  const variantStyle = variantStyles[variant];
+  const { state } = usePlayer();
+  const variantStyle = variantStyles[state.variant];
 
   return (
     <Animated.View layout={playerLayout} style={variantStyle.container}>

@@ -5,12 +5,12 @@ import Animated from "react-native-reanimated";
 import { spacing } from "@/lessons/7_Music/shared/data";
 
 import { useVariantFlip } from "../useVariantFlip";
-import { useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerMeta({ children }: { children: ReactNode }) {
-  const variant = useVariant();
-  const variantStyle = variantStyles[variant];
-  const { targetRef, flipStyle } = useVariantFlip(variant);
+  const { state } = usePlayer();
+  const variantStyle = variantStyles[state.variant];
+  const { targetRef, flipStyle } = useVariantFlip(state.variant);
 
   return (
     <Animated.View ref={targetRef} style={[variantStyle.container, flipStyle]}>

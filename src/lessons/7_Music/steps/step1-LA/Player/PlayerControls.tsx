@@ -7,16 +7,16 @@ import Animated, {
 
 import { spacing } from "@/lessons/7_Music/shared/data";
 
-import { useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerControls({ children }: { children: ReactNode }) {
-  const variant = useVariant();
-  const variantStyle = variantStyles[variant];
+  const { state } = usePlayer();
+  const variantStyle = variantStyles[state.variant];
 
   return (
     <LayoutAnimationConfig skipEntering>
       <Animated.View
-        key={variant}
+        key={state.variant}
         entering={FadeIn.delay(100).duration(500)}
         style={variantStyle.container}
       >

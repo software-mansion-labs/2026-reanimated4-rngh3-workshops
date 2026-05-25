@@ -8,11 +8,10 @@ import {
   spacing,
 } from "@/lessons/7_Music/shared/data";
 
-import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
-  const variant = state.isExpanded ? "full" : "mini";
   const position = useVariantPosition();
 
   if (!state.currentSong) {
@@ -21,10 +20,10 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
 
   return (
     <Pressable
-      onPress={variant === "mini" ? actions.expand : undefined}
-      style={[styles[variant], position[variant]]}
+      onPress={state.variant === "mini" ? actions.expand : undefined}
+      style={[styles[state.variant], position[state.variant]]}
     >
-      <PlayerVariantProvider value={variant}>{children}</PlayerVariantProvider>
+      {children}
     </Pressable>
   );
 }

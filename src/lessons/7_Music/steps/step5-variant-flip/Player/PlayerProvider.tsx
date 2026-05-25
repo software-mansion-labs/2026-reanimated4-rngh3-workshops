@@ -18,10 +18,8 @@ import {
 import { songs, type Song } from "@/lessons/7_Music/shared/data";
 
 export {
-  PlayerVariantProvider,
   stopPress,
   usePlayer,
-  useVariant,
   type PlayerVariant,
 } from "@/lessons/7_Music/shared/context";
 

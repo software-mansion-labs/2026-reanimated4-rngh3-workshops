@@ -7,13 +7,12 @@ import Animated, {
 import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 import { colors } from "@/lessons/7_Music/shared/data";
 
-import { usePlayer, useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerTitle() {
   const { state } = usePlayer();
   const { progress } = useAnimationMeta();
-  const variant = useVariant();
-  const variantStyle = variantStyles[variant];
+  const variantStyle = variantStyles[state.variant];
   const animatedStyle = useAnimatedStyle(() => ({
     fontSize: interpolate(progress.value, [0, 1], [14, 22]),
   }));

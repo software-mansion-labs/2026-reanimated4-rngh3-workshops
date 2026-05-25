@@ -2,12 +2,11 @@ import { StyleSheet, Text } from "react-native";
 
 import { colors } from "@/lessons/7_Music/shared/data";
 
-import { usePlayer, useVariant } from "./PlayerProvider";
+import { usePlayer } from "./PlayerProvider";
 
 export function PlayerTitle() {
   const { state } = usePlayer();
-  const variant = useVariant();
-  const variantStyle = variantStyles[variant];
+  const variantStyle = variantStyles[state.variant];
 
   if (!state.currentSong) {
     return null;

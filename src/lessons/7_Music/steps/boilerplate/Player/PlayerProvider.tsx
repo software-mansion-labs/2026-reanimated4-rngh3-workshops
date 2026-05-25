@@ -3,21 +3,20 @@ import { useMemo, useState, type ReactNode } from "react";
 import {
   PlayerContext,
   type PlayerContextValue,
+  type PlayerVariant,
 } from "@/lessons/7_Music/shared/context";
 import { songs, type Song } from "@/lessons/7_Music/shared/data";
 
 export {
-  PlayerVariantProvider,
   stopPress,
   usePlayer,
-  useVariant,
   type PlayerVariant,
 } from "@/lessons/7_Music/shared/context";
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
   const [currentSong, setCurrentSong] = useState<Song | null>(songs[0] ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [variant, setVariant] = useState<PlayerVariant>("mini");
 
   const value = useMemo<PlayerContextValue>(() => {
     const shift = (delta: number) => {
@@ -37,7 +36,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       state: {
         currentSong,
         isPlaying,
-        isExpanded,
+        variant,
       },
       actions: {
         playSong: (song) => {
@@ -47,11 +46,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         togglePlay: () => setIsPlaying((playing) => !playing),
         playNext: () => shift(1),
         playPrevious: () => shift(-1),
-        expand: () => setIsExpanded(true),
-        collapse: () => setIsExpanded(false),
+        expand: () => setVariant("full"),
+        collapse: () => setVariant("mini"),
       },
     };
-  }, [currentSong, isExpanded, isPlaying]);
+  }, [currentSong, variant, isPlaying]);
 
   return (
     <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
