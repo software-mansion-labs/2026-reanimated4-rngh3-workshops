@@ -4,14 +4,12 @@ import { type GestureResponderEvent } from "react-native";
 import type { Song } from "../data";
 
 export type PlayerVariant = "mini" | "full";
-export type PlayerLayoutState = "mini" | "to-full" | "full" | "to-mini";
 
 export type PlayerState = {
   currentSong: Song | null;
   isPlaying: boolean;
   isExpanded?: boolean;
   variant?: PlayerVariant;
-  layoutState?: PlayerLayoutState;
 };
 
 export type PlayerActions = {

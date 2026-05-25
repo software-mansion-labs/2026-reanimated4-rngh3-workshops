@@ -21,7 +21,7 @@ Work through **one** path depending on the workshop segment. Each path starts fr
 
 | Step | Goal |
 | ---- | ---- |
-| Step 3 | Pan-driven `progress`, interpolated sheet, deadband variant switching |
+| Step 3 | Pan-driven `progress`, interpolated sheet, variant swap at `0.5` |
 | Step 4 | Variant `FadeIn` on artwork / meta / controls (checkpoint before FLIP) |
 
 ### Path C — FLIP compensation
@@ -56,7 +56,7 @@ Adds `createScaledTextLayout` for title and artist scale handoff (500ms, matchin
 Replaces layout animations with continuous `progress` driven by a pan gesture.
 
 - Sheet geometry and colors interpolate from `progress`
-- Variant switches at deadband thresholds without FLIP
+- Variant switches when `progress` crosses `0.5`
 
 ## Step 4 — Entering on variant switch
 

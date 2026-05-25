@@ -13,7 +13,6 @@ import {
 import {
   PlayerContext,
   type PlayerContextValue,
-  type PlayerLayoutState,
   type PlayerVariant,
 } from "@/lessons/7_Music/shared/context";
 import { songs, type Song } from "@/lessons/7_Music/shared/data";
@@ -26,24 +25,16 @@ export {
   type PlayerVariant,
 } from "@/lessons/7_Music/shared/context";
 
-const LOW = 0.2;
-const HIGH = 0.3;
-
-type DeadbandEvent = "low-up" | "high-up" | "high-down" | "low-down";
-
-function variantForLayoutState(layoutState: PlayerLayoutState): PlayerVariant {
-  return layoutState === "to-full" || layoutState === "full" ? "full" : "mini";
-}
+const SWAP = 0.5;
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
   const progress = useSharedValue(0);
   const flipCaptureCallbacksRef = useRef(new Set<FlipCaptureCallback>());
   const [currentSong, setCurrentSong] = useState<Song | null>(songs[0] ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [layoutState, setLayoutState] = useState<PlayerLayoutState>("mini");
-  const layoutStateRef = useRef<PlayerLayoutState>("mini");
+  const [variant, setVariant] = useState<PlayerVariant>("mini");
+  const variantRef = useRef<PlayerVariant>("mini");
   const transitionQueueRef = useRef(Promise.resolve());
-  const variant = variantForLayoutState(layoutState);
 
   const registerFlipCapture = (callback: FlipCaptureCallback) => {
     flipCaptureCallbacksRef.current.add(callback);
@@ -58,39 +49,16 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       Array.from(flipCaptureCallbacksRef.current, (callback) => callback()),
     ).then(() => undefined);
 
-  const reduceLayoutState = (
-    state: PlayerLayoutState,
-    event: DeadbandEvent,
-  ): PlayerLayoutState => {
-    switch (event) {
-      case "low-up":
-        return state === "mini" ? "to-full" : state;
-      case "high-up":
-        return state === "to-full" || state === "to-mini" ? "full" : state;
-      case "high-down":
-        return state === "full" ? "to-mini" : state;
-      case "low-down":
-        return state === "to-full" || state === "to-mini" ? "mini" : state;
-    }
-  };
-
-  const transitionLayout = (event: DeadbandEvent) => {
+  const swapVariant = (nextVariant: PlayerVariant) => {
     transitionQueueRef.current = transitionQueueRef.current.then(async () => {
-      const currentState = layoutStateRef.current;
-      const nextState = reduceLayoutState(currentState, event);
-      const currentVariant = variantForLayoutState(currentState);
-      const nextVariant = variantForLayoutState(nextState);
-
-      if (nextState === currentState) {
+      if (variantRef.current === nextVariant) {
         return;
       }
 
-      if (nextVariant !== currentVariant) {
-        await captureFlipTargets();
-      }
+      await captureFlipTargets();
 
-      layoutStateRef.current = nextState;
-      setLayoutState(nextState);
+      variantRef.current = nextVariant;
+      setVariant(nextVariant);
     });
   };
 
@@ -101,17 +69,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      if (prev <= LOW && curr > LOW) {
-        scheduleOnRN(transitionLayout, "low-up");
+      if (prev < SWAP && curr >= SWAP) {
+        scheduleOnRN(swapVariant, "full");
       }
-      if (prev < HIGH && curr >= HIGH) {
-        scheduleOnRN(transitionLayout, "high-up");
-      }
-      if (prev >= HIGH && curr < HIGH) {
-        scheduleOnRN(transitionLayout, "high-down");
-      }
-      if (prev > LOW && curr <= LOW) {
-        scheduleOnRN(transitionLayout, "low-down");
+      if (prev >= SWAP && curr < SWAP) {
+        scheduleOnRN(swapVariant, "mini");
       }
     },
   );
@@ -134,7 +96,6 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       currentSong,
       isPlaying,
       variant,
-      layoutState,
     },
     actions: {
       playSong: (song) => {
