@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Pressable, StyleSheet, useWindowDimensions } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   interpolate,
@@ -9,6 +9,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { scheduleOnRN } from "react-native-worklets";
 
 import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 import {
@@ -18,8 +19,6 @@ import {
 } from "@/lessons/7_Music/shared/data";
 
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
@@ -75,20 +74,23 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
       progress.value = withSpring(shouldBeExpanded ? 1 : 0);
     });
 
+  const tap = Gesture.Tap()
+    .enabled(variant === "mini")
+    .onStart(() => scheduleOnRN(actions.expand));
+
+  const gesture = Gesture.Exclusive(pan, tap);
+
   if (!state.currentSong) {
     return null;
   }
 
   return (
-    <GestureDetector gesture={pan}>
-      <AnimatedPressable
-        onPress={variant === "mini" ? actions.expand : undefined}
-        style={[styles[variant], position[variant], sheetStyle]}
-      >
+    <GestureDetector gesture={gesture}>
+      <Animated.View style={[styles[variant], position[variant], sheetStyle]}>
         <PlayerVariantProvider value={variant}>
           {children}
         </PlayerVariantProvider>
-      </AnimatedPressable>
+      </Animated.View>
     </GestureDetector>
   );
 }
