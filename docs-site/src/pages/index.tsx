@@ -12,9 +12,10 @@ const lessons = [
   {num: '02', label: 'Balloon Slider', to: '/docs/2_BalloonSlider'},
   {num: '03', label: 'FAB Button', to: '/docs/3_FABButton'},
   {num: '04', label: 'Interpolation', to: '/docs/4_Interpolation'},
-  {num: '05', label: 'CSS Animations', to: '/docs/5_1_CSSAnimations'},
-  {num: '06', label: 'CSS Transitions', to: '/docs/5_2_CSSTransitions'},
-  {num: '07', label: 'Dynamic Tabs', to: '/docs/6_DynamicTabs'},
+  {num: '5.1', label: 'CSS Animations', to: '/docs/5_1_CSSAnimations'},
+  {num: '5.2', label: 'CSS Transitions', to: '/docs/5_2_CSSTransitions'},
+  {num: '06', label: 'Dynamic Tabs', to: '/docs/6_DynamicTabs'},
+  {num: '07', label: 'Music', to: '/docs/7_Music'},
   {num: 'B', label: 'Scroll Animation', to: '/docs/Bonus_ScrollAnimation'},
 ];
 
