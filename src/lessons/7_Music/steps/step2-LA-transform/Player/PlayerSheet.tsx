@@ -1,15 +1,14 @@
 import { type ReactNode } from "react";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import {
-  PlayerVariantProvider,
-  usePlayer,
-} from "./PlayerProvider";
+import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 import { colors, MINI_PLAYER_HEIGHT, spacing } from "@/lessons/7_Music/shared/data";
 
-import { AnimatedPressable, playerLayout } from "./layout";
+import { playerLayout } from "./layout";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
@@ -35,6 +34,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
       onPress={variant === "mini" ? actions.expand : undefined}
       style={[
         styles.surface,
+        variantStyle.surface,
         animatedSurfaceStyle,
         variant === "mini"
           ? {
@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
 
 const variantStyles = {
   mini: StyleSheet.create({
+    surface: {
+      boxShadow: "0px 0px 5px rgba(255, 255, 255, 0.5)",
+    },
     inner: {
       flex: 1,
       flexDirection: "row",
@@ -90,6 +93,7 @@ const variantStyles = {
     },
   }),
   full: StyleSheet.create({
+    surface: {},
     inner: {
       flex: 1,
       flexDirection: "column",

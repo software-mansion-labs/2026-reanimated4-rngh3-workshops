@@ -1,12 +1,14 @@
 import { StyleSheet, type ViewStyle } from "react-native";
 import Animated, {
+  FadeIn,
+  LayoutAnimationConfig,
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
 
-import { Image } from "expo-image";
 import { useVariantFlip } from "../useVariantFlip";
 import { usePlayer, useVariant } from "./PlayerProvider";
+import { AnimatedImage } from "./layout";
 
 export function PlayerArtwork() {
   const variant = useVariant();
@@ -24,19 +26,24 @@ export function PlayerArtwork() {
   const variantStyle = variantStyles[variant];
 
   return (
-    <Animated.View style={variantStyle.container}>
+    <LayoutAnimationConfig skipEntering>
       <Animated.View
-        ref={targetRef}
-        collapsable={false}
-        style={[styles.artwork, animatedStyle, flipStyle]}
+        key={variant}
+        entering={FadeIn}
+        style={variantStyle.container}
       >
-        <Image
-          source={state.currentSong.artwork}
-          style={fill}
-          contentFit="cover"
-        />
+        <Animated.View
+          ref={targetRef}
+          style={[styles.artwork, animatedStyle, flipStyle]}
+        >
+          <AnimatedImage
+            source={state.currentSong.artwork}
+            style={fill}
+            contentFit="cover"
+          />
+        </Animated.View>
       </Animated.View>
-    </Animated.View>
+    </LayoutAnimationConfig>
   );
 }
 

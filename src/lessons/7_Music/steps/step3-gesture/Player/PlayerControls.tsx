@@ -1,9 +1,6 @@
 import { type ReactNode } from "react";
 import { StyleSheet } from "react-native";
-import Animated, {
-  FadeIn,
-  LayoutAnimationConfig,
-} from "react-native-reanimated";
+import Animated, { FadeIn, LayoutAnimationConfig } from "react-native-reanimated";
 
 import { spacing } from "@/lessons/7_Music/shared/data";
 import { useVariant } from "./PlayerProvider";

@@ -1,5 +1,4 @@
 import { PlayerProvider } from "./PlayerProvider";
-
 import { PlayerArtwork } from "./PlayerArtwork";
 import { PlayerArtist } from "./PlayerArtist";
 import { PlayerControls } from "./PlayerControls";

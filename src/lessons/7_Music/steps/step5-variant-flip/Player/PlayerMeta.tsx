@@ -2,8 +2,8 @@ import { type ReactNode } from "react";
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { useVariant } from "./PlayerProvider";
 import { useVariantFlip } from "../useVariantFlip";
+import { useVariant } from "./PlayerProvider";
 import { spacing } from "@/lessons/7_Music/shared/data";
 
 export function PlayerMeta({ children }: { children: ReactNode }) {
@@ -12,11 +12,7 @@ export function PlayerMeta({ children }: { children: ReactNode }) {
   const { targetRef, flipStyle } = useVariantFlip(variant);
 
   return (
-    <Animated.View
-      ref={targetRef}
-      collapsable={false}
-      style={[variantStyle.container, flipStyle]}
-    >
+    <Animated.View ref={targetRef} style={[variantStyle.container, flipStyle]}>
       {children}
     </Animated.View>
   );

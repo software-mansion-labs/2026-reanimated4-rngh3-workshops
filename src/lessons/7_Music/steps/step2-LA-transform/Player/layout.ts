@@ -1,13 +1,12 @@
-import { Pressable } from "react-native";
-import { Image } from "expo-image";
 import Animated, {
   LinearTransition,
-  withSpring,
   withTiming,
   type LayoutAnimationFunction,
 } from "react-native-reanimated";
 
 export const playerLayout = LinearTransition.duration(500).springify();
+
+const LAYOUT_DURATION_MS = 500;
 
 export const createScaledTextLayout = (
   currentScale: number,
@@ -25,11 +24,11 @@ export const createScaledTextLayout = (
         transform: [{ scale: currentScale }],
       },
       animations: {
-        originX: withSpring(values.targetOriginX),
-        originY: withSpring(values.targetOriginY),
-        width: withSpring(values.targetWidth),
-        height: withSpring(values.targetHeight),
-        transform: [{ scale: withSpring(targetScale) }],
+        originX: withTiming(values.targetOriginX, { duration: LAYOUT_DURATION_MS }),
+        originY: withTiming(values.targetOriginY, { duration: LAYOUT_DURATION_MS }),
+        width: withTiming(values.targetWidth, { duration: LAYOUT_DURATION_MS }),
+        height: withTiming(values.targetHeight, { duration: LAYOUT_DURATION_MS }),
+        transform: [{ scale: withTiming(targetScale, { duration: LAYOUT_DURATION_MS }) }],
       },
     };
   };
@@ -39,6 +38,3 @@ export const titleToMiniLayout = createScaledTextLayout(1, 0.64);
 export const titleToFullLayout = createScaledTextLayout(0.64, 1);
 export const artistToMiniLayout = createScaledTextLayout(1, 0.75);
 export const artistToFullLayout = createScaledTextLayout(0.75, 1);
-
-export const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-export const AnimatedImage = Animated.createAnimatedComponent(Image);

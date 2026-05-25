@@ -1,10 +1,5 @@
 import { type ReactNode } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   interpolate,
@@ -15,10 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import {
-  PlayerVariantProvider,
-  usePlayer,
-} from "./PlayerProvider";
+import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 import { colors, MINI_PLAYER_HEIGHT, spacing } from "@/lessons/7_Music/shared/data";
 import {
   PAN_ACTIVATION_THRESHOLD,
@@ -42,20 +34,6 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   const miniLeft = spacing.two;
   const miniRight = spacing.two;
   const miniTop = screenHeight - miniBottom - MINI_PLAYER_HEIGHT;
-  const layoutBounds =
-    variant === "mini"
-      ? {
-          top: miniTop,
-          bottom: miniBottom,
-          left: miniLeft,
-          right: miniRight,
-        }
-      : {
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-        };
 
   const sheetStyle = useAnimatedStyle(() => {
     const progress = meta.progress!.value;
@@ -95,7 +73,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
 
   return (
     <GestureDetector gesture={pan}>
-      <Animated.View style={[styles.surface, layoutBounds, sheetStyle]}>
+      <Animated.View style={[styles.surface, sheetStyle]}>
         <Pressable
           onPress={variant === "mini" ? actions.expand : undefined}
           style={styles.pressable}
@@ -113,9 +91,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
                   ]
             }
           >
-            <PlayerVariantProvider value={variant}>
-              {children}
-            </PlayerVariantProvider>
+            <PlayerVariantProvider value={variant}>{children}</PlayerVariantProvider>
           </View>
         </Pressable>
       </Animated.View>

@@ -1,15 +1,8 @@
 import Icon from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet } from "react-native";
-import Animated from "react-native-reanimated";
 
-import {
-  stopPress,
-  usePlayer,
-  useVariant,
-} from "./PlayerProvider";
+import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 import { colors } from "@/lessons/7_Music/shared/data";
-
-import { playerLayout } from "./layout";
 
 export function PlayerPrevButton() {
   const { actions } = usePlayer();
@@ -20,15 +13,13 @@ export function PlayerPrevButton() {
   }
 
   return (
-    <Animated.View layout={playerLayout}>
-      <Pressable
-        hitSlop={12}
-        onPress={(event) => stopPress(event, actions.playPrevious)}
-        style={styles.sideButton}
-      >
-        <Icon name="play-skip-back" size={28} color={colors.text} />
-      </Pressable>
-    </Animated.View>
+    <Pressable
+      hitSlop={12}
+      onPress={(event) => stopPress(event, actions.playPrevious)}
+      style={styles.sideButton}
+    >
+      <Icon name="play-skip-back" size={28} color={colors.text} />
+    </Pressable>
   );
 }
 
@@ -39,22 +30,20 @@ export function PlayerPlayPauseButton() {
   const icon = variantIcon[variant];
 
   return (
-    <Animated.View layout={playerLayout}>
-      <Pressable
-        hitSlop={12}
-        onPress={(event) => stopPress(event, actions.togglePlay)}
-        style={variantStyle.button}
-      >
-        <Icon
-          name={state.isPlaying ? "pause" : "play"}
-          size={icon.size}
-          color={icon.color}
-          style={
-            variant === "full" && !state.isPlaying ? variantStyle.playIcon : undefined
-          }
-        />
-      </Pressable>
-    </Animated.View>
+    <Pressable
+      hitSlop={12}
+      onPress={(event) => stopPress(event, actions.togglePlay)}
+      style={variantStyle.button}
+    >
+      <Icon
+        name={state.isPlaying ? "pause" : "play"}
+        size={icon.size}
+        color={icon.color}
+        style={
+          variant === "full" && !state.isPlaying ? variantStyle.playIcon : undefined
+        }
+      />
+    </Pressable>
   );
 }
 
@@ -67,15 +56,13 @@ export function PlayerNextButton() {
   }
 
   return (
-    <Animated.View layout={playerLayout}>
-      <Pressable
-        hitSlop={12}
-        onPress={(event) => stopPress(event, actions.playNext)}
-        style={styles.sideButton}
-      >
-        <Icon name="play-skip-forward" size={28} color={colors.text} />
-      </Pressable>
-    </Animated.View>
+    <Pressable
+      hitSlop={12}
+      onPress={(event) => stopPress(event, actions.playNext)}
+      style={styles.sideButton}
+    >
+      <Icon name="play-skip-forward" size={28} color={colors.text} />
+    </Pressable>
   );
 }
 

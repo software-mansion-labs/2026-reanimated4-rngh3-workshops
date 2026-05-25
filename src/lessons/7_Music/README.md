@@ -1,65 +1,70 @@
 # Music
 
-Spotify-style player sheet as the base state for a future workshop lesson.
+Spotify-style player sheet with progressive animation steps.
 
-|        | Goal                                                           | Checkpoint                                                |
-| ------ | -------------------------------------------------------------- | --------------------------------------------------------- |
-| Start  | Base Music app state                                         | [`steps/boilerplate`](./steps/boilerplate/)               |
-| Step 1 | Animate mini/full player with layout animations                | [`steps/step1-LA`](./steps/step1-LA/)                     |
-| Step 2 | Add transform-based text animation on top of layout animations | [`steps/step2-LA-transform`](./steps/step2-LA-transform/) |
-| Step 3 | Pan gesture drives sheet progress; variant switches discretely | [`steps/step3-gesture`](./steps/step3-gesture/)           |
-| Step 4 | Same as step 3 — checkpoint before FLIP                        | [`steps/step4-gesture`](./steps/step4-gesture/)     |
-| Step 5 | FLIP-style compensation when variant layout changes            | [`steps/step5-variant-flip`](./steps/step5-variant-flip/) |
+## Learning paths
+
+Work through **one** path depending on the workshop segment. Each path starts from [`steps/boilerplate`](./steps/boilerplate/).
+
+### Path A — Layout animations
+
+`boilerplate` → [`step1-LA`](./steps/step1-LA/) → [`step2-LA-transform`](./steps/step2-LA-transform/)
+
+| Step | Goal |
+| ---- | ---- |
+| Step 1 | `layout`, `entering` / `exiting` on shared player elements |
+| Step 2 | Custom scaled-text layout on top of layout animations |
+
+### Path B — Gestures
+
+`boilerplate` → [`step3-gesture`](./steps/step3-gesture/) → [`step4-gesture`](./steps/step4-gesture/)
+
+| Step | Goal |
+| ---- | ---- |
+| Step 3 | Pan-driven `progress`, interpolated sheet, deadband variant switching |
+| Step 4 | Variant `FadeIn` on artwork / meta / controls (checkpoint before FLIP) |
+
+### Path C — FLIP compensation
+
+[`step3-gesture`](./steps/step3-gesture/) → [`step5-variant-flip`](./steps/step5-variant-flip/)
+
+| Step | Goal |
+| ---- | ---- |
+| Step 5 | FLIP-style translate compensation when variant layout changes mid-gesture |
 
 ## Goal
-
-This lesson starts from a fully built Spotify-like surface that will later become the foundation for animation steps.
 
 - Playlist screen with active song state
 - Mini player anchored at the bottom
 - Expandable full player sheet
 - Shared composition between mini and full variants
 
-## Notes
+## Step 1 — Layout animations
 
-- The current checkpoint is intentionally the base state only.
-- Future steps can build on the same player composition without reshaping the screen structure.
+Keep the same mini/full variants and use Reanimated layout animations to smooth transitions.
 
-## Step 1 - Layout animations showcase
+- `layout` on shared elements (sheet, artwork, meta, title, artist — not transport buttons)
+- `entering` for full-player-only content
+- `layout.ts` exports only `playerLayout`; create animated components locally where needed
 
-This step demonstrates a pragmatic first pass: keep the same mini/full variants, and use Reanimated layout animations to smooth the transition between them.
+## Step 2 — Layout animations with text transform
 
-- `layout` animates the repositioning and resizing of shared elements
-- `entering` reveals full-player-only content
-- `exiting` removes full-player-only content cleanly
+Adds `createScaledTextLayout` for title and artist scale handoff (500ms, matching `playerLayout`).
 
-The step is intentionally a full copy of the lesson so attendees can lift the whole folder into their own project without chasing cross-file imports.
+## Step 3 — Pan gesture
 
-## Step 2 - Layout animations with text transform
+Replaces layout animations with continuous `progress` driven by a pan gesture.
 
-This step keeps the layout-animation approach from Step 1 and adds a custom transform animation for the text.
+- Sheet geometry and colors interpolate from `progress`
+- Variant switches at deadband thresholds without FLIP
 
-- the player still changes with layout animations
-- title and artist scaling are layered on top as a separate transform animation experiment
+## Step 4 — Entering on variant switch
 
-## Step 3 - Pan gesture with discrete variant switching
+Same gesture core as step 3, plus `FadeIn` + `key={variant}` on artwork, meta, and controls when the variant flips.
 
-This step replaces layout animations with a continuous `progress` shared value driven by a pan gesture.
+## Step 5 — Variant FLIP
 
-- the sheet position, size, and colors interpolate from `progress`
-- mini/full variant still switches at deadband thresholds, but without FLIP compensation
-- when the variant changes, React re-renders and flex direction updates discretely
-
-## Step 4 - Gesture checkpoint
-
-Same implementation as Step 3. Use this folder as the starting point for the FLIP exercise in Step 5.
-
-## Step 5 - Variant FLIP compensation
-
-This step adds FLIP-style translate compensation on artwork and meta when the variant switches mid-gesture.
-
-- captures element positions before the variant re-render
-- animates translate offsets back to zero for a smoother handoff
+Adds `useVariantFlip` and capture-before-render in `PlayerProvider` for artwork and meta.
 
 ## Next step
 
