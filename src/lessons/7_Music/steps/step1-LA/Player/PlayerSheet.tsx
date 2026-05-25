@@ -71,9 +71,7 @@ const styles = StyleSheet.create({
 
 const variantStyles = {
   mini: StyleSheet.create({
-    surface: {
-      boxShadow: "0px 0px 5px rgba(255, 255, 255, 0.5)",
-    },
+    surface: {},
     inner: {
       flexDirection: "row",
       alignItems: "center",

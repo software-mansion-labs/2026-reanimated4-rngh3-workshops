@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import Animated, {
   useAnimatedStyle,
   withTiming,
@@ -12,8 +12,10 @@ import {
   spacing,
 } from "@/lessons/7_Music/shared/data";
 
-import { AnimatedPressable, playerLayout } from "./layout";
+import { playerLayout } from "./layout";
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
@@ -69,9 +71,7 @@ const styles = StyleSheet.create({
 
 const variantStyles = {
   mini: StyleSheet.create({
-    surface: {
-      boxShadow: "0px 0px 5px rgba(255, 255, 255, 0.5)",
-    },
+    surface: {},
     inner: {
       flexDirection: "row",
       alignItems: "center",

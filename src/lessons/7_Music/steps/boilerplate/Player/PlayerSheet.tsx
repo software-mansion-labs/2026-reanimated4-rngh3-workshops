@@ -50,7 +50,6 @@ const variantStyles = {
     surface: {
       borderRadius: 8,
       backgroundColor: colors.surfaceElevated,
-      boxShadow: "0px 0px 5px rgba(255, 255, 255, 0.5)",
     },
     inner: {
       flexDirection: "row",

@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import { StyleSheet, type ViewStyle } from "react-native";
 import Animated, {
   FadeIn,
@@ -9,8 +10,9 @@ import Animated, {
 import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 
 import { useVariantFlip } from "../useVariantFlip";
-import { AnimatedImage } from "./layout";
 import { usePlayer, useVariant } from "./PlayerProvider";
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 export function PlayerArtwork() {
   const { state } = usePlayer();

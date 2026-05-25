@@ -1,5 +1,3 @@
-import { Image } from "expo-image";
-import { Pressable } from "react-native";
 import Animated, {
   LinearTransition,
   withSpring,
@@ -7,9 +5,6 @@ import Animated, {
 } from "react-native-reanimated";
 
 export const playerLayout = LinearTransition.duration(500).springify();
-
-export const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-export const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const LAYOUT_DURATION_MS = 300;
 
