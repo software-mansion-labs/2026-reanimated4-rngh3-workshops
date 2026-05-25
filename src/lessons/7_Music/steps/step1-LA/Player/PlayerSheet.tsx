@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import { StyleSheet } from "react-native";
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -19,7 +20,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   }
 
   const variant = state.isExpanded ? "full" : "mini";
-  const variantStyle = styles[variant];
+  const variantStyle = variantStyles[variant];
   const animatedSurfaceStyle = useAnimatedStyle(() => ({
     backgroundColor: withTiming(
       state.isExpanded ? colors.background : colors.surfaceElevated,
@@ -33,7 +34,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
       layout={playerLayout}
       onPress={variant === "mini" ? actions.expand : undefined}
       style={[
-        surface,
+        styles.surface,
         animatedSurfaceStyle,
         variant === "mini"
           ? {
@@ -70,37 +71,30 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   );
 }
 
-const surface = {
-  position: "absolute" as const,
-  overflow: "hidden" as const,
-};
+const styles = StyleSheet.create({
+  surface: {
+    position: "absolute",
+    overflow: "hidden",
+  },
+});
 
-const styles = {
-  mini: {
-    surface: {
-      borderRadius: 8,
-      backgroundColor: colors.surfaceElevated,
-      boxShadow: "0px 0px 5px rgba(255, 255, 255, 0.5)",
-    },
+const variantStyles = {
+  mini: StyleSheet.create({
     inner: {
       flex: 1,
-      flexDirection: "row" as const,
-      alignItems: "center" as const,
+      flexDirection: "row",
+      alignItems: "center",
       paddingHorizontal: spacing.two,
       paddingRight: spacing.three,
       gap: spacing.three,
     },
-  },
-  full: {
-    surface: {
-      borderRadius: 0,
-      backgroundColor: colors.background,
-    },
+  }),
+  full: StyleSheet.create({
     inner: {
       flex: 1,
-      flexDirection: "column" as const,
+      flexDirection: "column",
       paddingHorizontal: spacing.four,
       gap: spacing.three,
     },
-  },
-} as const;
+  }),
+};

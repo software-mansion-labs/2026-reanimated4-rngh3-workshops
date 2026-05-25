@@ -1,5 +1,10 @@
 import { type ReactNode } from "react";
-import { Pressable, View, useWindowDimensions } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   interpolate,
@@ -32,7 +37,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   }
 
   const variant = state.variant!;
-  const variantStyle = styles[variant];
+  const variantStyle = variantStyles[variant];
   const miniBottom = insets.bottom + spacing.two;
   const miniLeft = spacing.two;
   const miniRight = spacing.two;
@@ -90,10 +95,10 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
 
   return (
     <GestureDetector gesture={pan}>
-      <Animated.View style={[surface, layoutBounds, sheetStyle]}>
+      <Animated.View style={[styles.surface, layoutBounds, sheetStyle]}>
         <Pressable
           onPress={variant === "mini" ? actions.expand : undefined}
-          style={pressable}
+          style={styles.pressable}
         >
           <View
             style={
@@ -118,32 +123,33 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   );
 }
 
-const pressable = {
-  flex: 1,
-};
+const styles = StyleSheet.create({
+  pressable: {
+    flex: 1,
+  },
+  surface: {
+    position: "absolute",
+    overflow: "hidden",
+  },
+});
 
-const surface = {
-  position: "absolute" as const,
-  overflow: "hidden" as const,
-};
-
-const styles = {
-  mini: {
+const variantStyles = {
+  mini: StyleSheet.create({
     inner: {
       flex: 1,
-      flexDirection: "row" as const,
-      alignItems: "center" as const,
+      flexDirection: "row",
+      alignItems: "center",
       paddingHorizontal: spacing.two,
       paddingRight: spacing.three,
       gap: spacing.three,
     },
-  },
-  full: {
+  }),
+  full: StyleSheet.create({
     inner: {
       flex: 1,
-      flexDirection: "column" as const,
+      flexDirection: "column",
       paddingHorizontal: spacing.four,
       gap: spacing.three,
     },
-  },
-} as const;
+  }),
+};

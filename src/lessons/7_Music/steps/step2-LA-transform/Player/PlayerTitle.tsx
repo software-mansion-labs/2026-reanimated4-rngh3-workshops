@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { usePlayer, useVariant } from "./PlayerProvider";
@@ -8,6 +9,7 @@ import { playerLayout, titleToFullLayout, titleToMiniLayout } from "./layout";
 export function PlayerTitle() {
   const { state } = usePlayer();
   const variant = useVariant();
+  const variantStyle = variantStyles[variant];
 
   if (!state.currentSong) {
     return null;
@@ -16,7 +18,7 @@ export function PlayerTitle() {
   return (
     <Animated.Text
       layout={variant === "mini" ? titleToMiniLayout : titleToFullLayout}
-      style={styles[variant]}
+      style={variantStyle.text}
       numberOfLines={1}
     >
       {state.currentSong.title}
@@ -24,18 +26,22 @@ export function PlayerTitle() {
   );
 }
 
-const styles = {
-  mini: {
-    color: colors.text,
-    fontSize: 22,
-    fontWeight: "700" as const,
-    transform: [{ scale: 0.64 }],
-    transformOrigin: "left bottom",
-  },
-  full: {
-    color: colors.text,
-    fontSize: 22,
-    fontWeight: "700" as const,
-    transformOrigin: "left bottom",
-  },
-} as const;
+const variantStyles = {
+  mini: StyleSheet.create({
+    text: {
+      color: colors.text,
+      fontSize: 22,
+      fontWeight: "700",
+      transform: [{ scale: 0.64 }],
+      transformOrigin: "left bottom",
+    },
+  }),
+  full: StyleSheet.create({
+    text: {
+      color: colors.text,
+      fontSize: 22,
+      fontWeight: "700",
+      transformOrigin: "left bottom",
+    },
+  }),
+};

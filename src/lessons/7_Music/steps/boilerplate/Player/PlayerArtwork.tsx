@@ -7,12 +7,11 @@ import { colors } from "@/lessons/7_Music/shared/data";
 export function PlayerArtwork() {
   const { state } = usePlayer();
   const variant = useVariant();
+  const variantStyle = variantStyles[variant];
 
   if (!state.currentSong) {
     return null;
   }
-
-  const variantStyle = styles[variant];
 
   return (
     <View style={variantStyle.container}>
@@ -29,30 +28,30 @@ export function PlayerArtwork() {
 
 const fill = StyleSheet.absoluteFill;
 
-const styles = {
-  mini: {
-    container: undefined,
+const variantStyles = {
+  mini: StyleSheet.create({
+    container: {},
     artwork: {
       width: 48,
       height: 48,
       borderRadius: 4,
       backgroundColor: colors.surface,
-      overflow: "hidden" as const,
+      overflow: "hidden",
     },
-  },
-  full: {
+  }),
+  full: StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center" as const,
+      justifyContent: "center",
     },
     artwork: {
-      width: "100%" as const,
+      width: "100%",
       aspectRatio: 1,
       maxWidth: 400,
-      alignSelf: "center" as const,
+      alignSelf: "center",
       borderRadius: 8,
       backgroundColor: colors.surface,
-      overflow: "hidden" as const,
+      overflow: "hidden",
     },
-  },
-} as const;
+  }),
+};

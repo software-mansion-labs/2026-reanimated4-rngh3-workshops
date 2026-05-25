@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
@@ -14,13 +14,13 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   }
 
   const variant = state.isExpanded ? "full" : "mini";
-  const variantStyle = styles[variant];
+  const variantStyle = variantStyles[variant];
 
   return (
     <Pressable
       onPress={variant === "mini" ? actions.expand : undefined}
       style={[
-        surface,
+        styles.surface,
         variantStyle.surface,
         variant === "mini"
           ? {
@@ -56,13 +56,15 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   );
 }
 
-const surface = {
-  position: "absolute" as const,
-  overflow: "hidden" as const,
-};
+const styles = StyleSheet.create({
+  surface: {
+    position: "absolute",
+    overflow: "hidden",
+  },
+});
 
-const styles = {
-  mini: {
+const variantStyles = {
+  mini: StyleSheet.create({
     surface: {
       borderRadius: 8,
       backgroundColor: colors.surfaceElevated,
@@ -70,23 +72,23 @@ const styles = {
     },
     inner: {
       flex: 1,
-      flexDirection: "row" as const,
-      alignItems: "center" as const,
+      flexDirection: "row",
+      alignItems: "center",
       paddingHorizontal: spacing.two,
       paddingRight: spacing.three,
       gap: spacing.three,
     },
-  },
-  full: {
+  }),
+  full: StyleSheet.create({
     surface: {
       borderRadius: 0,
       backgroundColor: colors.background,
     },
     inner: {
       flex: 1,
-      flexDirection: "column" as const,
+      flexDirection: "column",
       paddingHorizontal: spacing.four,
       gap: spacing.three,
     },
-  },
-} as const;
+  }),
+};

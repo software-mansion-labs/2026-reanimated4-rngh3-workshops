@@ -1,24 +1,29 @@
 import { type ReactNode } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { useVariant } from "./PlayerProvider";
 import { spacing } from "@/lessons/7_Music/shared/data";
 
 export function PlayerControls({ children }: { children: ReactNode }) {
   const variant = useVariant();
+  const variantStyle = variantStyles[variant];
 
-  return <View style={styles[variant]}>{children}</View>;
+  return <View style={variantStyle.container}>{children}</View>;
 }
 
-const styles = {
-  mini: {
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-  },
-  full: {
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "space-evenly" as const,
-    paddingVertical: spacing.two,
-  },
-} as const;
+const variantStyles = {
+  mini: StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+  }),
+  full: StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-evenly",
+      paddingVertical: spacing.two,
+    },
+  }),
+};

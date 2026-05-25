@@ -16,7 +16,7 @@ function PlayerCollapseButton() {
     <Pressable
       hitSlop={12}
       onPress={(event) => stopPress(event, actions.collapse)}
-      style={header.side}
+      style={styles.side}
     >
       <Icon name="chevron-down" size={28} color={colors.text} />
     </Pressable>
@@ -31,13 +31,13 @@ export function PlayerHeader() {
   }
 
   return (
-    <View style={header.root}>
+    <View style={styles.header}>
       <PlayerCollapseButton />
-      <View style={header.center}>
-        <Text style={header.label}>PLAYING FROM PLAYLIST</Text>
-        <Text style={header.title}>Liked Slops</Text>
+      <View style={styles.center}>
+        <Text style={styles.label}>PLAYING FROM PLAYLIST</Text>
+        <Text style={styles.title}>Liked Slops</Text>
       </View>
-      <View style={header.side} />
+      <View style={styles.side} />
     </View>
   );
 }
@@ -51,20 +51,20 @@ export function PlayerScrubber() {
   }
 
   return (
-    <View style={scrubber.root}>
-      <View style={scrubber.track}>
-        <View style={scrubber.fill} />
+    <View style={styles.scrubber}>
+      <View style={styles.track}>
+        <View style={styles.fill} />
       </View>
-      <View style={scrubber.labels}>
-        <Text style={scrubber.text}>0:00</Text>
-        <Text style={scrubber.text}>{formatDuration(state.currentSong.duration)}</Text>
+      <View style={styles.labels}>
+        <Text style={styles.text}>0:00</Text>
+        <Text style={styles.text}>{formatDuration(state.currentSong.duration)}</Text>
       </View>
     </View>
   );
 }
 
-const header = StyleSheet.create({
-  root: {
+const styles = StyleSheet.create({
+  header: {
     flexDirection: "row",
     alignItems: "center",
   },
@@ -88,10 +88,7 @@ const header = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
   },
-});
-
-const scrubber = StyleSheet.create({
-  root: {
+  scrubber: {
     gap: spacing.one,
   },
   track: {

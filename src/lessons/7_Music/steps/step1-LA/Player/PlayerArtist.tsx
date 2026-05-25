@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { usePlayer, useVariant } from "./PlayerProvider";
@@ -8,6 +9,7 @@ import { playerLayout } from "./layout";
 export function PlayerArtist() {
   const { state } = usePlayer();
   const variant = useVariant();
+  const variantStyle = variantStyles[variant];
 
   if (!state.currentSong) {
     return null;
@@ -16,7 +18,7 @@ export function PlayerArtist() {
   return (
     <Animated.Text
       layout={playerLayout}
-      style={styles[variant]}
+      style={variantStyle.text}
       numberOfLines={1}
     >
       {state.currentSong.artist}
@@ -24,13 +26,17 @@ export function PlayerArtist() {
   );
 }
 
-const styles = {
-  mini: {
-    color: colors.textSecondary,
-    fontSize: 12,
-  },
-  full: {
-    color: colors.textSecondary,
-    fontSize: 16,
-  },
-} as const;
+const variantStyles = {
+  mini: StyleSheet.create({
+    text: {
+      color: colors.textSecondary,
+      fontSize: 12,
+    },
+  }),
+  full: StyleSheet.create({
+    text: {
+      color: colors.textSecondary,
+      fontSize: 16,
+    },
+  }),
+};

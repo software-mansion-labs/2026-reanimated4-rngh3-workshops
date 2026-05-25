@@ -17,7 +17,7 @@ function PlayerCollapseButton() {
     <Pressable
       hitSlop={12}
       onPress={(event) => stopPress(event, actions.collapse)}
-      style={headerStyles.side}
+      style={styles.side}
     >
       <Icon name="chevron-down" size={28} color={colors.text} />
     </Pressable>
@@ -32,13 +32,13 @@ export function PlayerHeader() {
   }
 
   return (
-    <Animated.View entering={FadeIn} style={headerStyles.header}>
+    <Animated.View entering={FadeIn} style={styles.header}>
       <PlayerCollapseButton />
-      <View style={headerStyles.center}>
-        <Text style={headerStyles.label}>PLAYING FROM PLAYLIST</Text>
-        <Text style={headerStyles.title}>Liked Slops</Text>
+      <View style={styles.center}>
+        <Text style={styles.label}>PLAYING FROM PLAYLIST</Text>
+        <Text style={styles.title}>Liked Slops</Text>
       </View>
-      <View style={headerStyles.side} />
+      <View style={styles.side} />
     </Animated.View>
   );
 }
@@ -52,13 +52,13 @@ export function PlayerScrubber() {
   }
 
   return (
-    <Animated.View entering={FadeIn} style={scrubberStyles.scrubber}>
-      <View style={scrubberStyles.track}>
-        <View style={scrubberStyles.fill} />
+    <Animated.View entering={FadeIn} style={styles.scrubber}>
+      <View style={styles.track}>
+        <View style={styles.fill} />
       </View>
-      <View style={scrubberStyles.labels}>
-        <Text style={scrubberStyles.text}>0:00</Text>
-        <Text style={scrubberStyles.text}>
+      <View style={styles.labels}>
+        <Text style={styles.text}>0:00</Text>
+        <Text style={styles.text}>
           {formatDuration(state.currentSong.duration)}
         </Text>
       </View>
@@ -66,7 +66,7 @@ export function PlayerScrubber() {
   );
 }
 
-const headerStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -91,9 +91,6 @@ const headerStyles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
   },
-});
-
-const scrubberStyles = StyleSheet.create({
   scrubber: {
     gap: spacing.one,
   },

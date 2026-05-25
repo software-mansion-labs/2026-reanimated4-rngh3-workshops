@@ -1,5 +1,5 @@
 import Icon from "@expo/vector-icons/Ionicons";
-import { Pressable } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 import { colors } from "@/lessons/7_Music/shared/data";
@@ -16,7 +16,7 @@ export function PlayerPrevButton() {
     <Pressable
       hitSlop={12}
       onPress={(event) => stopPress(event, actions.playPrevious)}
-      style={sideButton}
+      style={styles.sideButton}
     >
       <Icon name="play-skip-back" size={28} color={colors.text} />
     </Pressable>
@@ -26,7 +26,8 @@ export function PlayerPrevButton() {
 export function PlayerPlayPauseButton() {
   const { state, actions } = usePlayer();
   const variant = useVariant();
-  const variantStyle = styles[variant];
+  const variantStyle = variantStyles[variant];
+  const icon = variantIcon[variant];
 
   return (
     <Pressable
@@ -36,10 +37,10 @@ export function PlayerPlayPauseButton() {
     >
       <Icon
         name={state.isPlaying ? "pause" : "play"}
-        size={variantStyle.iconSize}
-        color={variantStyle.iconColor}
+        size={icon.size}
+        color={icon.color}
         style={
-          variant === "full" && !state.isPlaying ? variantStyle.playIconStyle : undefined
+          variant === "full" && !state.isPlaying ? variantStyle.playIcon : undefined
         }
       />
     </Pressable>
@@ -58,43 +59,53 @@ export function PlayerNextButton() {
     <Pressable
       hitSlop={12}
       onPress={(event) => stopPress(event, actions.playNext)}
-      style={sideButton}
+      style={styles.sideButton}
     >
       <Icon name="play-skip-forward" size={28} color={colors.text} />
     </Pressable>
   );
 }
 
-const sideButton = {
-  width: 56,
-  height: 56,
-  alignItems: "center" as const,
-  justifyContent: "center" as const,
-};
+const styles = StyleSheet.create({
+  sideButton: {
+    width: 56,
+    height: 56,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
-const styles = {
-  mini: {
+const variantStyles = {
+  mini: StyleSheet.create({
     button: {
       width: 32,
       height: 32,
-      alignItems: "center" as const,
-      justifyContent: "center" as const,
+      alignItems: "center",
+      justifyContent: "center",
     },
-    iconSize: 18,
-    iconColor: colors.text,
-    playIconStyle: undefined,
-  },
-  full: {
+  }),
+  full: StyleSheet.create({
     button: {
       width: 72,
       height: 72,
       borderRadius: 36,
       backgroundColor: colors.text,
-      alignItems: "center" as const,
-      justifyContent: "center" as const,
+      alignItems: "center",
+      justifyContent: "center",
     },
-    iconSize: 32,
-    iconColor: colors.background,
-    playIconStyle: { marginLeft: 2 },
+    playIcon: {
+      marginLeft: 2,
+    },
+  }),
+};
+
+const variantIcon = {
+  mini: {
+    size: 18,
+    color: colors.text,
+  },
+  full: {
+    size: 32,
+    color: colors.background,
   },
 } as const;

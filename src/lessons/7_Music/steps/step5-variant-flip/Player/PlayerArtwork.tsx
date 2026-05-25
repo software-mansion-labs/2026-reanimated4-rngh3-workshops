@@ -68,4 +68,4 @@ const variantStyles = {
       justifyContent: "center",
     },
   }),
-} as const;
+};

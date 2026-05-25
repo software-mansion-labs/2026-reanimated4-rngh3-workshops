@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import Animated, { interpolate, useAnimatedStyle } from "react-native-reanimated";
 
 import { usePlayer, useVariant } from "./PlayerProvider";
@@ -6,6 +7,7 @@ import { colors } from "@/lessons/7_Music/shared/data";
 export function PlayerTitle() {
   const { state, meta } = usePlayer();
   const variant = useVariant();
+  const variantStyle = variantStyles[variant];
   const animatedStyle = useAnimatedStyle(() => ({
     fontSize: interpolate(meta.progress!.value, [0, 1], [14, 22]),
   }));
@@ -16,7 +18,7 @@ export function PlayerTitle() {
 
   return (
     <Animated.Text
-      style={[styles[variant], animatedStyle]}
+      style={[variantStyle.text, animatedStyle]}
       numberOfLines={1}
     >
       {state.currentSong.title}
@@ -24,13 +26,17 @@ export function PlayerTitle() {
   );
 }
 
-const styles = {
-  mini: {
-    color: colors.text,
-    fontWeight: "600" as const,
-  },
-  full: {
-    color: colors.text,
-    fontWeight: "700" as const,
-  },
-} as const;
+const variantStyles = {
+  mini: StyleSheet.create({
+    text: {
+      color: colors.text,
+      fontWeight: "600",
+    },
+  }),
+  full: StyleSheet.create({
+    text: {
+      color: colors.text,
+      fontWeight: "700",
+    },
+  }),
+};
