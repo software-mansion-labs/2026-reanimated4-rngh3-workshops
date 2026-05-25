@@ -1,4 +1,4 @@
-import Animated, {
+import {
   LinearTransition,
   withSpring,
   type LayoutAnimationFunction,
