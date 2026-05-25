@@ -7,6 +7,7 @@ import Animated, {
 
 import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 
+import { spacing } from "@/lessons/7_Music/shared/data";
 import { useVariantFlip } from "../useVariantFlip";
 import { usePlayer, useVariant } from "./PlayerProvider";
 
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
 const variantStyles = {
   mini: StyleSheet.create({
     container: {
-      aspectRatio: 1,
-      height: "80%",
+      paddingVertical: spacing.two,
+      paddingLeft: spacing.two,
     },
   }),
   full: StyleSheet.create({
@@ -66,7 +67,6 @@ const variantStyles = {
       flex: 1,
       minHeight: 200,
       width: "100%",
-      alignItems: "center",
       justifyContent: "center",
     },
   }),

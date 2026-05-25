@@ -114,7 +114,6 @@ const variantStyles = {
     inner: {
       flexDirection: "row",
       alignItems: "center",
-      paddingHorizontal: spacing.two,
       paddingRight: spacing.three,
       gap: spacing.three,
     },
