@@ -10,26 +10,26 @@ Work through **one** path depending on the workshop segment. Each path starts fr
 
 `boilerplate` → [`step1-LA`](./steps/step1-LA/) → [`step2-LA-transform`](./steps/step2-LA-transform/)
 
-| Step | Goal |
-| ---- | ---- |
+| Step   | Goal                                                       |
+| ------ | ---------------------------------------------------------- |
 | Step 1 | `layout`, `entering` / `exiting` on shared player elements |
-| Step 2 | Custom scaled-text layout on top of layout animations |
+| Step 2 | Custom scaled-text layout on top of layout animations      |
 
 ### Path B — Gestures
 
 `boilerplate` → [`step3-gesture`](./steps/step3-gesture/) → [`step4-gesture`](./steps/step4-gesture/)
 
-| Step | Goal |
-| ---- | ---- |
-| Step 3 | Pan-driven `progress`, interpolated sheet, variant swap at `0.5` |
+| Step   | Goal                                                                   |
+| ------ | ---------------------------------------------------------------------- |
+| Step 3 | Pan-driven `progress`, interpolated sheet, variant swap at `0.5`       |
 | Step 4 | Variant `FadeIn` on artwork / meta / controls (checkpoint before FLIP) |
 
 ### Path C — FLIP compensation
 
 [`step3-gesture`](./steps/step3-gesture/) → [`step5-variant-flip`](./steps/step5-variant-flip/)
 
-| Step | Goal |
-| ---- | ---- |
+| Step   | Goal                                                                      |
+| ------ | ------------------------------------------------------------------------- |
 | Step 5 | FLIP-style translate compensation when variant layout changes mid-gesture |
 
 ## Goal

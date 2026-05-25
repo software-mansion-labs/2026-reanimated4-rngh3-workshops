@@ -28,7 +28,9 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
       state.variant === "full" ? colors.background : colors.surfaceElevated,
       { duration: 220 },
     ),
-    borderRadius: withTiming(state.variant === "full" ? 0 : 8, { duration: 220 }),
+    borderRadius: withTiming(state.variant === "full" ? 0 : 8, {
+      duration: 220,
+    }),
   }));
 
   if (!state.currentSong) {

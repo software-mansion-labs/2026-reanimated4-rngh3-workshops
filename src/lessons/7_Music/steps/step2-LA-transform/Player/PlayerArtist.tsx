@@ -16,7 +16,9 @@ export function PlayerArtist() {
 
   return (
     <Animated.Text
-      layout={state.variant === "mini" ? artistToMiniLayout : artistToFullLayout}
+      layout={
+        state.variant === "mini" ? artistToMiniLayout : artistToFullLayout
+      }
       style={variantStyle.text}
       numberOfLines={1}
     >
