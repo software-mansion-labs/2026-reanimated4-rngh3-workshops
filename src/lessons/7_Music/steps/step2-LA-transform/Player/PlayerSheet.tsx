@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions } from "react-native";
 import Animated, {
   useAnimatedStyle,
   withTiming,
@@ -20,7 +20,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const variant = state.isExpanded ? "full" : "mini";
-  const variantInsets = useVariantInsets(variant);
+  const position = useVariantPosition();
 
   const animatedSurfaceStyle = useAnimatedStyle(() => ({
     backgroundColor: withTiming(
@@ -34,87 +34,58 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     return null;
   }
 
-  const variantStyle = variantStyles[variant];
-
   return (
     <AnimatedPressable
       layout={playerLayout}
       onPress={variant === "mini" ? actions.expand : undefined}
-      style={[
-        styles.surface,
-        variantStyle.surface,
-        variantInsets.surface,
-        animatedSurfaceStyle,
-      ]}
+      style={[styles[variant], position[variant], animatedSurfaceStyle]}
     >
-      <Animated.View
-        layout={playerLayout}
-        style={[styles.innerBase, variantStyle.inner, variantInsets.inner]}
-      >
-        <PlayerVariantProvider value={variant}>
-          {children}
-        </PlayerVariantProvider>
-      </Animated.View>
+      <PlayerVariantProvider value={variant}>{children}</PlayerVariantProvider>
     </AnimatedPressable>
   );
 }
 
 const styles = StyleSheet.create({
-  surface: {
+  mini: {
     position: "absolute",
     overflow: "hidden",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: spacing.two,
+    paddingRight: spacing.three,
+    gap: spacing.three,
   },
-  innerBase: {
-    flex: 1,
+  full: {
+    position: "absolute",
+    overflow: "hidden",
+    flexDirection: "column",
+    paddingHorizontal: spacing.four,
+    gap: spacing.three,
   },
 });
 
-const variantStyles = {
-  mini: StyleSheet.create({
-    surface: {},
-    inner: {
-      flexDirection: "row",
-      alignItems: "center",
-      paddingHorizontal: spacing.two,
-      paddingRight: spacing.three,
-      gap: spacing.three,
+function useVariantPosition() {
+  const safeArea = useSafeAreaInsets();
+  const { height: screenHeight } = useWindowDimensions();
+
+  const bottom = safeArea.bottom + spacing.two;
+  const left = spacing.two;
+  const right = spacing.two;
+
+  return {
+    mini: {
+      top: screenHeight - bottom - MINI_PLAYER_HEIGHT,
+      bottom,
+      left,
+      right,
     },
-  }),
-  full: StyleSheet.create({
-    surface: {
+    full: {
       top: 0,
       bottom: 0,
       left: 0,
       right: 0,
-    },
-    inner: {
-      flexDirection: "column",
-      paddingHorizontal: spacing.four,
-      gap: spacing.three,
-    },
-  }),
-};
-
-function useVariantInsets(variant: "mini" | "full") {
-  const insets = useSafeAreaInsets();
-
-  if (variant === "mini") {
-    return {
-      surface: {
-        bottom: insets.bottom + spacing.two,
-        left: spacing.two,
-        right: spacing.two,
-        height: MINI_PLAYER_HEIGHT,
-      },
-      inner: undefined,
-    };
-  }
-
-  return {
-    surface: undefined,
-    inner: {
-      paddingTop: insets.top + spacing.two,
-      paddingBottom: insets.bottom + spacing.four,
+      paddingTop: safeArea.top + spacing.two,
+      paddingBottom: safeArea.bottom + spacing.four,
     },
   };
 }

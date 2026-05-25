@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   interpolate,
@@ -24,27 +24,41 @@ import {
 } from "./layout";
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const { progress } = useAnimationMeta();
   const { height: screenHeight } = useWindowDimensions();
   const startProgress = useSharedValue(0);
   const variant = state.variant ?? "mini";
-  const variantInsets = useVariantInsets(variant, screenHeight);
+  const position = useVariantPosition();
 
   const sheetStyle = useAnimatedStyle(() => {
-    const progressValue = progress.value;
-    const { miniTop, miniBottom, miniLeft, miniRight } =
-      variantInsets.miniFrame;
-
     return {
-      top: interpolate(progressValue, [0, 1], [miniTop, 0]),
-      bottom: interpolate(progressValue, [0, 1], [miniBottom, 0]),
-      left: interpolate(progressValue, [0, 1], [miniLeft, 0]),
-      right: interpolate(progressValue, [0, 1], [miniRight, 0]),
-      borderRadius: interpolate(progressValue, [0, 1], [8, 0]),
+      top: interpolate(
+        progress.value,
+        [0, 1],
+        [position.mini.top, position.full.top],
+      ),
+      bottom: interpolate(
+        progress.value,
+        [0, 1],
+        [position.mini.bottom, position.full.bottom],
+      ),
+      left: interpolate(
+        progress.value,
+        [0, 1],
+        [position.mini.left, position.full.left],
+      ),
+      right: interpolate(
+        progress.value,
+        [0, 1],
+        [position.mini.right, position.full.right],
+      ),
+      borderRadius: interpolate(progress.value, [0, 1], [8, 0]),
       backgroundColor: interpolateColor(
-        progressValue,
+        progress.value,
         [0, 1],
         [colors.surfaceElevated, colors.background],
       ),
@@ -74,75 +88,60 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     return null;
   }
 
-  const variantStyle = variantStyles[variant];
-
   return (
     <GestureDetector gesture={pan}>
-      <Animated.View style={[styles.surface, sheetStyle]}>
-        <Pressable
-          onPress={variant === "mini" ? actions.expand : undefined}
-          style={styles.pressable}
-        >
-          <View
-            style={[styles.innerBase, variantStyle.inner, variantInsets.inner]}
-          >
-            <PlayerVariantProvider value={variant}>
-              {children}
-            </PlayerVariantProvider>
-          </View>
-        </Pressable>
-      </Animated.View>
+      <AnimatedPressable
+        onPress={variant === "mini" ? actions.expand : undefined}
+        style={[styles[variant], position[variant], sheetStyle]}
+      >
+        <PlayerVariantProvider value={variant}>
+          {children}
+        </PlayerVariantProvider>
+      </AnimatedPressable>
     </GestureDetector>
   );
 }
 
 const styles = StyleSheet.create({
-  surface: {
+  mini: {
     position: "absolute",
     overflow: "hidden",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingRight: spacing.three,
+    gap: spacing.three,
   },
-  pressable: {
-    flex: 1,
-  },
-  innerBase: {
-    flex: 1,
+  full: {
+    position: "absolute",
+    overflow: "hidden",
+    flexDirection: "column",
+    paddingHorizontal: spacing.four,
+    gap: spacing.three,
   },
 });
 
-const variantStyles = {
-  mini: StyleSheet.create({
-    inner: {
-      flexDirection: "row",
-      alignItems: "center",
-      paddingRight: spacing.three,
-      gap: spacing.three,
-    },
-  }),
-  full: StyleSheet.create({
-    inner: {
-      flexDirection: "column",
-      paddingHorizontal: spacing.four,
-      gap: spacing.three,
-    },
-  }),
-};
+function useVariantPosition() {
+  const safeArea = useSafeAreaInsets();
+  const { height: screenHeight } = useWindowDimensions();
 
-function useVariantInsets(variant: "mini" | "full", screenHeight: number) {
-  const insets = useSafeAreaInsets();
-
-  const miniBottom = insets.bottom + spacing.two;
-  const miniLeft = spacing.two;
-  const miniRight = spacing.two;
-  const miniTop = screenHeight - miniBottom - MINI_PLAYER_HEIGHT;
+  const bottom = safeArea.bottom + spacing.two;
+  const left = spacing.two;
+  const right = spacing.two;
 
   return {
-    inner:
-      variant === "full"
-        ? {
-            paddingTop: insets.top + spacing.two,
-            paddingBottom: insets.bottom + spacing.four,
-          }
-        : undefined,
-    miniFrame: { miniTop, miniBottom, miniLeft, miniRight },
+    mini: {
+      top: screenHeight - bottom - MINI_PLAYER_HEIGHT,
+      bottom,
+      left,
+      right,
+    },
+    full: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      paddingTop: safeArea.top + spacing.two,
+      paddingBottom: safeArea.bottom + spacing.four,
+    },
   };
 }
