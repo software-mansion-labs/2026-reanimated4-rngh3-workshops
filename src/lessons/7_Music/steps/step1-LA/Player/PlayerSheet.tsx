@@ -20,6 +20,8 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const position = useVariantPosition();
+  const variantStyle = styles[state.variant];
+  const positionStyle = position[state.variant];
 
   const animatedSurfaceStyle = useAnimatedStyle(() => ({
     backgroundColor: withTiming(
@@ -37,7 +39,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     <AnimatedPressable
       layout={playerLayout}
       onPress={state.variant === "mini" ? actions.expand : undefined}
-      style={[styles[state.variant], position[state.variant], animatedSurfaceStyle]}
+      style={[variantStyle, positionStyle, animatedSurfaceStyle]}
     >
       {children}
     </AnimatedPressable>

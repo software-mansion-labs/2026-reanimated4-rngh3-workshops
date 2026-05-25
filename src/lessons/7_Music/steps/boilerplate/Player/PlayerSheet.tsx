@@ -13,6 +13,8 @@ import { usePlayer } from "./PlayerProvider";
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const position = useVariantPosition();
+  const variantStyle = styles[state.variant];
+  const positionStyle = position[state.variant];
 
   if (!state.currentSong) {
     return null;
@@ -21,7 +23,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   return (
     <Pressable
       onPress={state.variant === "mini" ? actions.expand : undefined}
-      style={[styles[state.variant], position[state.variant]]}
+      style={[variantStyle, positionStyle]}
     >
       {children}
     </Pressable>

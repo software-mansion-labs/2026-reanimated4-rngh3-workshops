@@ -20,13 +20,17 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const position = useVariantPosition();
+  const variantStyle = styles[state.variant];
+  const positionStyle = position[state.variant];
 
   const animatedSurfaceStyle = useAnimatedStyle(() => ({
     backgroundColor: withTiming(
       state.variant === "full" ? colors.background : colors.surfaceElevated,
       { duration: 220 },
     ),
-    borderRadius: withTiming(state.variant === "full" ? 0 : 8, { duration: 220 }),
+    borderRadius: withTiming(state.variant === "full" ? 0 : 8, {
+      duration: 220,
+    }),
   }));
 
   if (!state.currentSong) {
@@ -37,7 +41,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     <AnimatedPressable
       layout={playerLayout}
       onPress={state.variant === "mini" ? actions.expand : undefined}
-      style={[styles[state.variant], position[state.variant], animatedSurfaceStyle]}
+      style={[variantStyle, positionStyle, animatedSurfaceStyle]}
     >
       {children}
     </AnimatedPressable>

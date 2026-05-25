@@ -26,8 +26,10 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
   const { height: screenHeight } = useWindowDimensions();
   const startProgress = useSharedValue(0);
   const position = useVariantPosition();
+  const variantStyle = styles[state.variant];
+  const positionStyle = position[state.variant];
 
-  const sheetStyle = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
     return {
       top: interpolate(
         progress.value,
@@ -90,9 +92,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View
-        style={[styles[state.variant], position[state.variant], sheetStyle]}
-      >
+      <Animated.View style={[variantStyle, positionStyle, animatedStyle]}>
         {children}
       </Animated.View>
     </GestureDetector>
