@@ -1,8 +1,6 @@
 import { Image } from "expo-image";
-import { StyleSheet, type ViewStyle } from "react-native";
+import { StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, {
-  FadeIn,
-  LayoutAnimationConfig,
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
@@ -11,8 +9,6 @@ import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 
 import { useVariantFlip } from "../useVariantFlip";
 import { usePlayer, useVariant } from "./PlayerProvider";
-
-const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 export function PlayerArtwork() {
   const { state } = usePlayer();
@@ -31,24 +27,18 @@ export function PlayerArtwork() {
   const variantStyle = variantStyles[variant];
 
   return (
-    <LayoutAnimationConfig skipEntering>
+    <View style={variantStyle.container}>
       <Animated.View
-        key={variant}
-        entering={FadeIn}
-        style={variantStyle.container}
+        ref={targetRef}
+        style={[styles.artwork, animatedStyle, flipStyle]}
       >
-        <Animated.View
-          ref={targetRef}
-          style={[styles.artwork, animatedStyle, flipStyle]}
-        >
-          <AnimatedImage
-            source={state.currentSong.artwork}
-            style={fill}
-            contentFit="cover"
-          />
-        </Animated.View>
+        <Image
+          source={state.currentSong.artwork}
+          style={fill}
+          contentFit="cover"
+        />
       </Animated.View>
-    </LayoutAnimationConfig>
+    </View>
   );
 }
 
