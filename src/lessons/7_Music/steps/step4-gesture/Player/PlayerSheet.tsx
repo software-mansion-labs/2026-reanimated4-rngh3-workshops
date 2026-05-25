@@ -49,6 +49,11 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
         [0, 1],
         [position.mini.right, position.full.right],
       ),
+      paddingTop: interpolate(
+        progress.value,
+        [0, 1],
+        [0, position.full.paddingTop],
+      ),
       borderRadius: interpolate(progress.value, [0, 1], [8, 0]),
       backgroundColor: interpolateColor(
         progress.value,
