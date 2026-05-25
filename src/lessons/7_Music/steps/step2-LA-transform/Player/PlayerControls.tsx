@@ -16,8 +16,8 @@ export function PlayerControls({ children }: { children: ReactNode }) {
   return (
     <LayoutAnimationConfig skipEntering>
       <Animated.View
-        entering={FadeIn.delay(100).duration(500)}
         key={variant}
+        entering={FadeIn.delay(100).duration(500)}
         style={variantStyle.container}
       >
         {children}

@@ -13,9 +13,9 @@ import { AnimatedImage } from "./layout";
 import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtwork() {
-  const variant = useVariant();
   const { state } = usePlayer();
   const { progress } = useAnimationMeta();
+  const variant = useVariant();
   const { targetRef, flipStyle } = useVariantFlip(variant);
 
   const animatedStyle = useAnimatedStyle<ViewStyle>(() => ({

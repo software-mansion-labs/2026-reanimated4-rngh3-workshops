@@ -12,9 +12,9 @@ import { AnimatedImage } from "./layout";
 import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtwork() {
-  const variant = useVariant();
   const { state } = usePlayer();
   const { progress } = useAnimationMeta();
+  const variant = useVariant();
 
   const animatedStyle = useAnimatedStyle<ViewStyle>(() => ({
     borderRadius: interpolate(progress.value, [0, 1], [4, 8]),

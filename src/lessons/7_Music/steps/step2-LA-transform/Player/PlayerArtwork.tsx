@@ -1,4 +1,3 @@
-import { Image } from "expo-image";
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -20,8 +19,8 @@ export function PlayerArtwork() {
     <Animated.View layout={playerLayout} style={variantStyle.container}>
       <Animated.View layout={playerLayout} style={variantStyle.artwork}>
         <AnimatedImage
-          layout={playerLayout}
           source={state.currentSong.artwork}
+          layout={playerLayout}
           style={fill}
           contentFit="cover"
         />

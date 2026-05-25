@@ -16,8 +16,8 @@ export function PlayerMeta({ children }: { children: ReactNode }) {
   return (
     <LayoutAnimationConfig skipEntering>
       <Animated.View
-        entering={FadeIn}
         key={variant}
+        entering={FadeIn}
         style={variantStyle.container}
       >
         {children}

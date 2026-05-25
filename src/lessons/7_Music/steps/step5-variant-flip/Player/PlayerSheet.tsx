@@ -10,18 +10,18 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 import {
   colors,
   MINI_PLAYER_HEIGHT,
   spacing,
 } from "@/lessons/7_Music/shared/data";
+
 import {
   PAN_ACTIVATION_THRESHOLD,
   SNAP_EXPAND_THRESHOLD,
   VELOCITY_SNAP_THRESHOLD,
 } from "./layout";
-import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
-
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
