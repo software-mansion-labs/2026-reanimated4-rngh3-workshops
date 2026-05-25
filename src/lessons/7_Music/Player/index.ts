@@ -10,7 +10,7 @@ import {
   PlayerNextButton,
   PlayerPlayPauseButton,
   PlayerPrevButton,
-} from "./PlayerTransport";
+} from "./PlayerButtons";
 
 export const Player = {
   Provider: PlayerProvider,
