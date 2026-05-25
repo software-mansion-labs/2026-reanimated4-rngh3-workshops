@@ -2,8 +2,9 @@ import Icon from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 import { colors, formatDuration, spacing } from "@/lessons/7_Music/shared/data";
+
+import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 
 function PlayerCollapseButton() {
   const { actions } = usePlayer();

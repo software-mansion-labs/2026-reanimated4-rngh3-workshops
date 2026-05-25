@@ -1,8 +1,9 @@
 import { type ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
-import { useVariant } from "./PlayerProvider";
 import { spacing } from "@/lessons/7_Music/shared/data";
+
+import { useVariant } from "./PlayerProvider";
 
 export function PlayerControls({ children }: { children: ReactNode }) {
   const variant = useVariant();

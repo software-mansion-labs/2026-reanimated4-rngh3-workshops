@@ -2,9 +2,10 @@ import { type ReactNode } from "react";
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
+import { spacing } from "@/lessons/7_Music/shared/data";
+
 import { useVariantFlip } from "../useVariantFlip";
 import { useVariant } from "./PlayerProvider";
-import { spacing } from "@/lessons/7_Music/shared/data";
 
 export function PlayerMeta({ children }: { children: ReactNode }) {
   const variant = useVariant();

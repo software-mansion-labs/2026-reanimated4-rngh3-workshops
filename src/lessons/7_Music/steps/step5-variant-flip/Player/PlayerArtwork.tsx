@@ -7,8 +7,8 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { useVariantFlip } from "../useVariantFlip";
-import { usePlayer, useVariant } from "./PlayerProvider";
 import { AnimatedImage } from "./layout";
+import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtwork() {
   const variant = useVariant();

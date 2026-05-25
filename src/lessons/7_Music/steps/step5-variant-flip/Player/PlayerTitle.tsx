@@ -1,8 +1,12 @@
 import { StyleSheet } from "react-native";
-import Animated, { interpolate, useAnimatedStyle } from "react-native-reanimated";
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+} from "react-native-reanimated";
+
+import { colors } from "@/lessons/7_Music/shared/data";
 
 import { usePlayer, useVariant } from "./PlayerProvider";
-import { colors } from "@/lessons/7_Music/shared/data";
 
 export function PlayerTitle() {
   const { state, meta } = usePlayer();
@@ -17,10 +21,7 @@ export function PlayerTitle() {
   }
 
   return (
-    <Animated.Text
-      style={[variantStyle.text, animatedStyle]}
-      numberOfLines={1}
-    >
+    <Animated.Text style={[variantStyle.text, animatedStyle]} numberOfLines={1}>
       {state.currentSong.title}
     </Animated.Text>
   );

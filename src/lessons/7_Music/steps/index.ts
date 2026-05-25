@@ -1,4 +1,5 @@
 import type { StepMeta } from "@/components/StepSwitcher";
+
 import { MusicLesson as Boilerplate } from "./boilerplate";
 import { MusicLesson as Step1 } from "./step1-LA";
 import { MusicLesson as Step2 } from "./step2-LA-transform";

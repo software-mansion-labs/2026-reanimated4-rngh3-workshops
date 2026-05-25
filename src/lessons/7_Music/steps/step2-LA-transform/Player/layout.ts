@@ -24,11 +24,19 @@ export const createScaledTextLayout = (
         transform: [{ scale: currentScale }],
       },
       animations: {
-        originX: withTiming(values.targetOriginX, { duration: LAYOUT_DURATION_MS }),
-        originY: withTiming(values.targetOriginY, { duration: LAYOUT_DURATION_MS }),
+        originX: withTiming(values.targetOriginX, {
+          duration: LAYOUT_DURATION_MS,
+        }),
+        originY: withTiming(values.targetOriginY, {
+          duration: LAYOUT_DURATION_MS,
+        }),
         width: withTiming(values.targetWidth, { duration: LAYOUT_DURATION_MS }),
-        height: withTiming(values.targetHeight, { duration: LAYOUT_DURATION_MS }),
-        transform: [{ scale: withTiming(targetScale, { duration: LAYOUT_DURATION_MS }) }],
+        height: withTiming(values.targetHeight, {
+          duration: LAYOUT_DURATION_MS,
+        }),
+        transform: [
+          { scale: withTiming(targetScale, { duration: LAYOUT_DURATION_MS }) },
+        ],
       },
     };
   };

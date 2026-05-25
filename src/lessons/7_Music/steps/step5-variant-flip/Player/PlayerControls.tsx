@@ -6,6 +6,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { spacing } from "@/lessons/7_Music/shared/data";
+
 import { useVariant } from "./PlayerProvider";
 
 export function PlayerControls({ children }: { children: ReactNode }) {

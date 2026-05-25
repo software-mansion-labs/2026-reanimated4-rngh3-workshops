@@ -65,5 +65,7 @@ export function PlayerVariantProvider({
   children: ReactNode;
   value: PlayerVariant;
 }) {
-  return <VariantContext.Provider value={value}>{children}</VariantContext.Provider>;
+  return (
+    <VariantContext.Provider value={value}>{children}</VariantContext.Provider>
+  );
 }

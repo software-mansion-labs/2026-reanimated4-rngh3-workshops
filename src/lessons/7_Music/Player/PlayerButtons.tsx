@@ -1,8 +1,9 @@
 import Icon from "@expo/vector-icons/Ionicons";
 import { Pressable } from "react-native";
 
-import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 import { colors } from "@/lessons/7_Music/shared/data";
+
+import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerPrevButton() {
   const { actions } = usePlayer();
@@ -39,7 +40,9 @@ export function PlayerPlayPauseButton() {
         size={variantStyle.iconSize}
         color={variantStyle.iconColor}
         style={
-          variant === "full" && !state.isPlaying ? variantStyle.playIconStyle : undefined
+          variant === "full" && !state.isPlaying
+            ? variantStyle.playIconStyle
+            : undefined
         }
       />
     </Pressable>

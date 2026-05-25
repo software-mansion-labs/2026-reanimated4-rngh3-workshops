@@ -1,8 +1,9 @@
 import Icon from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 import { colors, formatDuration, spacing } from "@/lessons/7_Music/shared/data";
+
+import { stopPress, usePlayer, useVariant } from "./PlayerProvider";
 
 function PlayerCollapseButton() {
   const { actions } = usePlayer();
@@ -57,7 +58,9 @@ export function PlayerScrubber() {
       </View>
       <View style={styles.labels}>
         <Text style={styles.text}>0:00</Text>
-        <Text style={styles.text}>{formatDuration(state.currentSong.duration)}</Text>
+        <Text style={styles.text}>
+          {formatDuration(state.currentSong.duration)}
+        </Text>
       </View>
     </View>
   );

@@ -2,8 +2,13 @@ import { type ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import {
+  colors,
+  MINI_PLAYER_HEIGHT,
+  spacing,
+} from "@/lessons/7_Music/shared/data";
+
 import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
-import { colors, MINI_PLAYER_HEIGHT, spacing } from "@/lessons/7_Music/shared/data";
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
@@ -50,7 +55,9 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
               ]
         }
       >
-        <PlayerVariantProvider value={variant}>{children}</PlayerVariantProvider>
+        <PlayerVariantProvider value={variant}>
+          {children}
+        </PlayerVariantProvider>
       </View>
     </Pressable>
   );

@@ -1,9 +1,13 @@
 import { type ReactNode } from "react";
 import { StyleSheet } from "react-native";
-import Animated, { FadeIn, LayoutAnimationConfig } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  LayoutAnimationConfig,
+} from "react-native-reanimated";
+
+import { spacing } from "@/lessons/7_Music/shared/data";
 
 import { useVariant } from "./PlayerProvider";
-import { spacing } from "@/lessons/7_Music/shared/data";
 
 export function PlayerMeta({ children }: { children: ReactNode }) {
   const variant = useVariant();
@@ -11,7 +15,11 @@ export function PlayerMeta({ children }: { children: ReactNode }) {
 
   return (
     <LayoutAnimationConfig skipEntering>
-      <Animated.View entering={FadeIn} key={variant} style={variantStyle.container}>
+      <Animated.View
+        entering={FadeIn}
+        key={variant}
+        style={variantStyle.container}
+      >
         {children}
       </Animated.View>
     </LayoutAnimationConfig>

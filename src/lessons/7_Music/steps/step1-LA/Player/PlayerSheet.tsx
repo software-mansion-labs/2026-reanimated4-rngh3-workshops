@@ -1,23 +1,25 @@
 import { type ReactNode } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
-import { colors, MINI_PLAYER_HEIGHT, spacing } from "@/lessons/7_Music/shared/data";
+import {
+  colors,
+  MINI_PLAYER_HEIGHT,
+  spacing,
+} from "@/lessons/7_Music/shared/data";
 
 import { playerLayout } from "./layout";
+import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions } = usePlayer();
   const insets = useSafeAreaInsets();
-
-  if (!state.currentSong) {
-    return null;
-  }
-
   const variant = state.isExpanded ? "full" : "mini";
   const variantStyle = variantStyles[variant];
   const animatedSurfaceStyle = useAnimatedStyle(() => ({
@@ -27,6 +29,10 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     ),
     borderRadius: withTiming(state.isExpanded ? 0 : 8, { duration: 220 }),
   }));
+
+  if (!state.currentSong) {
+    return null;
+  }
 
   return (
     <AnimatedPressable
@@ -65,7 +71,9 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
               ]
         }
       >
-        <PlayerVariantProvider value={variant}>{children}</PlayerVariantProvider>
+        <PlayerVariantProvider value={variant}>
+          {children}
+        </PlayerVariantProvider>
       </Animated.View>
     </AnimatedPressable>
   );

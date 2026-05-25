@@ -1,8 +1,9 @@
-import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
+import { StyleSheet, View } from "react-native";
+
+import { colors } from "@/lessons/7_Music/shared/data";
 
 import { usePlayer, useVariant } from "./PlayerProvider";
-import { colors } from "@/lessons/7_Music/shared/data";
 
 export function PlayerArtwork() {
   const { state } = usePlayer();

@@ -1,6 +1,9 @@
 import { useMemo, useState, type ReactNode } from "react";
 
-import { PlayerContext, type PlayerContextValue } from "@/lessons/7_Music/shared/context";
+import {
+  PlayerContext,
+  type PlayerContextValue,
+} from "@/lessons/7_Music/shared/context";
 import { songs, type Song } from "@/lessons/7_Music/shared/data";
 
 export {
@@ -50,5 +53,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     };
   }, [currentSong, isExpanded, isPlaying]);
 
-  return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;
+  return (
+    <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+  );
 }

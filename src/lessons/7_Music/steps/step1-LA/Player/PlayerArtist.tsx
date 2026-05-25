@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { usePlayer, useVariant } from "./PlayerProvider";
 import { colors } from "@/lessons/7_Music/shared/data";
 
 import { playerLayout } from "./layout";
+import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtist() {
   const { state } = usePlayer();

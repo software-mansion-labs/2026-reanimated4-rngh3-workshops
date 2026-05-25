@@ -1,7 +1,8 @@
 import { StyleSheet, Text } from "react-native";
 
-import { usePlayer, useVariant } from "./PlayerProvider";
 import { colors } from "@/lessons/7_Music/shared/data";
+
+import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtist() {
   const { state } = usePlayer();

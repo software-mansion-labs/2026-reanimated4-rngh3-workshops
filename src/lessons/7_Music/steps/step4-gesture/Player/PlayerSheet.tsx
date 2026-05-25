@@ -10,25 +10,25 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
-import { colors, MINI_PLAYER_HEIGHT, spacing } from "@/lessons/7_Music/shared/data";
+import {
+  colors,
+  MINI_PLAYER_HEIGHT,
+  spacing,
+} from "@/lessons/7_Music/shared/data";
+
 import {
   PAN_ACTIVATION_THRESHOLD,
   SNAP_EXPAND_THRESHOLD,
   VELOCITY_SNAP_THRESHOLD,
 } from "./layout";
+import { PlayerVariantProvider, usePlayer } from "./PlayerProvider";
 
 export function PlayerSheet({ children }: { children: ReactNode }) {
   const { state, actions, meta } = usePlayer();
   const insets = useSafeAreaInsets();
   const { height: screenHeight } = useWindowDimensions();
   const startProgress = useSharedValue(0);
-
-  if (!state.currentSong) {
-    return null;
-  }
-
-  const variant = state.variant!;
+  const variant = state.variant ?? "mini";
   const variantStyle = variantStyles[variant];
   const miniBottom = insets.bottom + spacing.two;
   const miniLeft = spacing.two;
@@ -71,6 +71,10 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
       meta.progress!.value = withSpring(shouldExpand ? 1 : 0);
     });
 
+  if (!state.currentSong) {
+    return null;
+  }
+
   return (
     <GestureDetector gesture={pan}>
       <Animated.View style={[styles.surface, sheetStyle]}>
@@ -91,7 +95,9 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
                   ]
             }
           >
-            <PlayerVariantProvider value={variant}>{children}</PlayerVariantProvider>
+            <PlayerVariantProvider value={variant}>
+              {children}
+            </PlayerVariantProvider>
           </View>
         </Pressable>
       </Animated.View>

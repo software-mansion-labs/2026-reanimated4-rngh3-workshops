@@ -1,10 +1,10 @@
+import { Image } from "expo-image";
 import { StyleSheet, type ViewStyle } from "react-native";
 import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
 
-import { Image } from "expo-image";
 import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtwork() {
