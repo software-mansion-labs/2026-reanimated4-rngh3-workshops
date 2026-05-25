@@ -1,12 +1,10 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { type GestureResponderEvent } from "react-native";
-import type { SharedValue } from "react-native-reanimated";
 
 import type { Song } from "../data";
 
 export type PlayerVariant = "mini" | "full";
 export type PlayerLayoutState = "mini" | "to-full" | "full" | "to-mini";
-export type FlipCaptureCallback = () => Promise<void>;
 
 export type PlayerState = {
   currentSong: Song | null;
@@ -25,15 +23,9 @@ export type PlayerActions = {
   collapse: () => void;
 };
 
-export type PlayerMeta = {
-  progress?: SharedValue<number>;
-  registerFlipCapture?: (callback: FlipCaptureCallback) => () => void;
-};
-
 export type PlayerContextValue = {
   state: PlayerState;
   actions: PlayerActions;
-  meta?: PlayerMeta;
 };
 
 export const PlayerContext = createContext<PlayerContextValue | null>(null);

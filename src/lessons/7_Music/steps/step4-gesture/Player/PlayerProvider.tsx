@@ -6,6 +6,7 @@ import {
 } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 
+import { AnimationMetaContext } from "@/lessons/7_Music/shared/animationMeta";
 import {
   PlayerContext,
   type PlayerContextValue,
@@ -32,12 +33,11 @@ function variantForLayoutState(layoutState: PlayerLayoutState): PlayerVariant {
 }
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
+  const progress = useSharedValue(0);
   const [currentSong, setCurrentSong] = useState<Song | null>(songs[0] ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [layoutState, setLayoutState] = useState<PlayerLayoutState>("mini");
   const layoutStateRef = useRef<PlayerLayoutState>("mini");
-
-  const progress = useSharedValue(0);
   const variant = variantForLayoutState(layoutState);
 
   const reduceLayoutState = (
@@ -125,12 +125,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         progress.value = withSpring(0, { duration: 500 });
       },
     },
-    meta: {
-      progress,
-    },
   };
 
   return (
-    <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+    <AnimationMetaContext.Provider value={{ progress }}>
+      <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+    </AnimationMetaContext.Provider>
   );
 }

@@ -4,16 +4,18 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 
+import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
 import { colors } from "@/lessons/7_Music/shared/data";
 
 import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtist() {
-  const { state, meta } = usePlayer();
+  const { state } = usePlayer();
+  const { progress } = useAnimationMeta();
   const variant = useVariant();
   const variantStyle = variantStyles[variant];
   const animatedStyle = useAnimatedStyle(() => ({
-    fontSize: interpolate(meta.progress!.value, [0, 1], [12, 16]),
+    fontSize: interpolate(progress.value, [0, 1], [12, 16]),
   }));
 
   if (!state.currentSong) {

@@ -7,7 +7,9 @@ import {
   withTiming,
 } from "react-native-reanimated";
 
-import { usePlayer, type PlayerVariant } from "./Player/PlayerProvider";
+import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
+
+import { type PlayerVariant } from "./Player/PlayerProvider";
 
 const RESET_DURATION_MS = 150;
 
@@ -17,9 +19,7 @@ type Position = {
 };
 
 export function useVariantFlip(variant: PlayerVariant) {
-  const {
-    meta: { registerFlipCapture },
-  } = usePlayer();
+  const { registerFlipCapture } = useAnimationMeta();
   const targetRef = useRef<View | null>(null);
   const flipX = useSharedValue(0);
   const flipY = useSharedValue(0);

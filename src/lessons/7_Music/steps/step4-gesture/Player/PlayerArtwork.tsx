@@ -6,15 +6,18 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 
+import { useAnimationMeta } from "@/lessons/7_Music/shared/animationMeta";
+
 import { AnimatedImage } from "./layout";
 import { usePlayer, useVariant } from "./PlayerProvider";
 
 export function PlayerArtwork() {
   const variant = useVariant();
-  const { state, meta } = usePlayer();
+  const { state } = usePlayer();
+  const { progress } = useAnimationMeta();
 
   const animatedStyle = useAnimatedStyle<ViewStyle>(() => ({
-    borderRadius: interpolate(meta!.progress!.value, [0, 1], [4, 8]),
+    borderRadius: interpolate(progress.value, [0, 1], [4, 8]),
   }));
 
   if (!state.currentSong) {

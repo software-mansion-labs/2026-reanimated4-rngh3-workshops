@@ -7,8 +7,11 @@ import {
 import { scheduleOnRN } from "react-native-worklets";
 
 import {
-  PlayerContext,
+  AnimationMetaContext,
   type FlipCaptureCallback,
+} from "@/lessons/7_Music/shared/animationMeta";
+import {
+  PlayerContext,
   type PlayerContextValue,
   type PlayerLayoutState,
   type PlayerVariant,
@@ -33,14 +36,13 @@ function variantForLayoutState(layoutState: PlayerLayoutState): PlayerVariant {
 }
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
+  const progress = useSharedValue(0);
+  const flipCaptureCallbacksRef = useRef(new Set<FlipCaptureCallback>());
   const [currentSong, setCurrentSong] = useState<Song | null>(songs[0] ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [layoutState, setLayoutState] = useState<PlayerLayoutState>("mini");
-  const flipCaptureCallbacksRef = useRef(new Set<FlipCaptureCallback>());
   const layoutStateRef = useRef<PlayerLayoutState>("mini");
   const transitionQueueRef = useRef(Promise.resolve());
-
-  const progress = useSharedValue(0);
   const variant = variantForLayoutState(layoutState);
 
   const registerFlipCapture = (callback: FlipCaptureCallback) => {
@@ -51,11 +53,10 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     };
   };
 
-  const captureFlipTargets = () => {
-    return Promise.all(
+  const captureFlipTargets = () =>
+    Promise.all(
       Array.from(flipCaptureCallbacksRef.current, (callback) => callback()),
-    );
-  };
+    ).then(() => undefined);
 
   const reduceLayoutState = (
     state: PlayerLayoutState,
@@ -150,13 +151,13 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         progress.value = withSpring(0, { duration: 500 });
       },
     },
-    meta: {
-      progress,
-      registerFlipCapture,
-    },
   };
 
   return (
-    <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+    <AnimationMetaContext.Provider
+      value={{ progress, registerFlipCapture, captureFlipTargets }}
+    >
+      <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+    </AnimationMetaContext.Provider>
   );
 }
