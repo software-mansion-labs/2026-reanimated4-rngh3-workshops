@@ -664,9 +664,11 @@ const gesture = Gesture.Exclusive(pan, tap);
 
 ### f. Use `progress` to update the sheet dimensions
 
+Drive the sheet frame from <code>progress</code> so it follows the gesture. <code>variant</code> still switches row vs column at <code>SWAP</code>.
+
 <div class="edit-step">
 
-<p class="edit-task"><b>[1]</b> Replace static insets and surface styles on the sheet with <code>useAnimatedStyle</code> driven by <code>progress</code>. Drop <code>backgroundColor</code>, <code>borderRadius</code>, and mini <code>paddingHorizontal</code> from the static styles.</p>
+<p class="edit-task"><b>[1]</b> In <code>PlayerSheet.tsx</code>, remove <code>backgroundColor</code>, <code>borderRadius</code>, and mini <code>paddingHorizontal</code> from the static styles. Add <code>useAnimatedStyle</code> that interpolates insets from <code>useVariantPosition()</code>, plus <code>paddingTop</code>, <code>borderRadius</code>, and <code>backgroundColor</code> from <code>progress</code>. Put <code>animatedStyle</code> last on the sheet <code>Animated.View</code>.</p>
 
 <div class="edit-files"><span class="edit-file">PlayerSheet.tsx</span></div>
 
@@ -712,11 +714,83 @@ return (
 
 </div>
 
-### g. Update artwork styles to respond to sheet size changes
+### g. Resize artwork with the sheet
+
+Boilerplate gives each variant its own <code>artwork</code> style (48×48 in mini, percent width in full). That works for tap-to-expand, but the cover cannot grow while you drag — it only changes size when <code>variant</code> flips at <code>SWAP</code>.
+
+Split responsibilities into two layers:
+
+- <strong>Container</strong> (<code>variantStyles[variant].container</code>) — how much space the artwork gets inside the sheet. Mini adds padding around the bar; full uses <code>flex: 1</code> so the slot grows with the expanding sheet.
+- <strong>Artwork</strong> (<code>styles.artwork</code>, shared) — how the image fills that slot. Same rules in both variants: square, as wide as the container allows, capped by height.
+
+Only <code>borderRadius</code> is animated from <code>progress</code> (layout cannot morph corners smoothly).
 
 <div class="edit-step">
 
-<p class="edit-task"><b>[1]</b> Shared <code>styles.artwork</code> with <code>aspectRatio: 1</code>; mini / full only set container padding or flex. Animate corner radius from <code>progress</code>.</p>
+<p class="edit-task"><b>[1]</b> In <code>PlayerArtwork.tsx</code>, use <code>Animated.View</code> for the container and artwork wrapper. Move mini / full differences into <code>variantStyles.container</code> only — delete per-variant <code>artwork</code> objects.</p>
+
+<div class="edit-files"><span class="edit-file">PlayerArtwork.tsx</span></div>
+
+<details>
+<summary>Code</summary>
+
+````mdx-code-block
+```tsx
+// PlayerArtwork.tsx — variantStyles (container only)
+const variantStyles = {
+  mini: StyleSheet.create({
+    container: {
+      paddingVertical: spacing.two,
+      paddingLeft: spacing.two,
+    },
+  }),
+  full: StyleSheet.create({
+    container: {
+      flex: 1,
+      minHeight: 200,
+      width: "100%",
+      justifyContent: "center",
+    },
+  }),
+};
+```
+````
+
+</details>
+
+</div>
+
+<div class="edit-step">
+
+<p class="edit-task"><b>[2]</b> Add one shared <code>styles.artwork</code> so the cover tracks the container size. Use <code>width: "100%"</code>, <code>aspectRatio: 1</code>, and <code>maxHeight: "100%"</code> — the image grows when the sheet grows, without hard-coded mini width/height.</p>
+
+<div class="edit-files"><span class="edit-file">PlayerArtwork.tsx</span></div>
+
+<details>
+<summary>Code</summary>
+
+````mdx-code-block
+```tsx
+// PlayerArtwork.tsx
+const styles = StyleSheet.create({
+  artwork: {
+    aspectRatio: 1,
+    width: "100%",
+    maxHeight: "100%",
+    alignSelf: "center",
+    overflow: "hidden",
+  },
+});
+```
+````
+
+</details>
+
+</div>
+
+<div class="edit-step">
+
+<p class="edit-task"><b>[3]</b> Interpolate <code>borderRadius</code> on the artwork wrapper from <code>progress</code> (4 → 8). Wire the tree: container style from variant, artwork style shared + animated.</p>
 
 <div class="edit-files"><span class="edit-file">PlayerArtwork.tsx</span></div>
 
@@ -730,11 +804,13 @@ const animatedStyle = useAnimatedStyle<ViewStyle>(() => ({
   borderRadius: interpolate(progress.value, [0, 1], [4, 8]),
 }));
 
-<Animated.View style={variantStyle.container}>
-  <Animated.View style={[styles.artwork, animatedStyle]}>
-    <Image source={state.currentSong.artwork} style={fill} contentFit="cover" />
+return (
+  <Animated.View style={variantStyle.container}>
+    <Animated.View style={[styles.artwork, animatedStyle]}>
+      <Image source={state.currentSong.artwork} style={fill} contentFit="cover" />
+    </Animated.View>
   </Animated.View>
-</Animated.View>
+);
 ```
 ````
 
@@ -742,9 +818,16 @@ const animatedStyle = useAnimatedStyle<ViewStyle>(() => ({
 
 </div>
 
+### h. Layout animations for final polish
+
+The gesture drives position and size; <code>variant</code> still swaps layout at <code>SWAP</code>. Bring back a few layout-style effects from step 1 so the transition feels finished:
+
+- <strong>Text</strong> — interpolate <code>fontSize</code> from <code>progress</code> (same idea as the sheet frame in <b>f</b>).
+- <strong>Full-only UI</strong> — <code>FadeIn</code> when header, scrubber, and controls appear or remount on variant change.
+
 <div class="edit-step">
 
-<p class="edit-task"><b>[2]</b> Interpolate <code>fontSize</code> from <code>progress</code>:</p>
+<p class="edit-task"><b>[1]</b> Interpolate <code>fontSize</code> from <code>progress</code>:</p>
 
 <ul class="task-checklist">
   <li><label><input type="checkbox" /> <strong>PlayerTitle.tsx</strong> — <code>[14, 22]</code></label></li>
@@ -791,7 +874,7 @@ const animatedStyle = useAnimatedStyle(() => ({
 
 <div class="edit-step">
 
-<p class="edit-task"><b>[3]</b> Add <code>entering=&#123;FadeIn&#125;</code> on the header and scrubber in <code>PlayerHeader.tsx</code> (full variant only):</p>
+<p class="edit-task"><b>[2]</b> Add <code>entering=&#123;FadeIn&#125;</code> on the header and scrubber in <code>PlayerHeader.tsx</code> (full variant only):</p>
 
 <ul class="task-checklist">
   <li><label><input type="checkbox" /> <strong>PlayerHeader.tsx</strong> — header</label></li>
@@ -818,7 +901,7 @@ const animatedStyle = useAnimatedStyle(() => ({
 
 <div class="edit-step">
 
-<p class="edit-task"><b>[4]</b> Wrap in <code>LayoutAnimationConfig skipEntering</code>, set <code>key=&#123;state.variant&#125;</code>, and add <code>entering=&#123;FadeIn&#125;</code>.</p>
+<p class="edit-task"><b>[3]</b> In <code>PlayerControls.tsx</code>, remount on variant change: <code>LayoutAnimationConfig skipEntering</code>, <code>key=&#123;state.variant&#125;</code>, and <code>entering=&#123;FadeIn&#125;</code>.</p>
 
 <div class="edit-files"><span class="edit-file">PlayerControls.tsx</span></div>
 
