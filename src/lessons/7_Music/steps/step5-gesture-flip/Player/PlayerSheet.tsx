@@ -2,6 +2,7 @@ import { type ReactNode } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
+  clamp,
   interpolate,
   interpolateColor,
   useAnimatedStyle,
@@ -72,7 +73,7 @@ export function PlayerSheet({ children }: { children: ReactNode }) {
     .onUpdate((event) => {
       const delta = -event.translationY / screenHeight;
       const next = startProgress.value + delta;
-      progress.value = next < 0 ? 0 : next > 1 ? 1 : next;
+      progress.value = clamp(next, 0, 1);
     })
     .onEnd(() => {
       // a velocity threshold could also be used here

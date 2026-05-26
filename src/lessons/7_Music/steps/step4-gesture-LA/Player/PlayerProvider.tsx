@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import {
   useAnimatedReaction,
   useSharedValue,
@@ -27,17 +27,6 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [currentSong, setCurrentSong] = useState<Song | null>(songs[0] ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [variant, setVariant] = useState<PlayerVariant>("mini");
-  const variantRef = useRef<PlayerVariant>("mini");
-
-  const swapVariant = (nextVariant: PlayerVariant) => {
-    if (variantRef.current === nextVariant) {
-      return;
-    }
-
-    variantRef.current = nextVariant;
-    setVariant(nextVariant);
-  };
-
   useAnimatedReaction(
     () => progress.value,
     (curr, prev) => {
@@ -46,10 +35,10 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       }
 
       if (prev < SWAP && curr >= SWAP) {
-        scheduleOnRN(swapVariant, "full");
+        scheduleOnRN(setVariant, "full");
       }
       if (prev >= SWAP && curr < SWAP) {
-        scheduleOnRN(swapVariant, "mini");
+        scheduleOnRN(setVariant, "mini");
       }
     },
   );

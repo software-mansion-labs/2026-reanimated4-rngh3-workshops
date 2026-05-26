@@ -31,7 +31,6 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [currentSong, setCurrentSong] = useState<Song | null>(songs[0] ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [variant, setVariant] = useState<PlayerVariant>("mini");
-  const variantRef = useRef<PlayerVariant>("mini");
   const transitionQueueRef = useRef(Promise.resolve());
 
   const registerFlipCapture = (callback: FlipCaptureCallback) => {
@@ -49,13 +48,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
   const swapVariant = (nextVariant: PlayerVariant) => {
     transitionQueueRef.current = transitionQueueRef.current.then(async () => {
-      if (variantRef.current === nextVariant) {
-        return;
-      }
-
       await captureFlipTargets();
-
-      variantRef.current = nextVariant;
       setVariant(nextVariant);
     });
   };

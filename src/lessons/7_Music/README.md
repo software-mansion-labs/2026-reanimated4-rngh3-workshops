@@ -590,7 +590,7 @@ We want to automatically swap the variant when the `progress` shared value cross
 
 <div class="edit-step">
 
-<p class="edit-task"><b>[1]</b> Add <code>variantRef</code>, <code>swapVariant</code>, and the reaction on <code>progress</code>.</p>
+<p class="edit-task"><b>[1]</b> Call the `useAnimatedReaction`  hook on <code>progress</code> and call <code>setVariant</code> from the UI thread via <code>scheduleOnRN</code>.</p>
 
 <div class="edit-files"><span class="edit-file">PlayerProvider.tsx</span></div>
 
@@ -602,17 +602,6 @@ We want to automatically swap the variant when the `progress` shared value cross
 // PlayerProvider.tsx
 const SWAP = 0.2;
 
-const variantRef = useRef<PlayerVariant>("mini");
-
-const swapVariant = (nextVariant: PlayerVariant) => {
-  if (variantRef.current === nextVariant) {
-    return;
-  }
-
-  variantRef.current = nextVariant;
-  setVariant(nextVariant);
-};
-
 useAnimatedReaction(
   () => progress.value,
   (curr, prev) => {
@@ -621,10 +610,10 @@ useAnimatedReaction(
     }
 
     if (prev < SWAP && curr >= SWAP) {
-      scheduleOnRN(swapVariant, "full");
+      scheduleOnRN(setVariant, "full");
     }
     if (prev >= SWAP && curr < SWAP) {
-      scheduleOnRN(swapVariant, "mini");
+      scheduleOnRN(setVariant, "mini");
     }
   },
 );
@@ -658,7 +647,7 @@ const pan = Gesture.Pan()
   .onUpdate((event) => {
     const delta = -event.translationY / screenHeight;
     const next = startProgress.value + delta;
-    progress.value = next < 0 ? 0 : next > 1 ? 1 : next;
+    progress.value = clamp(next, 0, 1);
   })
   .onEnd(() => {
     const shouldBeExpanded = progress.value > 0.5;
@@ -976,13 +965,7 @@ const captureFlipTargets = () =>
 
 const swapVariant = (nextVariant: PlayerVariant) => {
   transitionQueueRef.current = transitionQueueRef.current.then(async () => {
-    if (variantRef.current === nextVariant) {
-      return;
-    }
-
     await captureFlipTargets();
-
-    variantRef.current = nextVariant;
     setVariant(nextVariant);
   });
 };
