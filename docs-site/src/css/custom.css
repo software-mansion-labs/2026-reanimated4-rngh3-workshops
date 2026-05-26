@@ -237,3 +237,63 @@ table thead tr {
 [data-theme='dark'] table thead tr {
   background: rgba(156, 136, 255, 0.1);
 }
+
+/* ── Lesson sub-step file pills ── */
+.edit-step {
+  margin: 1.25rem 0;
+}
+
+.edit-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.65rem 0 0.5rem;
+}
+
+.edit-file {
+  display: inline-block;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ifm-color-primary-darker);
+  background: rgba(102, 68, 255, 0.1);
+  border: 1px solid rgba(102, 68, 255, 0.22);
+  border-radius: 999px;
+  padding: 0.15rem 0.65rem;
+  line-height: 1.4;
+}
+
+[data-theme='dark'] .edit-file {
+  color: var(--ifm-color-primary-lighter);
+  background: rgba(156, 136, 255, 0.14);
+  border-color: rgba(156, 136, 255, 0.28);
+}
+
+.edit-step .edit-task {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.edit-step .task-checklist {
+  margin: 0.5rem 0 0.65rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.edit-step .task-checklist li {
+  margin: 0.3rem 0;
+}
+
+.edit-step .task-checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.edit-step .task-checklist input[type='checkbox'] {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  accent-color: var(--ifm-color-primary);
+}
