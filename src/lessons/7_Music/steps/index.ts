@@ -4,8 +4,8 @@ import { MusicLesson as Boilerplate } from "./boilerplate";
 import { MusicLesson as Step1 } from "./step1-LA";
 import { MusicLesson as Step2 } from "./step2-LA-transform";
 import { MusicLesson as Step3 } from "./step3-gesture";
-import { MusicLesson as Step4 } from "./step4-gesture";
-import { MusicLesson as Step5 } from "./step5-variant-flip";
+import { MusicLesson as Step4 } from "./step4-gesture-LA";
+import { MusicLesson as Step5 } from "./step5-gesture-flip";
 
 export const steps: StepMeta[] = [
   { label: "boilerplate", component: Boilerplate },

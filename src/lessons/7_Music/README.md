@@ -15,7 +15,7 @@ The lesson has three tracks. Follow one track end to end. Do not run steps 1 →
            step1-LA          step3-gesture
                 |            /            \
       step2-LA-transform    |              |
-                      step4-gesture    step5-variant-flip
+                      step4-gesture-LA    step5-gesture-flip
 
 ```
 
@@ -25,8 +25,8 @@ The lesson has three tracks. Follow one track end to end. Do not run steps 1 →
 | Step 1 | Layout transitions between player variants | [`steps/step1-LA`](./steps/step1-LA/)                     |
 | Step 2 | Step 1 + text scaling with transforms      | [`steps/step2-LA-transform`](./steps/step2-LA-transform/) |
 | Step 3 | Gesture driven sheet progress              | [`steps/step3-gesture`](./steps/step3-gesture/)           |
-| Step 4 | Using fade to hide the variant swap        | [`steps/step4-gesture`](./steps/step4-gesture/)           |
-| Step 5 | Using FLIP to hide the variant swap        | [`steps/step5-variant-flip`](./steps/step5-variant-flip/) |
+| Step 4 | Using fade to hide the variant swap        | [`steps/step4-gesture-LA`](./steps/step4-gesture-LA/)           |
+| Step 5 | Using FLIP to hide the variant swap        | [`steps/step5-gesture-flip`](./steps/step5-gesture-flip/) |
 
 ## Step 1 - Layout animations
 
@@ -632,7 +632,7 @@ return (
 
 </details>
 
-> Checkpoint: compare your work with [`steps/step4-gesture`](./steps/step4-gesture/)
+> Checkpoint: compare your work with [`steps/step4-gesture-LA`](./steps/step4-gesture-LA/)
 
 ## Step 5 - Variant FLIP
 
@@ -642,7 +642,7 @@ Build on [`steps/step3-gesture`](./steps/step3-gesture/) (not step 4). Replace t
 
 <details>
 <summary>
-  <b>[1]</b> add <code>steps/step5-variant-flip/useVariantFlip.ts</code> — register a capture callback, measure before the variant changes, then apply translate offset after layout and animate back to zero
+  <b>[1]</b> add <code>steps/step5-gesture-flip/useVariantFlip.ts</code> — register a capture callback, measure before the variant changes, then apply translate offset after layout and animate back to zero
 </summary>
 
 ````mdx-code-block
@@ -747,7 +747,7 @@ const { targetRef, flipStyle } = useVariantFlip(state.variant);
 
 </details>
 
-> Checkpoint: compare your work with [`steps/step5-variant-flip`](./steps/step5-variant-flip/)
+> Checkpoint: compare your work with [`steps/step5-gesture-flip`](./steps/step5-gesture-flip/)
 
 ## Next step
 
