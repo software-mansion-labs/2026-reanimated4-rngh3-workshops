@@ -41,9 +41,9 @@ export const routes: RouteMeta[] = [
     subtitle: "Lesson 6",
   },
   {
-    href: "7_Music",
+    href: "8_Music",
     title: "Music 👉",
-    subtitle: "Lesson 7",
+    subtitle: "Lesson 8",
   },
   {
     href: "Bonus_ScrollAnimation",

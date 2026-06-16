@@ -1,17 +1,17 @@
-import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   lessons: [
-    {type: 'link', href: '/prerequisites', label: 'Prerequisites & Setup'},
-    {type: 'doc', id: '1_CircleGestures/README', label: '1. Circle Gestures'},
-    {type: 'doc', id: '2_BalloonSlider/README', label: '2. Balloon Slider'},
-    {type: 'doc', id: '3_FABButton/README', label: '3. FAB Button'},
-    {type: 'doc', id: '4_Interpolation/README', label: '4. Interpolation'},
-    {type: 'doc', id: '5_1_CSSAnimations/README', label: '5.1 CSS Animations'},
-    {type: 'doc', id: '5_2_CSSTransitions/README', label: '5.2 CSS Transitions'},
-    {type: 'doc', id: '6_DynamicTabs/README', label: '6. Dynamic Tabs'},
-    {type: 'doc', id: '7_Music/README', label: '7. Music'},
-    {type: 'doc', id: 'Bonus_ScrollAnimation/README', label: 'Bonus: Scroll Animation'},
+    { type: 'link', href: '/prerequisites', label: 'Prerequisites & Setup' },
+    { type: 'doc', id: '1_CircleGestures/README', label: '1. Circle Gestures' },
+    { type: 'doc', id: '2_BalloonSlider/README', label: '2. Balloon Slider' },
+    { type: 'doc', id: '3_FABButton/README', label: '3. FAB Button' },
+    { type: 'doc', id: '4_Interpolation/README', label: '4. Interpolation' },
+    { type: 'doc', id: '5_1_CSSAnimations/README', label: '5.1 CSS Animations' },
+    { type: 'doc', id: '5_2_CSSTransitions/README', label: '5.2 CSS Transitions' },
+    { type: 'doc', id: '6_DynamicTabs/README', label: '6. Dynamic Tabs' },
+    { type: 'doc', id: '8_Music/README', label: '7. Music' },
+    { type: 'doc', id: 'Bonus_ScrollAnimation/README', label: 'Bonus: Scroll Animation' },
   ],
 };
 

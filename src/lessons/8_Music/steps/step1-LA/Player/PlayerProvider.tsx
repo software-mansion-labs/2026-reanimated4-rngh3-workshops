@@ -1,0 +1,58 @@
+import { useMemo, useState, type ReactNode } from "react";
+
+import {
+  PlayerContext,
+  type PlayerContextValue,
+  type PlayerVariant,
+} from "@/lessons/8_Music/shared/context";
+import { songs, type Song } from "@/lessons/8_Music/shared/data";
+
+export {
+  stopPress,
+  usePlayer,
+  type PlayerVariant
+} from "@/lessons/8_Music/shared/context";
+
+export function PlayerProvider({ children }: { children: ReactNode }) {
+  const [currentSong, setCurrentSong] = useState<Song | null>(songs[0] ?? null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [variant, setVariant] = useState<PlayerVariant>("mini");
+
+  const value = useMemo<PlayerContextValue>(() => {
+    const shift = (delta: number) => {
+      setCurrentSong((song) => {
+        if (!song) {
+          return songs[0] ?? null;
+        }
+
+        const index = songs.findIndex((candidate) => candidate.id === song.id);
+        const nextIndex = (index + delta + songs.length) % songs.length;
+        return songs[nextIndex] ?? song;
+      });
+      setIsPlaying(true);
+    };
+
+    return {
+      state: {
+        currentSong,
+        isPlaying,
+        variant,
+      },
+      actions: {
+        playSong: (song) => {
+          setCurrentSong(song);
+          setIsPlaying(true);
+        },
+        togglePlay: () => setIsPlaying((playing) => !playing),
+        playNext: () => shift(1),
+        playPrevious: () => shift(-1),
+        expand: () => setVariant("full"),
+        collapse: () => setVariant("mini"),
+      },
+    };
+  }, [currentSong, variant, isPlaying]);
+
+  return (
+    <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+  );
+}

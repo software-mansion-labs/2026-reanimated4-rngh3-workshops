@@ -188,7 +188,7 @@ const config: Config = {
             { label: 'CSS Animations', to: '/docs/5_1_CSSAnimations' },
             { label: 'CSS Transitions', to: '/docs/5_2_CSSTransitions' },
             { label: 'Dynamic Tabs', to: '/docs/6_DynamicTabs' },
-            { label: 'Music', to: '/docs/7_Music' },
+            { label: 'Music', to: '/docs/8_Music' },
             { label: 'Scroll Animation', to: '/docs/Bonus_ScrollAnimation' },
           ],
         },

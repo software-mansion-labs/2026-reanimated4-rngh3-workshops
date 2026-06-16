@@ -357,4 +357,4 @@ const { width } = useWindowDimensions()
 
 ## Next step
 
-**Go to: [Music](../7_Music/)**
+**Go to: [Music](../8_Music/)**
