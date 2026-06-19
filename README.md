@@ -1,8 +1,8 @@
-# The Reanimated Workshop – App.js Conference 2026
+# The Reanimated + Gesture Handler Workshop
 
 ## Hosted by
 
-- Catalin Miron ([@mironcatalin](https://x.com/mironcatalin))
+- Jakub Piasecki ([@breskin67](https://x.com/breskin67))
 - Bartłomiej Błoniarz ([@BBloniarz\_](https://x.com/BBloniarz_))
 
 ## Setup
@@ -16,7 +16,7 @@ We recommend sticking to one setup for the whole workshop so you do not have to 
 1. Clone the repo:
 
 ```bash
-git clone git@github.com:software-mansion-labs/appjs-2026-workshop-reanimated.git && cd appjs-2026-workshop-reanimated
+git clone git@github.com:software-mansion-labs/2026-reanimated4-rngh3-workshops.git && cd 2026-reanimated4-rngh3-workshops
 ```
 
 2. Install project dependencies (from the project root):
