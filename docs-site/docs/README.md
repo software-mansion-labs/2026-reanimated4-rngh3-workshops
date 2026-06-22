@@ -2,90 +2,171 @@
 title: Prerequisites & Setup
 ---
 
-# The Reanimated Workshop - App.js Conference 2025
+# The Reanimated + Gesture Handler Workshop
 
 ## Hosted by
 
-- Catalin Miron ([@mironcatalin](https://x.com/mironcatalin))
-- Bartlomiej Bloniarz ([@BBloniarz_](https://x.com/BBloniarz_))
+- Jakub Piasecki ([@breskin67](https://x.com/breskin67))
+- Bartłomiej Błoniarz ([@BBloniarz\_](https://x.com/BBloniarz_))
 
 ## Setup
 
-In order to make setup more seamless we have prepared a so-called Expo's development client builds that include all the native code for all the dependencies that are used as a part of the workshop, running only inside the simulators.
+This is a normal Expo app. Clone it, install dependencies, then choose how you want to run it on a simulator, emulator, or physical device.
 
-You should be able to use iOS simulator, Android emulator, or any modern Android or iOS phone to perform the exercises, however, we recommend that you stick to one choice to avoid additional setup steps you may need to do in the future.
-If you choose to work with an emulator (either iOS or Android) make sure that you have that emulator installed and configured as setting it up is outside of this setup scope.
+We recommend sticking to one setup for the whole workshop so you do not have to repeat steps mid-session. If you use a simulator or emulator, make sure it is installed and configured first.
+
+### Clone & install
 
 1. Clone the repo:
 
 ```bash
-git clone git@github.com:software-mansion-labs/appjs-2025-workshop-reanimated-advanced.git && cd appjs-2025-workshop-reanimated-advanced
+git clone git@github.com:software-mansion-labs/2026-reanimated4-rngh3-workshops.git && cd 2026-reanimated4-rngh3-workshops
 ```
 
-2. Install project dependencies (run the below command from the project main directory):
+2. Install project dependencies (from the project root):
 
 ```bash
 bun install
 ```
 
-## Preparing device or simulator
+### Two ways to run the project
 
-Depending on what device or simulator you choose to use, you'll need to install custom made Development Client application in your environment.
-Follow one of the sections below for detailed instructions.
+**Development build :** You build (or download) a custom dev client once. After that, day-to-day work is just `bun start` and opening that client. The initial build takes longer, but you get much better error messages when something goes wrong. **If you are reading this before the workshops, this is the recommended setup.**
 
-### For iOS simulator
+**Expo Go:** No native build required. Run `bun start` and connect. On an **iOS Simulator** or **Android Emulator**, Expo CLI installs Expo Go for you — no App Store or Play Store needed. On a physical device, install Expo Go manually or connect an Android phone via USB and let the CLI install it.
 
-1. Download Development Client build [from this link](http://appjs.local/reanimated/appjs-2025.tar.gz)
-1. Extract `AppjsWorkshop2026.app` file from the downloaded archive
-1. Launch your iOS simulator
-1. Drag and drop the `.app` file onto the simulator
+---
 
-### For Android emulator
+## Option 1: Development build
 
-1. Download Development Client build [from this link](http://appjs.local/reanimated/appjs-2025.apk)
-1. Launch Android emulator on your computer
-1. Drag and drop the downloaded `.apk` file onto emulator
+A development build is a custom version of this app with all workshop native dependencies included. You install it once, then reuse it for the rest of the workshop.
 
-### For physical iOS/Android device
+### Build or install the dev client
 
-1. Install dependencies `bun install`
-1. Create development builds for iOS and Android:
-   `bun expo prebuild`
+Pick the target you will use:
 
-#### For Android devices
+#### iOS Simulator
 
-1. Connect your Android device to your computer via USB
-1. `bun android -d` and select the physical device from the list
+```bash
+bun ios
+```
 
-#### For iOS devices
+#### Android Emulator
 
-1. Connect your iOS device to your computer via USB
-1. Open XCode `xed ios`
-1. Select your device from the list of simulators
-1. Go to `AppjsWorkshop2026` -> `Signing & Capabilities` and select your team and create the certificate
-1. Build and run the app on your device by clicking the play button in XCode or by pressing `Cmd + R`
-1. Once this project it is signed, you can also run `bun ios -d` from the terminal.
+```bash
+bun android
+```
 
-Check the following guide in case you encounter any issues with signing the app: [Setup XCode signing](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md)
+#### Physical iOS device
 
-:::tip
-To set up a local development environment for running your project on Android and iOS, follow [this guide](https://docs.expo.dev/get-started/set-up-your-environment/).
-:::
+1. Connect your iPhone or iPad via USB
+2. Generate native projects:
 
-## Running the app
+```bash
+bun expo prebuild
+```
 
-After completing _Preparing device_ installation step, you now should be able to run and launch the app.
-Follow the below steps from the terminal:
+3. Open the iOS project in Xcode:
 
-1. Launch the app with Expo CLI:
+```bash
+xed ios
+```
+
+4. Select your device from the run destination menu
+5. In **AppjsWorkshop2026 → Signing & Capabilities**, select your Apple team and create a signing certificate
+6. Build and run with the Play button in Xcode (or `Cmd + R`)
+7. After the app is signed once, you can also run:
+
+```bash
+bun ios -d
+```
+
+and select your device from the list.
+
+See [Setup Xcode signing](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md) if you run into signing issues.
+
+#### Physical Android device
+
+1. Enable USB debugging on your device and connect it via USB
+2. Generate native projects:
+
+```bash
+bun expo prebuild
+```
+
+3. Build and install on the connected device:
+
+```bash
+bun android -d
+```
+
+Select your physical device from the list.
+
+> [!TIP]
+> To set up a local development environment for running on Android and iOS, follow [this guide](https://docs.expo.dev/get-started/set-up-your-environment/).
+
+### Run the app with a development build
+
+1. Start the Metro bundler:
 
 ```bash
 bun start
 ```
 
-:::tip
-The above step will print instructions on how to launch the app on phone or simulator. For iOS simulator you'll need to press `"i"`, for Android press `"a"`, and if you'd like to run the app on a physical device you'll need to scan the QR code that will be displayed on the command line output.
-:::
+2. Open the **AppjsWorkshop2026** dev client on your simulator, emulator, or device
+3. The app should connect automatically. If it does not:
+   - Press `s` to switch to the development build mode
+   - **iOS Simulator:** press `i` in the terminal
+   - **Android Emulator:** press `a` in the terminal
+
+After the first build, you only need to repeat these run steps — not the build step — unless native dependencies change.
+
+---
+
+## Option 2: Expo Go (quick start)
+
+Expo Go lets you run the project without building native code. On an iOS Simulator or Android Emulator, Expo CLI downloads and installs Expo Go for you.
+
+### Run the app with Expo Go
+
+1. Start the Metro bundler:
+
+```bash
+bun start
+```
+
+2. Connect Expo Go to the running dev server:
+
+#### iOS Simulator
+
+Press `i` in the terminal. Expo CLI opens the iOS Simulator, installs Expo Go if needed, and launches the project.
+
+Or in one step:
+
+```bash
+bun start --ios
+```
+
+#### Android Emulator
+
+Press `a` in the terminal. Expo CLI opens the Android Emulator, installs Expo Go if needed, and launches the project.
+
+Or in one step:
+
+```bash
+bun start --android
+```
+
+#### Physical iOS device
+
+Follow the instructions [here](https://docs.expo.dev/get-started/set-up-your-environment/?platform=ios&device=physical), though in that case it might be easier to just go with a development build.
+
+#### Physical Android device
+
+1. Enable USB debugging on your device and connect it to your computer
+2. Run `bun start` and press `a` — Expo CLI installs Expo Go on the device if needed and launches the project
+
+---
 
 ## Tools and libraries
 
@@ -96,4 +177,4 @@ During the workshop we will be using primarily:
 
 ## Next step
 
-**Go to: [Lesson 1 - Circle Gestures](./docs/1_CircleGestures)**
+**Go to: [Circle Gestures](./src/lessons/1_CircleGestures/)**
