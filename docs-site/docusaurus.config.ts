@@ -2,6 +2,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import { themes as prismThemes } from 'prism-react-renderer';
 
+// Site base URL — must prefix any root-absolute asset paths we emit by hand
+// (e.g. the local <source> in rehypeGithubVideos) so they resolve under the
+// GitHub Pages subpath both locally (`serve`/`start`) and in production.
+const BASE_URL = '/2026-reanimated4-rngh3-workshops/';
+
 // Rehype plugin to turn bare GitHub video URLs into <video> embeds.
 // remark-gfm autolinks them to <a> tags; this plugin converts those to <video>.
 //
@@ -19,11 +24,11 @@ function rehypeGithubVideos() {
     function localPath(url: string): string | null {
       // github.com/user-attachments/assets/<UUID>
       const assetMatch = url.match(/github\.com\/user-attachments\/assets\/([a-f0-9-]+)$/);
-      if (assetMatch) return `/videos/${assetMatch[1]}.mp4`;
+      if (assetMatch) return `${BASE_URL}videos/${assetMatch[1]}.mp4`;
 
       // user-images.githubusercontent.com/<user>/<filename>.<ext>
       const imgMatch = url.match(/user-images\.githubusercontent\.com\/[^/]+\/(.+\.(mp4|MP4|mov|MOV|webm))$/);
-      if (imgMatch) return `/videos/${imgMatch[1].toLowerCase()}`;
+      if (imgMatch) return `${BASE_URL}videos/${imgMatch[1].toLowerCase()}`;
 
       return null;
     }
@@ -81,7 +86,7 @@ const config: Config = {
   },
 
   url: 'https://software-mansion-labs.github.io',
-  baseUrl: '/appjs-2026-workshop-reanimated/',
+  baseUrl: BASE_URL,
 
   organizationName: 'software-mansion-labs',
   projectName: 'appjs-2026-workshop-reanimated',

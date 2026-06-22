@@ -38,6 +38,7 @@ GITHUB_ASSETS=(
   "3e78a5eb-899f-4b67-abbb-f681f37818a7"
   "c3221460-8789-4e64-ad59-255291a08fe4"
   "c7b5ff97-54d0-4b49-a8e0-d03be69e7bf9"
+  "96c862ff-85cd-401d-ab73-c8a9f28dfeea"
 )
 
 echo "Downloading github.com/user-attachments/assets …"

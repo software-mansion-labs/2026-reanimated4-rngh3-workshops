@@ -1,6 +1,6 @@
 # Camera Gestures
 
-https://user-images.githubusercontent.com/2805320/608571943-96c862ff-85cd-401d-ab73-c8a9f28dfeea.mp4
+https://github.com/user-attachments/assets/96c862ff-85cd-401d-ab73-c8a9f28dfeea
 
 |        | Goal                                                       | Checkpoint                                         |
 | ------ | ---------------------------------------------------------- | -------------------------------------------------- |
