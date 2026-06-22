@@ -1,6 +1,6 @@
 # Camera Gestures
 
-https://github.com/user-attachments/assets/96c862ff-85cd-401d-ab73-c8a9f28dfeea
+https://user-images.githubusercontent.com/2805320/608571943-96c862ff-85cd-401d-ab73-c8a9f28dfeea.mp4
 
 |        | Goal                                                       | Checkpoint                                         |
 | ------ | ---------------------------------------------------------- | -------------------------------------------------- |
@@ -104,7 +104,11 @@ const viewFinderGesture = useCompetingGestures(pinchZoom, cameraSwitch);
 
 <GestureDetector gesture={viewFinderGesture}>
   <View style={styles.viewFinderWrapper}>
-    <ViewFinder cameraType={cameraType} selectedFilter={selectedFilter} zoom={zoomLevel} />
+    <ViewFinder
+      cameraType={cameraType}
+      selectedFilter={selectedFilter}
+      zoom={zoomLevel}
+    />
     {/* cameraSwitch Pressable */}
   </View>
 </GestureDetector>;
@@ -205,7 +209,13 @@ function Filter(props: FilterProps) {
 
   return (
     <GestureDetector gesture={tapGesture}>
-      <View style={{ /* circle styles */ }} />
+      <View
+        style={
+          {
+            /* circle styles */
+          }
+        }
+      />
     </GestureDetector>
   );
 }

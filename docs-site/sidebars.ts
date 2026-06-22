@@ -10,7 +10,8 @@ const sidebars: SidebarsConfig = {
     { type: 'doc', id: '5_1_CSSAnimations/README', label: '5.1 CSS Animations' },
     { type: 'doc', id: '5_2_CSSTransitions/README', label: '5.2 CSS Transitions' },
     { type: 'doc', id: '6_DynamicTabs/README', label: '6. Dynamic Tabs' },
-    { type: 'doc', id: '8_Music/README', label: '7. Music' },
+    { type: 'doc', id: '7_CameraGestures/README', label: '7. Camera Gestures' },
+    { type: 'doc', id: '8_Music/README', label: '8. Music' },
     { type: 'doc', id: 'Bonus_ScrollAnimation/README', label: 'Bonus: Scroll Animation' },
   ],
 };

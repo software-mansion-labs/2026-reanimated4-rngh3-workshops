@@ -15,7 +15,8 @@ const lessons = [
   { num: '5.1', label: 'CSS Animations', to: '/docs/5_1_CSSAnimations' },
   { num: '5.2', label: 'CSS Transitions', to: '/docs/5_2_CSSTransitions' },
   { num: '06', label: 'Dynamic Tabs', to: '/docs/6_DynamicTabs' },
-  { num: '07', label: 'Music', to: '/docs/8_Music' },
+  { num: '07', label: 'Camera Gestures', to: '/docs/7_CameraGestures' },
+  { num: '08', label: 'Music', to: '/docs/8_Music' },
   { num: 'B', label: 'Scroll Animation', to: '/docs/Bonus_ScrollAnimation' },
 ];
 
